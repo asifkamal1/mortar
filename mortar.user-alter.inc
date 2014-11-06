@@ -4,7 +4,7 @@
  *
  */
 function mortar_user_view($account, $view_mode, $langcode) {
-    #debug('hello');
+    
     global $user;
     $account_user = user_load($user -> uid);
     
@@ -24,7 +24,6 @@ function mortar_user_record_view_alter($account, $account_user) {
         
     );
     */
-    
     module_load_include('inc', 'node', 'node.pages');
     $form = node_add('training_record');
     $account -> content['field_add_training_record'] = $form;
