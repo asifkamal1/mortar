@@ -15,10 +15,10 @@ function mortar_views_recent_cd_tr_changes($data) {
     
     //user last login
     if(isset($mortar_user -> field_current_login['und'][0]['value'])) {
-        $current_login = strtotime($mortar_user -> field_last_login['und'][0]['value']);    
+        $current_login = strtotime($mortar_user -> field_current_login['und'][0]['value']);    
     }
     else {
-         $current_login = strtotime("today");   
+        $current_login = strtotime("today");   
     }
     
     if(isset($mortar_user -> field_last_login['und'][0]['value'])) {
