@@ -64,6 +64,18 @@ function mortar_node_access($node, $op, $account) {
 /*
  *
  */
+function mortar_node_view($node, $view_mode, $langcode) {
+    
+    if($node -> nid == 4175) {
+        $node -> content['#fieldgroups']['group_all_sops'] -> label = 'My Controlled Documents';
+        $node -> content['#fieldgroups']['group__all_sop_append'] -> label = 'Review Emails';
+    }
+}
+
+
+/*
+ *
+ */
 function mortar_form_alter(&$form, &$form_state, $form_id) {
     global $user;
     
@@ -111,9 +123,13 @@ function mortar_node_revision_access($node, $op = 'view') {
     //default diff     
     $may_revision_this_type = variable_get('diff_enable_revisions_page_node_' . $node->type, TRUE) || user_access('administer nodes');
     
-    //4 = Active - Undergoing revision, 6 - Draft 
-    $cd_status = $node -> field_status['und'][0]['target_id'] == 4 || $node -> field_status['und'][0]['target_id'] == 6;
-    
+    if($node -> type == 'controlled_document') {
+        //4 = Active - Undergoing revision, 6 - Draft 
+        $cd_status = $node -> field_status['und'][0]['target_id'] == 4 || $node -> field_status['und'][0]['target_id'] == 6;
+    }
+    else {
+        $cd_status = TRUE;
+    }
     //author
     $node_uid = $node -> uid == $user -> uid;
     
