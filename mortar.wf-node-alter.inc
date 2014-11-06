@@ -113,7 +113,7 @@ function mortar_controlled_doc_test_webform_get_form_correct_answers(&$form, &$f
 
             $questions_title[$item['#webform_component']['form_key']] = $item['#title'];
             
-            if($item['#type'] == 'checkboxes') {#if(strpos($item['#options']['answer'],',') !== false) {
+            if($item['#type'] == 'checkboxes') {
                 $q_answers = explode(',',$item['#options']['answer']);
                 foreach($item['#options'] as $option_key => $option) {
                     if($option_key != 'answer') {
