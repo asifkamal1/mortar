@@ -15,8 +15,11 @@ function mortar_controlled_document_node_view_alter(&$build, $account, $node) {
         //this will make sure that 'Add to Traning Record' form is displayed if node is CD and test has not been set
         if($build['#node'] -> type == 'controlled_document' && !isset($node -> field_cd_test['und'][0]['target_id'])) {
             
-            //function in cd-node-alter.inc
-            mortar_training_record_form_display($build, $account, $node); 
+            //need to make sure that this form is added to SOP only and not fors and tempaltes
+            if($build['#node'] -> field_type['und'][0]['target_id'] == 19) {
+                //function in cd-node-alter.inc
+                mortar_training_record_form_display($build, $account, $node);
+            }
         }
     }
     
@@ -243,6 +246,8 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
         $form['field_cd_author']['#access'] = FALSE;
     }
     
+    //this is not used for now
+    $form['field_compliance_reviewers']['#access'] = FALSE;
     #debug();
     
     //if new CD set author to logged in user
