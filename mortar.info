@@ -1,0 +1,8 @@
+name = MORTAR
+description = "Management and Servicing of Trials System"
+core = 7.x
+package = OCTRU
+version = 7.x-1.0-dev
+project = mortar
+files[] = mortar.module
+stylesheets[print][] = print.css

@@ -1,0 +1,31 @@
+fieldset, #pre-header, #banner, #breadcrumb, #header, #footer, .tabs, .region-page-top, .view-header, .view-filters {
+    display: none !important;
+}
+
+a[href]:after {
+    display:none;
+}  
+
+
+table {
+    width: 100% !important;
+}
+
+.views-field-nid a {
+    display: none;
+}
+
+@page {
+    size: landscape;
+}
+
+.field-name-field-personal-training-record  table {
+    width: 700px !important;
+}
+
+#page {
+    -webkit-box-shadow: 0px !important;
+    -moz-box-shadow: 0px !important;
+    box-shadow: 0px !important;
+    margin: 0px !important;
+}

@@ -1,0 +1,127 @@
+<?php
+module_load_include('inc', 'mortar', 'mortar.node-access');
+module_load_include('inc', 'mortar', 'mortar.field-access');
+module_load_include('inc', 'mortar', 'mortar.send-email');
+module_load_include('inc', 'mortar', 'mortar.view-alter');
+module_load_include('inc', 'mortar', 'mortar.user-alter');
+module_load_include('inc', 'mortar', 'mortar.cd-node-alter');
+module_load_include('inc', 'mortar', 'mortar.tr-node-alter');
+module_load_include('inc', 'mortar', 'mortar.miscellaneous');
+module_load_include('inc', 'mortar', 'mortar.wf-node-alter');
+
+/*
+ *Prepare node to be displayed
+ * 
+ */
+function mortar_node_view_alter(&$build) {
+    //Checks if node is SOP
+     
+    if($node_load = menu_get_object()) {
+        $node = node_load($node_load -> nid);
+    }
+    else {
+        return;
+    }
+
+    //load user details
+    global $user;
+    $account = user_load($user -> uid);    
+    
+    if($node->type == 'controlled_document' ) {
+        mortar_controlled_document_node_view_alter($build, $account, $node);
+    }
+}
+
+
+/*
+ *Adds access options to content types. 
+ */
+function mortar_node_access($node, $op, $account) {
+
+    if(!isset($node -> type)) {
+        return NODE_ACCESS_IGNORE;
+    }
+    
+    if($node->type == 'ctu' ) {
+        //function in node-access.inc
+        return mortar_ctu_access($node, $op, $account);
+    }
+    
+    if($node->type == 'controlled_document' ) {
+        //function in node-access.inc
+        return mortar_controlled_document_access($node, $op, $account);
+    }
+    
+
+    if($node->type == 'training_record' ) {
+        //function in node-access.inc
+        return mortar_training_record_access($node, $op, $account);
+    }
+    
+}
+
+
+/*
+ *
+ */
+function mortar_form_alter(&$form, &$form_state, $form_id) {
+    global $user;
+    
+    if($form_id == 'views_form_training_record_desktop_display_ol' && isset($form['from'])) {
+        //function 
+        mortar_training_record_reminder_view_send_email($form, $form_state, $form_id);
+    }
+
+    if($form_id == 'views_form_training_record_desktop_display_admin' && isset($form['from'])) {
+        //function 
+        mortar_training_record_reminder_view_send_email($form, $form_state, $form_id);
+    }
+    
+    if(($form_id == 'user_profile_form' || $form_id == 'user_register_form') && !in_array('administrator', $user -> roles) && in_array('mortar administrator', $user -> roles)) {
+        //function in 
+        mortar_user_profile_form_alter($form, $form_state, $form_id, $user);
+    }    
+    #debug($form_id); user_register_form'
+    
+}
+
+
+/*
+ * Implements hook_menu_alter().
+ */
+function mortar_menu_alter(&$items) {
+    //custom diff access
+    $items['node/%node/revisions']['access arguments'] = array(1);
+    $items['node/%node/revisions']['access callback'] = 'mortar_node_revision_access';
+}
+
+
+/*
+ *
+ */
+/**
+ * Access callback for the node revisions page.
+ */
+function mortar_node_revision_access($node, $op = 'view') {
+    global $user;
+    
+    if(in_array('administrator', $user -> roles) || in_array('mortar administrator', $user -> roles)) {
+        return TRUE;
+    }
+    //default diff     
+    $may_revision_this_type = variable_get('diff_enable_revisions_page_node_' . $node->type, TRUE) || user_access('administer nodes');
+    
+    //4 = Active - Undergoing revision, 6 - Draft 
+    $cd_status = $node -> field_status['und'][0]['target_id'] == 4 || $node -> field_status['und'][0]['target_id'] == 6;
+    
+    //author
+    $node_uid = $node -> uid == $user -> uid;
+    
+    return $may_revision_this_type && _node_revision_access($node, $op) && $cd_status && $node_uid;
+
+
+}
+
+
+
+
