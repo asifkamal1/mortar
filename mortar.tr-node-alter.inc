@@ -569,8 +569,15 @@ function mortar_training_record_reminder_view_send_email_validate(&$form, &$form
     
     $form_state['values']['views_send_from_name'] = $account -> field_first_name['und'][0]['value'] . ' ' . $account -> field_last_name['und'][0]['value'];
     $form_state['values']['views_send_from_mail'] = $account -> mail;
+    
+    /*DEV setup
     $form_state['values']['views_send_to_name'] = 'field_first_name_pos_1';
     $form_state['values']['views_send_to_mail'] = 'users_field_data_field_trainee_mail_pos_16';
+    */
+    
+    //LIVE SETUP
+    $form_state['values']['views_send_to_name'] = 'field_first_name';
+    $form_state['values']['views_send_to_mail'] = 'users_field_data_field_trainee_mail_pos_18';
     $form_state['values']['views_send_direct'] = 1;
     #debug($form_state['values']);
 }
