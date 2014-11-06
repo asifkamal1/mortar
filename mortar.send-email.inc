@@ -214,6 +214,21 @@ function mortar_send_reviewer_notification(&$form, &$form_state, $form_id = 'con
 }
 
 
+/*
+ *
+ */
+function mortar_views_send_mail_queued($message, $view, $row_id) {
+
+    //add watchdog to get reminders in OL Training Record
+    $nid = $view -> result[$row_id] -> nid;
+    watchdog('TR reminder email', 'Traning Record email reminder sent. Training Record ID: %id', array('%id' => $nid), WATCHDOG_NOTICE, $link = NULL);
+
+}
+
+
+/*
+ *
+ */
 function mortar_send_controlled_document_for_compliance_review(&$form, &$form_state, $form_id = 'controlled_document_node_form') {
     
     $error = FALSE; 
