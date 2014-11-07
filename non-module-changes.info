@@ -1,0 +1,1 @@
+- move css to module folder from theme. might need to use !importarnt in some cases as theme css is always loaded last
