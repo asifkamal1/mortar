@@ -66,6 +66,7 @@ function mortar_node_access($node, $op, $account) {
  */
 function mortar_node_view($node, $view_mode, $langcode) {
     //add correct css
+    global $base_url;
     if (strpos($base_url,'dev') !== false) {  
         drupal_add_css(drupal_get_path('module', 'mortar') . '/mortar-dev.css');
     }
