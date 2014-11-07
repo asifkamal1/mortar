@@ -65,14 +65,6 @@ function mortar_node_access($node, $op, $account) {
  *
  */
 function mortar_node_view($node, $view_mode, $langcode) {
-    //add correct css
-    global $base_url;
-    if (strpos($base_url,'dev') !== false) {  
-        drupal_add_css(drupal_get_path('module', 'mortar') . '/mortar-dev.css');
-    }
-    else {
-        drupal_add_css(drupal_get_path('module', 'mortar') . '/mortar-live.css');
-    }
     
     if($node -> nid == 4175) {
         $node -> content['#fieldgroups']['group_all_sops'] -> label = 'My Controlled Documents';
@@ -113,12 +105,29 @@ function mortar_menu_alter(&$items) {
     //custom diff access
     $items['node/%node/revisions']['access arguments'] = array(1);
     $items['node/%node/revisions']['access callback'] = 'mortar_node_revision_access';
+   
 }
 
 
 /*
  *
  */
+function mortar_css_alter(&$css) {
+    #debug($css);
+    //add correct css
+    global $base_url;
+    
+    if (strpos($base_url,'dev') !== false) {
+        $css['sites/all/modules/octru/mortar/mortar-dev.css']['data'] = drupal_get_path('module', 'mortar') . '/mortar-dev.css';
+        #drupal_add_css(drupal_get_path('module', 'mortar') . '/mortar-dev.css');
+    }
+    else {
+        #drupal_add_css(drupal_get_path('module', 'mortar') . '/mortar-live.css');
+        $css['sites/all/modules/octru/mortar/mortar-live.css']['data'] = drupal_get_path('module', 'mortar') . '/mortar-live.css';
+    }
+ 
+}
+
 /**
  * Access callback for the node revisions page.
  */
