@@ -65,6 +65,13 @@ function mortar_node_access($node, $op, $account) {
  *
  */
 function mortar_node_view($node, $view_mode, $langcode) {
+    //add correct css
+    if (strpos($base_url,'dev') !== false) {  
+        drupal_add_css(drupal_get_path('module', 'mortar') . '/mortar-dev.css');
+    }
+    else {
+        drupal_add_css(drupal_get_path('module', 'mortar') . '/mortar-live.css');
+    }
     
     if($node -> nid == 4175) {
         $node -> content['#fieldgroups']['group_all_sops'] -> label = 'My Controlled Documents';
