@@ -1,0 +1,242 @@
+body.custom-background {
+  background-image: url(/sites/default/files/dev.png) !important;
+  background-repeat: repeat !important;
+}
+
+.field-collection-view .field-label {
+  width: auto !important;
+}/*  CSS Overrides */
+
+ul.links li.comment-reply {
+  display: none;
+}
+
+#pre-header img {
+  margin-top: 0px !important;
+}
+
+
+#page-wrapper fieldset {
+  padding: 6px !important;
+}
+
+.comment-text {
+  padding: 8px !important;
+}
+
+
+tr.mortar-not-active, td.diff-deletedline, td.controlled-doc-status-Draft {
+  /*background: #e6efc2;
+  color: #264409;
+  border-color: #c6d880;
+  */
+  background: #fff6bf;
+  color: #514721;
+}
+
+tr.mortar-not-active td , td.controlled-doc-status-Draft{
+  border: 1px solid !important;
+  border-color: #ffd324 !important;
+  
+}
+
+tr.mortar-active, .training-status-Completed, td.diff-addedline, .controlled-doc-status-Active, .controlled-doc-status-Active---Awaiting-approval, .controlled-doc-status-Active---Undergoing-revision  {
+  background: #e6efc2;
+  color: #264409;
+}
+
+tr.mortar-active td {
+  border: 1px solid !important;
+  border-color: #c6d880 !important;
+}
+
+.training-status-Completed td, .training-status-Completed, .controlled-doc-status-Active, .controlled-doc-status-Active---Awaiting-approval, .controlled-doc-status-Active---Undergoing-revision {
+  border: 2px solid !important;
+  border-color: #c6d880 !important;
+  
+}
+
+.training-status-Incomplete {
+  background: #fbe3e4;
+  color: #e64135;
+}
+
+.training-status-Incomplete td, .training-status-Incomplete {
+  border: 2px solid !important;
+  border-color: #fbc2c4 !important;
+}
+
+td.Compulsory {
+  background-image: url(/sites/mortar.octru.ox.ac.uk/files/compulsory.png);
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+}
+
+td.attribute-Compulsory {
+  background-image: url(/sites/default/files/compulsory.png);
+  background-position:  0% 0%;
+  background-repeat: no-repeat;
+}
+
+td.cd-update-new-updated {
+  background-image: url(/sites/default/files/new.png);
+  background-position:  0% 90%;
+  background-repeat: no-repeat;
+}
+
+td.diff-addedline {
+  background-image: url(../images/shortcodes/icons/success.png);
+  background-position: 8px 8px;
+  background-repeat: no-repeat;
+  padding: 20px 20px 20px 70px;
+}
+
+tr.mortar-status {
+  background-image: url(../images/shortcodes/icons/success.png);
+  background-position: 99%;
+  background-repeat: no-repeat;
+  padding: 20px 20px 20px 70px;
+}
+
+td.diff-deletedline {
+  background-image: url(../images/shortcodes/icons/warning.png);
+  background-position: 8px 8px;
+  background-repeat: no-repeat;
+  padding: 20px 20px 20px 70px;
+}
+
+tr.mortar-warning {
+  background-image: url(../images/shortcodes/icons/warning.png);
+  background-position: 99%;
+  background-repeat: no-repeat;
+  padding: 20px 20px 20px 70px;
+}
+
+table.diff, table.views-table, table.views-view-grid {
+  border-collapse:separate !important;
+  border-spacing: 1px 10px !important;
+}
+
+table.diff td {
+  border: 0px;
+}
+
+.view-empty {
+  display: none;
+}
+
+div.entityconnect-add input.steel_blue {
+  background-image: url("/sites/all/modules/entityconnect/theme/images/add.png") !important;
+  border:0px  !important;
+}
+
+div.entityconnect-edit input.steel_blue {
+  background-image: url("/sites/all/modules/entityconnect/theme/images/pencil.png") !important;
+  border:0px  !important;	
+}
+
+td.diff-marker {
+  color: #777777 !important;
+  border: 1px solid !important;
+}
+
+td.diff-addedline {
+  border: 1px solid !important;
+  border-color: #C6D880 !important;
+}
+
+td.diff-deletedline {
+  border: 1px solid !important;
+  border-color: #FFD324 !important;
+}
+
+td.diff-addedline,  td.diff-deletedline{
+  height: 60px;
+}
+
+span.diffchange {
+  color: #264409;
+}
+
+td.diff-section-title {
+  background-color: #FFFFFF;
+  color: #777777;
+}
+
+table.diff th, table.views-table th{
+  background-color: #EEEEEE;
+  color: #777777;
+}
+
+div.content {
+  color: #555555;
+}
+
+td.diff-context div {
+  width: 90%;
+  float: right; 
+}
+
+#footer-bottom ul.menu li a, .backtotop {
+  color: #FFFFFF !important;
+}
+
+#first-time, #edit-field-date-completed-value-wrapper div.description, .hide  {
+  display: none;
+}
+
+.form-item {
+  color: #4E4E4E;
+}
+
+.webform-component {
+  margin-bottom: 3em;
+}
+
+.form-checkboxes label, .form-radios label {
+  font-weight: 400;
+}
+
+#node_controlled_document_full_group_controlled_doc_appendix article.hentry,
+#node_controlled_document_full_group_controlled_doc_appendix .entry-body,
+#node_controlled_document_full_group_cd_test article.hentry,
+#node_controlled_document_full_group_cd_test article .entry-body,
+#node_controlled_document_full_group_controlled_doc_template article.hentry,
+#node_controlled_document_full_group_controlled_doc_template .entry-body,
+#node_controlled_document_full_group_controlled_doc_form article.hentry,
+#node_controlled_document_full_group_controlled_doc_form .entry-body
+{
+  padding: 0 0 5px 0;
+  margin: 0 0 5px 0;
+}
+
+.group-cd-tabs {
+  margin-top: 30px;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button, .ui-widget{
+    font-family: inherit;
+    font-size: inherit;
+}
+
+#pre-header {
+  background: #002147 !important;
+}
+
+.credits {
+  display: none;
+}
+
+#main-navigation ul.menu li a:hover {
+  color: #002147;
+  background: #f8f8f8;
+  border-bottom: 1pt solid #002147;
+}
+
+#main-navigation ul.menu li ul li a:hover {
+  background: #9dcedf;
+}
+
+.form-type-checkbox label, .form-type-radio label {
+  display: inline;
+}
