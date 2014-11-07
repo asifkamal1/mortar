@@ -235,3 +235,8 @@ td.diff-context div {
 .form-type-checkbox label, .form-type-radio label {
   display: inline;
 }
+
+.field-item article.hentry, .field-item article.hentry .entry-body {
+  padding: 0px 0px 0px;
+  margin: 0px 0px 0px;
+}
