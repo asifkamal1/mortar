@@ -6,4 +6,3 @@ version = 7.x-2.0
 project = mortar
 files[] = mortar.module
 stylesheets[print][] = print.css
-stylesheets[all][] = mortarcss.css

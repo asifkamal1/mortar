@@ -115,6 +115,21 @@ function mortar_menu_alter(&$items) {
 function mortar_css_alter(&$css) {
     #debug($css);
     //add correct css
+    
+    $css['sites/all/modules/octru/mortar/mortar-main.css'] = array(
+                                                                'data' => drupal_get_path('module', 'mortar') . '/mortar-main.css',
+                                                                'every_page' => true,
+                                                                'media' => 'all',
+                                                                'type' => 'file',
+                                                                'weight' => 999,
+                                                                'preprocess' => true,
+                                                                'browsers' => 
+                                                                    array (
+                                                                        'IE' => true,
+                                                                        '!IE' => true,
+                                                                    ),
+                                                                'group' => 0,
+                                                              );
     global $base_url;
     
     if (strpos($base_url,'dev') !== false) {
