@@ -554,6 +554,7 @@ function mortar_training_record_reminder_view_send_email(&$form, &$form_state, $
 }
 
 
+
 /*
  *
  */
