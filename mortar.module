@@ -118,12 +118,37 @@ function mortar_css_alter(&$css) {
     global $base_url;
     
     if (strpos($base_url,'dev') !== false) {
-        $css['sites/all/modules/octru/mortar/mortar-dev.css']['data'] = drupal_get_path('module', 'mortar') . '/mortar-dev.css';
+        $css['sites/all/modules/octru/mortar/mortar-dev.css'] = array(
+                                                                        'data' => drupal_get_path('module', 'mortar') . '/mortar-dev.css',
+                                                                        'every_page' => true,
+                                                                        'media' => 'all',
+                                                                        'type' => 'file',
+                                                                        'weight' => 999,
+                                                                        'preprocess' => true,
+                                                                        'browsers' => 
+                                                                            array (
+                                                                                'IE' => true,
+                                                                                '!IE' => true,
+                                                                            ),
+                                                                        'group' => 0,
+                                                                      );
         #drupal_add_css(drupal_get_path('module', 'mortar') . '/mortar-dev.css');
     }
     else {
         #drupal_add_css(drupal_get_path('module', 'mortar') . '/mortar-live.css');
-        $css['sites/all/modules/octru/mortar/mortar-live.css']['data'] = drupal_get_path('module', 'mortar') . '/mortar-live.css';
+        $css['sites/all/modules/octru/mortar/mortar-live.css'] = array(
+                                                                        'data' => drupal_get_path('module', 'mortar') . '/mortar-live.css',
+                                                                        'every_page' => true,
+                                                                        'media' => 'all',
+                                                                        'type' => 'file',
+                                                                        'weight' => 999,
+                                                                        'browsers' => 
+                                                                            array (
+                                                                                'IE' => true,
+                                                                                '!IE' => true,
+                                                                            ),
+                                                                        'group' => 0,
+                                                                       );
     }
  
 }
