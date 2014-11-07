@@ -535,7 +535,6 @@ function mortar_training_record_reminder_view_send_email(&$form, &$form_state, $
     
     global $user;
     if(!in_array('administrator', $user->roles)) {
-    # && !in_array('administrator', $user->roles)
     if(isset($form['actions']['submit']['#validate'][0])) {
         $form['actions']['submit']['#validate'][1] = $form['actions']['submit']['#validate'][0];
         $form['actions']['submit']['#validate'][0] = 'mortar_training_record_reminder_view_send_email_validate';
@@ -548,15 +547,10 @@ function mortar_training_record_reminder_view_send_email(&$form, &$form_state, $
         $form['views_send_carbon_copy']['#default_value'] = 0;
         
     }
+    
     $form['mail']['views_send_subject']['#default_value'] =
             'To do: [views-send:field_training_type] [views-send:field_related_controlled_documen] [views-send:field_controlled_doc_v_number]';
-    #debug($form['actions']['submit']);
-    
-    
-    
-        #debug($form);    
     }
-    #debug($form['actions']['submit']);
 }
 
 
@@ -575,11 +569,12 @@ function mortar_training_record_reminder_view_send_email_validate(&$form, &$form
     if (strpos($base_url,'dev') !== false) {   
         //DEV setup
         $form_state['values']['views_send_to_name'] = 'field_first_name_pos_1';
-        $form_state['values']['views_send_to_mail'] = 'users_field_data_field_trainee_mail_pos_16';
+        $form_state['values']['views_send_to_mail'] = 'users_field_data_field_trainee_mail_pos_18';
+        $form_state['values']['views_send_direct'] = 1;
     }
     else {
         //LIVE SETUP
-        $form_state['values']['views_send_to_name'] = 'field_first_name';
+        $form_state['values']['views_send_to_name'] = 'field_first_name_pos_1';
         $form_state['values']['views_send_to_mail'] = 'users_field_data_field_trainee_mail_pos_18';
         $form_state['values']['views_send_direct'] = 1;
     }
