@@ -80,28 +80,28 @@ td.cd-update-new-updated {
 }
 
 td.diff-addedline {
-  background-image: url(../images/shortcodes/icons/success.png);
+  background-image: url(/sites/default/files/success.png);
   background-position: 8px 8px;
   background-repeat: no-repeat;
   padding: 20px 20px 20px 70px;
 }
 
 tr.mortar-status {
-  background-image: url(../images/shortcodes/icons/success.png);
+  background-image: url(/sites/default/files/success.png);
   background-position: 99%;
   background-repeat: no-repeat;
   padding: 20px 20px 20px 70px;
 }
 
 td.diff-deletedline {
-  background-image: url(../images/shortcodes/icons/warning.png);
+  background-image: url(/sites/default/files/warning.png);
   background-position: 8px 8px;
   background-repeat: no-repeat;
   padding: 20px 20px 20px 70px;
 }
 
 tr.mortar-warning {
-  background-image: url(../images/shortcodes/icons/warning.png);
+  background-image: url(/sites/default/files/warning.png);
   background-position: 99%;
   background-repeat: no-repeat;
   padding: 20px 20px 20px 70px;
