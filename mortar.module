@@ -157,6 +157,7 @@ function mortar_css_alter(&$css) {
                                                                         'media' => 'all',
                                                                         'type' => 'file',
                                                                         'weight' => 999,
+                                                                        'preprocess' => true,
                                                                         'browsers' => 
                                                                             array (
                                                                                 'IE' => true,
