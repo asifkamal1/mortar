@@ -9,13 +9,21 @@ function mortar_traning_record_reminder_sent_data($data) {
     $query = "SELECT timestamp, variables FROM mortar_watchdog WHERE type = 'TR reminder email' ORDER BY timestamp DESC;";
 
     $result = db_query($query);
-
+    $dates = array();
+    
     foreach ($result as $record) {
         if(unserialize($record -> variables)['%id'] == $tr_nid) {
-            return date('d M Y',$record -> timestamp);
+            $dates[] =  date('d M Y',$record -> timestamp);
         }
     }
-    return NULL;
+    
+    if(!empty($dates)) {
+        return $dates;
+    }
+    else {
+        return NULL;    
+    }
+    
 }
 
 

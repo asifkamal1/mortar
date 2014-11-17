@@ -2,6 +2,10 @@
 ADDING NEW FIELD TO 'TRANING RECORD' VIEW MIGHT CAUSE 'mortar_training_record_reminder_view_send_email_validate' in tr-node-alter.inc to fail as position of the fields might change
 */
 
+- changed code in Global: PHP (TR reminder sent date)' filed in Training Record (Content) view (Desktop Display Op Lead and Desktop Display Admin)
+- added Training Record Reminded List view
+- changed menu item position: Training Record Reminded List moved under Training Record
+
 - added 'Global: PHP (TR reminder sent date)' filed to Training Record (Content) view (Desktop Display Op Lead and Desktop Display Admin)
 - move css to module folder from theme. might need to use !importarnt in some cases as theme css is always loaded last
 - removed css from sites/mortar.octru.../theme/simplecorp/css/local.css
