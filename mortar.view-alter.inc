@@ -91,6 +91,14 @@ function mortar_views_recent_cd_tr_changes($data) {
         
         
         case 'controlled_document':
+            
+            $filter = mortar_views_cd_new_updated($data -> nid);
+            
+            if($filter == 'updated') {
+                return FALSE;
+            }
+            return TRUE;
+            /*
             $node = node_load($data -> nid);
             
             if($node -> field_status['und'][0]['target_id'] == 13 || $node -> field_status['und'][0]['target_id'] == 6) {
@@ -102,6 +110,8 @@ function mortar_views_recent_cd_tr_changes($data) {
             }
             
             return FALSE;
+            */
+            
             break;
         
     }
@@ -125,12 +135,34 @@ $nids = array($data -> nid);
 /*
  *
  */
-function mortar_views_cd_new_updated($data) {
-        
-    $last_change = $data -> _field_data['nid']['entity'] -> changed;
-    if($last_change >= strtotime('-30 days')) {
-         return 'updated';
+function mortar_views_cd_new_updated($nid) {
+    
+    $cd = node_load($nid);
+    
+    if(!$cd) {
+        return 'false';
     }
+    
+    $last_change = $cd -> changed;
+    $vid =  $cd -> vid;
+    
+    //get previous vid
+    $previous_vid = db_query('SELECT MAX(vid) AS vid FROM {node_revision} WHERE vid < :vid AND nid = :nid', array(':vid' => $vid, ':nid' => $cd -> nid)) -> fetchField();
+    
+    if($last_change >= strtotime('-30 days')) {
+        if(!$previous_vid) {
+            return 'updated';
+        }
+        
+        $current_node = node_load($nid);
+        $prev_rev_node = node_load($nid, $previous_vid);
+        
+        if($current_node -> field_active_version_number['und'][0]['tid'] != $prev_rev_node -> field_active_version_number['und'][0]['tid']) {
+            return 'updated';    
+        }
+    }
+    
+    return 'false';
 }
 
 
