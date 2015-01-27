@@ -392,6 +392,7 @@ function mortar_views_post_render(&$view, &$output, &$cache) {
         mortar_controlled_docs_under_review_view_alter($view, $output, $account, $node = NULL);
     }
     
+    /*
     if($view -> name == 'my_controlled_documents' ||
        $view -> name == 'controlled_documents' ||
        $view -> name == 'controlled_docs_awaiting_approval'||
@@ -400,6 +401,7 @@ function mortar_views_post_render(&$view, &$output, &$cache) {
        ) {
         mortar_my_controlled_docs_view_alter($view, $output, $account, $node = NULL);
     }
+    */
 
 }
 

@@ -20,7 +20,7 @@ ul.links li.comment-reply {
 }
 
 
-tr.mortar-not-active, td.diff-deletedline, td.controlled-doc-status-Draft {
+tr.mortar-not-active, td.diff-deletedline, td.controlled-doc-status-Draft, td.controlled-doc-status-Awaiting.approval.Draft {
   /*background: #e6efc2;
   color: #264409;
   border-color: #c6d880;
@@ -29,7 +29,7 @@ tr.mortar-not-active, td.diff-deletedline, td.controlled-doc-status-Draft {
   color: #514721;
 }
 
-tr.mortar-not-active td , td.controlled-doc-status-Draft{
+tr.mortar-not-active td , td.controlled-doc-status-Draft, td.controlled-doc-status-Awaiting.approval.Draft{
   border: 1px solid !important;
   border-color: #ffd324 !important;
   
@@ -100,11 +100,10 @@ td.diff-deletedline {
   padding: 20px 20px 20px 70px;
 }
 
-tr.mortar-warning {
+tr.mortar-warning, td.controlled-doc-status-Active.Undergoing.revision, td.controlled-doc-status-Awaiting.approval.Draft {
   background-image: url(/sites/default/files/warning.png);
   background-position: 99%;
   background-repeat: no-repeat;
-  padding: 20px 20px 20px 70px;
 }
 
 table.diff, table.views-table, table.views-view-grid {

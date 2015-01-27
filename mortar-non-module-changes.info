@@ -2,6 +2,10 @@
 ADDING NEW FIELD TO 'TRANING RECORD' VIEW MIGHT CAUSE 'mortar_training_record_reminder_view_send_email_validate' in tr-node-alter.inc to fail as position of the fields might change
 */
 
+UNDER REVISION CONTROLLED DOC
+- import 'My Controlled Documents' view
+- import 'Awaiting Approval' view
+
 NEW/UPDATED SOP change
 - import Controlled Documents view
 - import Changes since last login
