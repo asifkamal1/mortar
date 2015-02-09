@@ -28,7 +28,7 @@ function mortar_field_access($op, $field, $entity_type, $entity, $account) {
     
     
     //hide SOP status field for all but mortar administrator
-    if($field['field_name'] == 'field_cd_test' && $entity -> field_status['und'][0]['target_id'] != 3) {
+    if($field['field_name'] == 'field_cd_test' && ($entity -> field_status['und'][0]['target_id'] != 3 || $entity -> field_status['und'][0]['target_id'] != 41 || $entity -> field_status['und'][0]['target_id'] != 4)) {
         
         if (in_array('administrator', $account->roles) || in_array('mortar administrator', $account->roles)) {
             return TRUE;
