@@ -26,7 +26,7 @@ function mortar_field_access($op, $field, $entity_type, $entity, $account) {
     }
     
     
-    
+    /*
     //hide SOP status field for all but mortar administrator
     if($field['field_name'] == 'field_cd_test' && ($entity -> field_status['und'][0]['target_id'] != 3 || $entity -> field_status['und'][0]['target_id'] != 41 || $entity -> field_status['und'][0]['target_id'] != 4)) {
         
@@ -37,7 +37,7 @@ function mortar_field_access($op, $field, $entity_type, $entity, $account) {
         return FALSE;
     
     }
-
+    */
     
     /*
     //in user edit, hide ctu field for all but admin
