@@ -206,6 +206,9 @@ function mortar_node_revision_access($node, $op = 'view') {
 */
  function mortar_cd_process_setup($node, $view_mode, $langcode) {
     #debug($node -> content['field_process_map']);
+    #drupal_add_js('sites/all/modlues/octru/mortar/process_map.js', 'file');
+    #$node -> content['field_process_map'][0]['#markup'] = '<div id="process-map"> </div>';
+    
     $node -> content['field_process_map'][0]['#markup'] = '<img src="/sites/default/files/process_map.png" alt="process map"/>';
  }
 
