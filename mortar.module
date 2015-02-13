@@ -70,6 +70,10 @@ function mortar_node_view($node, $view_mode, $langcode) {
         $node -> content['#fieldgroups']['group_all_sops'] -> label = 'My Controlled Documents';
         $node -> content['#fieldgroups']['group__all_sop_append'] -> label = 'Review Emails';
     }
+    
+    if($node -> type == "cds_display"){
+        mortar_cd_process_setup($node, $view_mode, $langcode);
+    }
 }
 
 
@@ -197,5 +201,12 @@ function mortar_node_revision_access($node, $op = 'view') {
 }
 
 
+/*
+ *
+*/
+ function mortar_cd_process_setup($node, $view_mode, $langcode) {
+    #debug($node -> content['field_process_map']);
+    $node -> content['field_process_map'][0]['#markup'] = '<img src="/sites/default/files/process_map.png" alt="process map"/>';
+ }
 
 
