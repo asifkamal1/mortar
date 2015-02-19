@@ -202,14 +202,95 @@ function mortar_node_revision_access($node, $op = 'view') {
 
 
 /*
- *
+ * Including Process map using html5 map and for highlighting each image on hover event with maphighlight.js file.
 */
- function mortar_cd_process_setup($node, $view_mode, $langcode) {
-    #debug($node -> content['field_process_map']);
-    #drupal_add_js('sites/all/modlues/octru/mortar/process_map.js', 'file');
-    #$node -> content['field_process_map'][0]['#markup'] = '<div id="process-map"> </div>';
+function mortar_cd_process_setup($node, $view_mode, $langcode) {
+    $node -> content['field_process_map'][0]['#markup'] = '	
+            <img src="/sites/default/files/new_process_map.png" alt="process map" class="map" usemap="#ImageMap" />
+            <map name="ImageMap">
+                <area shape="poly" alt="GEN-004" href="/controlled-doc/sop/gen-004" coords="222, 63, 347, 63, 347, 111, 337, 112, 320, 113, 303, 115, 286, 118, 270, 121, 255, 123, 242, 123, 230, 121, 222, 119" />
+                <area shape="poly" alt="OF-004" href="/controlled-doc/form/004" coords="34, 69, 153, 69, 158, 73, 161, 79, 161, 115, 158, 122, 154, 123, 34, 125, 30, 122, 28, 119, 26, 77, 28, 75" />
+                
+                <area shape="poly" alt="GEN-19" href="/controlled-doc/sop/gen-019" coords="671, 332, 762, 332, 762, 379, 753, 379, 739, 381, 727, 382, 716, 385, 702, 389, 692, 389, 682, 388, 670, 386" />
+                <area shape="poly" alt="GEN-37" href="/controlled-doc/sop/gen-037" coords="562, 406, 562, 364, 637, 365, 637, 400, 630, 400, 619, 401, 611, 403, 602, 405, 594, 407, 585, 408, 577, 408" />
+                <area shape="poly" alt="GEN-17" href="/controlled-doc/sop/gen-017" coords="563, 304, 641, 303, 641, 351, 631, 351, 614, 354, 600, 358, 590, 361, 578, 361, 570, 360, 562, 359" />
+                <area shape="poly" alt="GEN-16" href="/controlled-doc/sop/gen-016" coords="566, 297, 566, 240, 640, 241, 640, 288, 630, 289, 616, 291, 603, 296, 594, 300, 584, 300, 575, 300" />
+                <area shape="poly" alt="STATS-003" href="/controlled-doc/sop/stats-003" coords="560, 234, 560, 176, 657, 177, 657, 225, 650, 226, 638, 227, 628, 228, 620, 230, 609, 234, 600, 235, 586, 236, 576, 237" />
+                <area shape="poly" alt="STATS-001" href="/controlled-doc/sop/stats-001" coords="464, 400, 464, 345, 528, 345, 528, 393, 519, 393, 508, 396, 497, 401, 490, 404, 482, 404, 472, 404" />
+                <area shape="poly" alt="STATS-002" href="/controlled-doc/sop/stats-002" coords="450, 334, 450, 278, 557, 278, 557, 327, 548, 327, 536, 328, 527, 329, 516, 331, 508, 334, 500, 335, 488, 338, 481, 338, 470, 337, 463, 336" />
+                <area shape="poly" alt="DM-006" href="/controlled-doc/sop/dm-006" coords="454, 271, 454, 237, 525, 237, 525, 268, 518, 268, 508, 269, 496, 271, 486, 273, 478, 275, 470, 275, 462, 274" />
+                <area shape="poly" alt="DM-004" href="/controlled-doc/sop/dm-004" coords="457, 230, 457, 180, 544, 181, 544, 223, 536, 223, 525, 223, 512, 225, 502, 229, 494, 231, 486, 232, 476, 233, 468, 232" />
+                <area shape="poly" alt="DM-005" href="/controlled-doc/sop/dm-005" coords="352, 341, 455, 341, 455, 397, 449, 397, 436, 399, 424, 400, 412, 404, 400, 408, 392, 409, 380, 411, 374, 411, 366, 409, 359, 409, 352, 407" />
+                <area shape="poly" alt="DM-003" href="/controlled-doc/sop/dm-003" coords="354, 331, 354, 277, 426, 277, 425, 325, 414, 325, 403, 327, 392, 331, 380, 335, 369, 335, 362, 334" />
+                <area shape="poly" alt="DM-002" href="/controlled-doc/sop/dm-002" coords="354, 269, 354, 217, 430, 217, 430, 261, 420, 261, 410, 262, 402, 263, 394, 266, 389, 270, 376, 270, 368, 271, 360, 271" />
+                <area shape="poly" alt="DM-001" href="/controlled-doc/sop/dm-001" coords="358, 211, 358, 177, 445, 176, 445, 206, 436, 206, 426, 207, 416, 208, 407, 209, 397, 211, 389, 213, 378, 213, 370, 211" />
+                <area shape="poly" alt="GEN-013" href="/controlled-doc/sop/gen-013" coords="260, 366, 260, 308, 336, 307, 335, 359, 327, 359, 317, 360, 308, 363, 299, 365, 290, 369, 280, 369, 272, 369" />
+                <area shape="poly" alt="GEN-011" href="/controlled-doc/sop/gen-011" coords="259, 300, 258, 245, 348, 245, 348, 292, 338, 291, 326, 293, 310, 296, 292, 301, 275, 302" />
+                <area shape="poly" alt="GEN-010" href="/controlled-doc/sop/gen-010" coords="261, 232, 261, 178, 349, 178, 348, 224, 336, 225, 324, 226, 314, 229, 302, 232, 288, 235, 275, 235, 266, 233" />
+                <area shape="poly" alt="GEN-018" href="/controlled-doc/sop/gen-018" coords="134, 372, 134, 241, 211, 241, 211, 355, 202, 356, 193, 358, 181, 365, 175, 371, 162, 379, 155, 380, 148, 380, 140, 377" />
+                <area shape="poly" alt="GEN-034" href="/controlled-doc/sop/gen-034" coords="22, 347, 120, 347, 119, 399, 113, 400, 105, 400, 94, 402, 83, 404, 72, 407, 66, 409, 58, 410, 47, 411, 38, 410, 30, 409, 21, 407" />
+                <area shape="poly" alt="GEN-030" href="/controlled-doc/sop/gen-030" coords="22, 282, 98, 281, 98, 330, 91, 331, 80, 331, 71, 334, 53, 340, 47, 340, 38, 340, 30, 339, 21, 338" />
+                <area shape="poly" alt="GEN-005" href="/controlled-doc/sop/gen-005" coords="22, 270, 22, 211, 116, 210, 114, 262, 102, 262, 87, 265, 73, 269, 59, 273, 46, 273, 34, 273" />
+            
+                <area shape="poly" alt="GEN-040" href="/controlled-doc/sop/gen-040" coords="660, 550, 760, 550, 760, 594, 752, 595, 744, 595, 736, 595, 728, 598, 718, 600, 708, 603, 700, 603, 691, 605, 682, 605, 672, 603, 660, 601" />
+                <area shape="poly" alt="GEN-024" href="/controlled-doc/sop/gen-024" coords="577, 617, 577, 540, 653, 539, 653, 606, 646, 606, 635, 608, 627, 611, 617, 616, 609, 619, 599, 620, 590, 621, 585, 620" />
+                <area shape="poly" alt="GEN-020" href="/controlled-doc/sop/gen-020" coords="504, 608, 504, 553, 564, 553, 564, 602, 558, 602, 548, 603, 540, 606, 533, 608, 526, 611, 516, 611" />
+                <area shape="poly" alt="GEN-043" href="/controlled-doc/sop/gen-043" coords="405, 602, 405, 568, 484, 568, 484, 599, 474, 599, 464, 599, 451, 602, 443, 603, 430, 605, 419, 605" />
+                <area shape="poly" alt="GEN-012" href="/controlled-doc/sop/gen-012" coords="310, 611, 310, 561, 397, 561, 397, 605, 385, 605, 376, 607, 367, 609, 356, 612, 347, 614, 338, 616, 326, 615" />
+                <area shape="poly" alt="DM-007" href="/controlled-doc/sop/dm-007" coords="220, 607, 220, 556, 302, 556, 302, 600, 291, 601, 276, 603, 263, 607, 250, 609, 238, 610" />
+                <area shape="poly" alt="GEN-035" href="/controlled-doc/sop/gen-035" coords="131, 613, 131, 575, 214, 575, 214, 607, 206, 607, 194, 607, 178, 609, 166, 613, 156, 613, 146, 614, 140, 614" />
+                <area shape="poly" alt="GEN-042" href="/controlled-doc/sop/gen-042" coords="26, 610, 26, 569, 108, 570, 108, 605, 97, 606, 86, 607, 77, 609, 67, 612, 55, 614, 48, 614, 40, 613, 34, 611" />
+                <area shape="poly" alt="GEN-026" href="/controlled-doc/sop/gen-026" coords="671, 531, 671, 486, 758, 486, 758, 526, 750, 526, 739, 527, 725, 531, 711, 533, 703, 535, 694, 536, 681, 534" />
+                <area shape="poly" alt="DM-010" href="/controlled-doc/sop/dm-010" coords="581, 531, 581, 486, 662, 486, 662, 527, 656, 527, 644, 528, 635, 530, 625, 533, 610, 536, 599, 536, 590, 535" />
+                <area shape="poly" alt="GEN-015" href="/controlled-doc/sop/gen-015" coords="488, 543, 488, 488, 573, 488, 573, 536, 564, 536, 552, 538, 543, 539, 532, 544, 516, 547, 506, 547, 497, 547" />
+                <area shape="poly" alt="GEN-022" href="/controlled-doc/sop/gen-022" coords="403, 545, 403, 490, 479, 490, 479, 539, 468, 540, 453, 544, 438, 549, 425, 551, 416, 551, 408, 550" />
+                <area shape="poly" alt="GEN-036" href="/controlled-doc/sop/gen-036" coords="320, 498, 396, 497, 395, 538, 388, 538, 371, 539, 360, 543, 346, 545, 333, 546, 323, 546, 318, 543" />
+                <area shape="poly" alt="GEN-010" href="/controlled-doc/sop/gen-010" coords="223, 489, 312, 488, 311, 533, 300, 534, 285, 535, 275, 539, 259, 542, 245, 544, 236, 542, 224, 541" />
+                <area shape="poly" alt="GEN-023" href="/controlled-doc/sop/gen-023" coords="132, 566, 132, 517, 213, 518, 213, 560, 202, 560, 193, 561, 185, 563, 176, 564, 169, 567, 158, 568, 146, 569" />
+                <area shape="poly" alt="GEN-032" href="/controlled-doc/sop/gen-032" coords="131, 512, 131, 470, 213, 471, 212, 506, 202, 506, 195, 507, 184, 509, 172, 511, 163, 513, 155, 513, 147, 513, 139, 514" />
+                
+                <area shape="poly" alt="DM-009" href="/controlled-doc/sop/dm-009" coords="67, 560, 67, 482, 125, 482, 125, 549, 115, 550, 107, 555, 96, 560, 88, 564, 80, 564" />
+                <area shape="poly" alt="DM-008" href="/controlled-doc/sop/dm-008" coords="8, 557, 9, 496, 56, 496, 54, 550, 40, 552, 32, 558, 24, 560, 18, 562" />
+                <area shape="poly" alt="GEN-025" href="/controlled-doc/sop/gen-025" coords="661, 466, 661, 423, 757, 422, 756, 461, 738, 462, 721, 466, 710, 468, 699, 470, 692, 471, 679, 470" />
+                <area shape="poly" alt="STATS-004" href="/controlled-doc/sop/stats-004" coords="565, 422, 657, 422, 657, 468, 651, 468, 641, 469, 630, 471, 618, 473, 609, 474, 603, 476, 594, 477, 586, 477, 578, 477, 571, 477, 564, 475" />
+                <area shape="poly" alt="GEN-014" href="/controlled-doc/sop/gen-014" coords="478, 422, 555, 421, 555, 471, 546, 472, 538, 472, 531, 473, 524, 476, 514, 478, 505, 481, 496, 481, 491, 481, 486, 480, 478, 478" />
+                <area shape="poly" alt="GEN-033" href="/controlled-doc/sop/gen-033" coords="396, 422, 472, 421, 472, 468, 462, 468, 456, 468, 449, 468, 442, 472, 429, 475, 420, 477, 408, 477, 400, 476, 395, 474" />
+                <area shape="poly" alt="GEN-011" href="/controlled-doc/sop/gen-011" coords="298, 423, 298, 475, 304, 476, 313, 478, 321, 478, 329, 478, 334, 477, 340, 475, 353, 471, 361, 469, 371, 468, 380, 468, 386, 468, 386, 422" />
+                <area shape="poly" alt="GEN-029" href="/controlled-doc/sop/gen-029" coords="205, 426, 205, 465, 221, 467, 235, 466, 251, 462, 263, 460, 274, 459, 282, 459, 282, 424" />
+                <area shape="poly" alt="GEN-028" href="/controlled-doc/sop/gen-028" coords="107, 422, 189, 422, 189, 454, 182, 454, 171, 454, 162, 456, 148, 458, 138, 460, 129, 460, 119, 460, 111, 459, 106, 459" />
+                <area shape="poly" alt="GEN-027" href="/controlled-doc/sop/gen-027" coords="9, 421, 96, 420, 96, 474, 85, 474, 67, 477, 55, 481, 43, 485, 31, 485, 18, 485, 8, 481" />
     
-    $node -> content['field_process_map'][0]['#markup'] = '<img src="/sites/default/files/process_map.png" alt="process map"/>';
+                <area shape="poly" alt="GEN-047" href="/controlled-doc/sop/gen-047" coords="657, 634, 768, 633, 768, 679, 758, 680, 749, 680, 737, 682, 723, 685, 713, 687, 705, 689, 690, 691, 680, 691, 670, 690, 663, 688, 657, 687" />
+                <area shape="poly" alt="GEN-048" href="/controlled-doc/sop/gen-048" coords="563, 636, 649, 635, 648, 676, 632, 676, 620, 678, 605, 683, 594, 685, 585, 685, 572, 685, 564, 683, 562, 683" />
+                <area shape="poly" alt="GEN-046" href="/controlled-doc/sop/gen-046" coords="458, 634, 555, 633, 555, 673, 546, 674, 535, 674, 524, 676, 511, 680, 498, 682, 485, 685, 475, 684, 466, 683, 458, 680" />
+                <area shape="poly" alt="STATS-005" href="/controlled-doc/sop/stats-005" coords="349, 632, 447, 632, 447, 681, 439, 682, 424, 682, 412, 686, 401, 688, 395, 690, 385, 691, 375, 692, 364, 692, 355, 689, 350, 689" />
+                <area shape="poly" alt="DM-011" href="/controlled-doc/sop/dm-011" coords="261, 636, 261, 682, 272, 684, 279, 685, 289, 683, 288, 684, 294, 683, 298, 682, 303, 680, 313, 678, 319, 676, 327, 676, 336, 675, 342, 675, 342, 634" />
+                <area shape="poly" alt="GEN-044" href="/controlled-doc/sop/gen-044" coords="125, 634, 246, 634, 246, 675, 228, 675, 213, 676, 200, 678, 183, 681, 169, 683, 154, 684, 141, 683, 130, 682, 124, 682" />
+                <area shape="poly" alt="GEN-045" href="/controlled-doc/sop/gen-045" coords="13, 634, 13, 681, 22, 682, 32, 683, 40, 684, 49, 683, 57, 682, 64, 680, 79, 677, 89, 675, 97, 674, 108, 674, 109, 674, 110, 632" />
+            
+                <area shape="poly" alt="GEN-39" href="/controlled-doc/sop/gen-039" coords="775, 619, 910, 617, 911, 652, 890, 652, 879, 652, 868, 654, 857, 655, 843, 657, 834, 658, 821, 660, 808, 660, 793, 659, 782, 659, 775, 657" />
+                <area shape="poly" alt="ITS-003" href="/controlled-doc/sop/its-003" coords="850, 529, 918, 525, 916, 593, 905, 595, 897, 596, 889, 600, 875, 607, 866, 608, 860, 608, 848, 603" />
+                <area shape="poly" alt="ITS-002" href="/controlled-doc/sop/its-002" coords="771, 531, 840, 530, 839, 594, 826, 594, 818, 597, 808, 602, 796, 607, 787, 608, 776, 606, 770, 603" />
+                <area shape="poly" alt="ITS-001" href="/controlled-doc/sop/its-001" coords="771, 471, 918, 471, 917, 512, 904, 512, 877, 514, 848, 518, 828, 520, 803, 521, 788, 521, 771, 517" />
+                <area shape="poly" alt="GEN-038" href="/controlled-doc/sop/gen-038" coords="790, 401, 910, 401, 911, 439, 895, 439, 880, 440, 864, 442, 853, 445, 833, 447, 818, 447, 804, 447, 790, 445" />
+                <area shape="poly" alt="GEN-031" href="/controlled-doc/sop/gen-031" coords="845, 313, 915, 312, 915, 374, 904, 375, 891, 379, 880, 384, 868, 388, 860, 389, 853, 387, 844, 385" />
+                <area shape="poly" alt="GEN-021" href="/controlled-doc/sop/gen-021" coords="771, 315, 836, 314, 836, 382, 826, 382, 816, 387, 805, 392, 797, 395, 788, 398, 781, 396, 776, 394, 771, 392" />
+                <area shape="poly" alt="GEN-007" href="/controlled-doc/sop/gen-007" coords="838, 235, 918, 236, 918, 293, 907, 294, 891, 298, 877, 303, 867, 306, 855, 307, 846, 306, 838, 303" />
+                <area shape="poly" alt="GEN-009" href="/controlled-doc/sop/gen-009" coords="774, 241, 826, 240, 826, 290, 816, 291, 804, 296, 795, 300, 783, 302, 773, 299" />
+                <area shape="poly" alt="GEN-006" href="/controlled-doc/sop/gen-006" coords="859, 167, 918, 167, 918, 218, 905, 219, 891, 225, 880, 229, 868, 229, 859, 226" />
+                <area shape="poly" alt="GEN-003" href="/controlled-doc/sop/gen-003" coords="773, 165, 854, 165, 854, 212, 843, 212, 830, 215, 816, 218, 803, 222, 788, 222, 777, 221, 772, 219" />
+                <area shape="poly" alt="GEN-008" href="/controlled-doc/sop/gen-008" coords="852, 96, 920, 95, 920, 145, 911, 145, 905, 146, 898, 148, 889, 152, 878, 156, 868, 157, 863, 156, 857, 155, 851, 153" />
+                <area shape="poly" alt="GEN-002" href="/controlled-doc/sop/gen-002" coords="778, 96, 846, 95, 845, 145, 836, 145, 826, 148, 815, 151, 807, 154, 800, 155, 791, 156, 781, 154, 778, 153" />
+                <area shape="poly" alt="GEN-001" href="/controlled-doc/sop/gen-001" coords="785, 48, 898, 48, 898, 83, 879, 83, 857, 86, 843, 88, 828, 90, 815, 92, 804, 91, 799, 91, 792, 91, 784, 89" />
+            </map>
+	
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+            <script type="text/javascript" src="/sites/default/files/jquery.maphilight.min.js"></script>
+            <script type="text/javascript">$(function() {
+                $(".map").maphilight({ "strokeWidth": 1, "strokeColor":"42859b", "fill": "B0E57C", "fillColor": "336699", "fillOpacity": 0.7, "singleSelect": true });
+            });
+            </script>'
+        ;
  }
 
 
