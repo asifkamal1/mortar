@@ -285,7 +285,7 @@ function mortar_cd_process_setup($node, $view_mode, $langcode) {
             </map>
 	
             <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-            <script type="text/javascript" src="/sites/default/files/jquery.maphilight.min.js"></script>
+            <script type="text/javascript" src="/sites/default/files/js/jquery.maphilight.min.js"></script>
             <script type="text/javascript">$(function() {
                 $(".map").maphilight({ "strokeWidth": 1, "strokeColor":"42859b", "fill": "B0E57C", "fillColor": "336699", "fillOpacity": 0.7, "singleSelect": true });
             });
