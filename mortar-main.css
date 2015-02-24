@@ -100,8 +100,8 @@ td.diff-deletedline {
   padding: 20px 20px 20px 70px;
 }
 
-tr.mortar-warning, td.controlled-doc-status-Active.Undergoing.revision, td.controlled-doc-status-Awaiting.approval.Draft {
-  background-image: url(/sites/default/files/warning.png);
+tr.mortar-warning, td.controlled-doc-status-Active.Undergoing.revision, td.controlled-doc-status-Awaiting.approval.Draft, td.controlled-doc-status-Active.Awaiting.approval {
+  background-image: url(/sites/default/files/warning.png) !important;
   background-position: 99%;
   background-repeat: no-repeat;
 }
