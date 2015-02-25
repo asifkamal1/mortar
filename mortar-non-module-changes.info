@@ -2,6 +2,9 @@
 ADDING NEW FIELD TO 'TRANING RECORD' VIEW MIGHT CAUSE 'mortar_training_record_reminder_view_send_email_validate' in tr-node-alter.inc to fail as position of the fields might change
 */
 
+Adding new block
+- Creating new Block "version" at footer region
+
 Remove IP field and edit option for the test result
 - import 'Webform Submissions' View
 
