@@ -356,6 +356,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
                 $training_type = $form_state['values']['field_training_type']['und'][0]['target_id'];
                 $controlled_doc_id = $controlled_doc['target_id'];
                 $controlled_doc_v = $node_laod -> field_active_version_number['und'][0]['tid'];
+                $trainging_message = $form_state['values']['field_add_message']['und'][0]['value']; // Add a new message box - asif kamal
                 
                 $has_training = mortar_has_training_record($trainee_id, $training_type, $training_name = NULL, $controlled_doc_id, $controlled_doc_v);
                 
@@ -375,6 +376,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
                     $node -> field_training_status[$node->language][0]['target_id'] = 34;
                     $node -> field_controlled_doc_v_number[$node->language][0]['target_id'] = $node_laod -> field_active_version_number['und'][0]['tid'];
                     $node -> field_trainee[$node->language][0]['target_id'] = $trainee['target_id'];
+                    $node -> field_add_message[$node->language][0]['value'] = $trainging_message; // Add a new message box - asif kamal
                     
                     $node = node_submit($node);
                     node_save($node);
@@ -408,6 +410,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
             $controlled_doc_id = NULL;
             $controlled_doc_v = NULL;
             $training_name = NULL;
+            $trainging_message = $form_state['values']['field_add_message']['und'][0]['value']; // Add a new message box - asif kamal
             
             if($training_type == 25 || $training_type == 47 || $training_type == 46 ||
                $training_type == 48 || $training_type == 49 || $training_type == 56 ||
@@ -430,6 +433,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
                 
                 $node -> uid = $trainee['target_id']; // Or any id you wish
                 $node -> field_training_type[$node->language][0]['target_id'] = $form_state['values']['field_training_type']['und'][0]['target_id'];
+                $node -> field_add_message[$node->language][0]['value'] = $trainging_message; // Add a new message box - asif kamal
                 
                 if($training_name != NULL) {
                     $node -> field_training_details[$node->language][0]['value'] = $training_name;
