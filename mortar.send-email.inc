@@ -287,3 +287,71 @@ function mortar_send_controlled_document_for_compliance_review(&$form, &$form_st
     }
 
 }
+
+
+/*
+ *Send email to author for further review of SOP
+*/
+function mortar_send_author_further_review_notification(&$form, &$form_state, $form_id = 'controlled_document_node_form') {
+    
+    $error = FALSE;
+    
+    if($form_state['values']['mortar_field_notify_administrator'] == 1 ) {
+        $error = TRUE;
+    }
+    
+    if($error) {
+        return;
+    }
+    
+    if($form_state['values']['mortar_fieldset_notify_author_review'] == 0) {
+        drupal_set_message(t('Email notification has NOT been sent. If you wish to do so please,
+                             press Edit below, check "Send notification to author for further review" box and press Save.'), 'warning');
+        $error = TRUE;
+    }
+    
+    #debug($form_state['values']);
+    
+     if($error) {
+        return;
+    }
+    
+    global $user;
+    
+    $logged_user = $user -> name;
+    $controlled_document_node = node_load($form_state['nid']);
+    
+    $controlled_document_address = drupal_get_path_alias('node/' . $controlled_document_node -> nid);
+    $controlled_document_id = $controlled_document_node -> title;
+    $controlled_document_title = $controlled_document_node -> field_title['und'][0]['value'];
+    $controlled_document_author_id = $controlled_document_node -> uid;
+    
+    $author = user_load($controlled_document_author_id);
+    
+    $headers = 'From: OCTRU MORTAR <octrutrialshub@ndorms.ox.ac.uk>';
+    $message = '';
+    
+    if($form_state['values']['mortar_field_message']!='') {
+        $author_message = 'Message sent by '. $logged_user . ": \r\n" . $form_state['values']['mortar_field_message'] . "\r\n";
+    }
+    
+
+    $message = 'Dear ' . $author -> name . ",\r\n";
+    $message .= 'SOP ' . $controlled_document_title . " (". $controlled_document_id .") has now been reviewed by the administrator. \r\n";
+    $message .= 'http://mortar.octru.ox.ac.uk/'. $controlled_document_address ."\r\n";
+    
+    if(isset($author_message)) {
+        $message .= $author_message;
+    }
+    
+    $message .= "Thanks,\n -- \n MORTAR";
+    
+    mail($author -> mail, $controlled_document_id . ' administrative review outcome available.', $message, $headers);
+    drupal_set_message(t('Email successfully sent to the author:<pre>'.$author -> name .'</pre>'), 'status');
+    
+    if(isset($author_message)) {
+        watchdog("Review email", "Email successfully sent to the reviewer: <pre>". $author -> name .' - '. $author -> mail."</pre> Message: <pre>" . $author_message . "</pre> Controlled Document: <pre>" . $controlled_document_id . "</pre>"); 
+    }
+    
+    #debug($controlled_document_node)
+}

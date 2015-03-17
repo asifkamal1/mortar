@@ -277,7 +277,25 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
     
     $form['#validate'][] = 'mortar_set_controlled_document_author';
     
-    if($controlled_document_status_value != 13) {
+    /*
+     * when the SOP in 'active - awaiting approval' and the it is not ready to go Active the this will send an email
+     * to author to further review the SOP.
+    */
+    if($controlled_document_status_value == 41) {
+        $form['mortar_fieldset_notify_author_review'] = array(
+            '#title' => t('Send Controlled Document approval response to author for further review'),
+            '#description' => t('If this is checked and Controlled Document is saved,
+                                author will be notified by email that the Controlled Document need further review.'),
+            '#type' => 'checkbox',
+            '#options' => t('Enable'),
+            '#weight' => 12,
+            
+        );
+        
+        
+        $form['actions']['submit']['#submit'][] = 'mortar_send_author_further_review_notification';
+    
+    } else if($controlled_document_status_value != 13) {
         
         $form['mortar_field_notify_reviewer'] = array(
             '#title' => t('Send notification to reviewers'),
