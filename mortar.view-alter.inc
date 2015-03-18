@@ -150,8 +150,9 @@ function mortar_views_cd_new_updated($nid) {
     $previous_vid = db_query('SELECT MAX(vid) AS vid FROM {node_revision} WHERE vid < :vid AND nid = :nid', array(':vid' => $vid, ':nid' => $cd -> nid)) -> fetchField();
     
     if($last_change >= strtotime('-30 days')) {
+        //if no previous version avaialbe it means it is new document
         if(!$previous_vid) {
-            return 'updated';
+            return 'new';
         }
         
         $current_node = node_load($nid);

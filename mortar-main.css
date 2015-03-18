@@ -67,17 +67,49 @@ td.Compulsory {
   background-repeat: no-repeat;
 }
 
+/* ----------asif kamal (added a new filed 'Global: Custom text' in All SOP's------------*/
+.Compulsory {
+  background-image: url(/sites/default/files/compulsory.png) !important;
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  color: #e6efc2;
+  margin-top: -10px;
+}
+#empty {
+  color: #e6efc2;
+  width: 40px;
+  margin-bottom: -10px;
+  margin-left:  -10px;
+}
+/* -------------------------------*/
+
+/* As i am using the above '.Compulsory ' class and '#comp' ID so this backbround will be not used anymore */
 td.attribute-Compulsory {
-  background-image: url(/sites/default/files/compulsory.png);
+ /* background-image: url(/sites/default/files/compulsory.png);
+  background-position:  0% 0%;
+  background-repeat: no-repeat;*/
+}
+
+/* ------------------------ */
+/*In All SOPs VIEW Format class from "controlled-doc-status-[field_status] attribute-[field_controlled_doc_attributes] cd-update-new-[php]"
+  change it to following 
+  controlled-doc-status-[field_status] attribute-[field_controlled_doc_attributes] cd-update-[php] (may be updated or new)
+  before it was (td.cd-update-new-updated { })
+*/
+td.cd-update-updated {
+  background-image: url(/sites/default/files/updated.png);
   background-position:  0% 0%;
   background-repeat: no-repeat;
 }
 
-td.cd-update-new-updated {
+td.cd-update-new {
   background-image: url(/sites/default/files/new.png);
-  background-position:  0% 90%;
+  background-position:  0% 0%;
   background-repeat: no-repeat;
 }
+/* ------------------------ */
 
 td.diff-addedline {
   background-image: url(/sites/default/files/success.png);
