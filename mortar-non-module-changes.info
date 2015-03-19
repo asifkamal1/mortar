@@ -2,6 +2,16 @@
 ADDING NEW FIELD TO 'TRANING RECORD' VIEW MIGHT CAUSE 'mortar_training_record_reminder_view_send_email_validate' in tr-node-alter.inc to fail as position of the fields might change
 */
 
+for Controlled Documents Mondatory, Update and New symbol issue
+-  updated the All SOPs and all New CD Grid class from cd-update-new-[php] to cd-update-[php]
+-  made new classes in main.css *complusory *td.cd-update-new *td.cd-update-update and one ID #comp
+-  deactiviate the previous background for complusroy image in class td.attribute-Compulsory
+-  For all New CD, add new filter "$filter == 'new'" in Filter Crieteira section in Global PHP field
+
+For Email notification issue to author
+-  Added new checkbox (mortar_fieldset_notify_author_review) in mortar.cd.alter.inc
+-  Added new email function (mortar_send_author_further_review_notification) in mortar.send.email.inc.
+
 in "Create Tarining Request" New message box added
 - import "Traing Record"content type.
 
