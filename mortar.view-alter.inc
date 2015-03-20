@@ -159,11 +159,11 @@ function mortar_views_cd_new_updated($nid) {
         $prev_rev_node = node_load($nid, $previous_vid);
         
         //here we looking if current 'Active version number' and previous 'Active version number' are same or not
-        if($current_node -> field_active_version_number['und'][0]['tid'] != $prev_rev_node -> field_active_version_number['und'][0]['tid']) {
+        if($current_node -> field_active_version_number['und'][0]['tid'] != $prev_rev_node -> field_active_version_number['und'][0]['tid'] && $current_node -> field_active_version_number['und'][0]['tid']  != 8) {
             return 'updated';    
         } else {
             //In case if current 'Active version number' and previous 'Active version number' are same but they equal to 1 or 1.0 then they are new
-            if($current_node -> field_active_version_number['und'][0]['tid']  == 1.0 || $current_node -> field_active_version_number['und'][0]['tid'] == 1) {
+            if($current_node -> field_active_version_number['und'][0]['tid']  == 8) {
                 return 'new';
             } else {
                 return 'updated';   
