@@ -7,7 +7,7 @@ for Controlled Documents Mondatory, Update and New symbol issue
 -  made new classes in main.css *complusory *td.cd-update-new *td.cd-update-update and one ID #comp
 -  deactiviate the previous background for complusroy image in class td.attribute-Compulsory
 -  For 'All New CD' tab, add new filter "$filter == 'new'" in Filter Crieteira section in Global PHP field
--  Finaly I export the Controlled Document View to DEV server from my local server by importing in to Dev server.
+-  Finaly I export the Controlled Document View to DEV server from my local server by importing in to Dev server and then to Live server.
 
 For Email notification issue to author
 -  Added new checkbox (mortar_fieldset_notify_author_review) in mortar.cd.alter.inc
