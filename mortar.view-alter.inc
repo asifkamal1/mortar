@@ -94,7 +94,7 @@ function mortar_views_recent_cd_tr_changes($data) {
             
             $filter = mortar_views_cd_new_updated($data -> nid);
             
-            if($filter == 'updated') {
+            if($filter == 'updated' || $filter == 'new') {
                 return FALSE;
             }
             return TRUE;
