@@ -2,6 +2,24 @@
 ADDING NEW FIELD TO 'TRANING RECORD' VIEW MIGHT CAUSE 'mortar_training_record_reminder_view_send_email_validate' in tr-node-alter.inc to fail as position of the fields might change
 */
 
+For Process map position om "My Document" Page
+- added new line of code to this job in "mortar.module"
+
+For new OCTO Guideline tab in the menu list on landing page
+- create a view "All OCTO Guidelines SOP"
+- link that view with the new created horizentale tab "All OCTO Guidelines"
+- add a new function in the "mortar.module" to restrict the guidlines access to OCTO users only.
+
+
+For new catgory of OCTO Guidance in "Controlled Documents" node
+- Added new Category "OCTO-Guidance" in Taxonomy "Category area"
+- Created new field "Controlled OCTO Document" as type of "Entity Reference" and "Select list" widget type.
+- In Manage Display area created new Horizentale Tab name"OCTO-Guidance" and Place the "Controlled OCTO Document" underneth as Hidden and Rendered entity.
+- Created new view  in "Controlled Documents" view area by the name of "CDs OCTO Guidelines List"
+- Linked the "CDs OCTO Guidelines List" view with the "Entity Reference" of the "Controlled OCTO Document" field in "Controlled Documents".
+- This above work will allow us to create OCTO guideline as normal SOP and linked to any SOP, if we kkeep the guidline "Team" as OCTO then only OCTO user will be able to see an extra Horizental tab "OCTO-Guidance" in their SOP if it attached to that SOP.
+
+
 For webform "checkbox" and "radio" not working
 - updated the webform and form builder module on Dev and Live server which fix the issue
 

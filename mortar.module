@@ -65,14 +65,31 @@ function mortar_node_access($node, $op, $account) {
  *
  */
 function mortar_node_view($node, $view_mode, $langcode) {
-    
     if($node -> nid == 4175) {
         $node -> content['#fieldgroups']['group_all_sops'] -> label = 'My Controlled Documents';
         $node -> content['#fieldgroups']['group__all_sop_append'] -> label = 'Review Emails';
+        $node -> content['#fieldgroups']['group_process_map'] -> weight = '60';
     }
     
     if($node -> type == "cds_display"){
         mortar_cd_process_setup($node, $view_mode, $langcode);
+    }
+    
+    /*
+    * Check the user have access permission to OCTO guidelines if not then hide the Horizentale tab from the menu
+    */
+    global $user;
+    $account = user_load($user -> uid);
+    $ctu_list = array();
+    for($count = 0; $count < count($account -> field_ctu['und']); $count++) {
+       $ctu_list[] = $account -> field_ctu['und'][$count][target_id];  
+    }
+    
+    if (in_array('457', $ctu_list, true)) {
+       // dpm('found');
+    } else {
+        $node -> field_view_ht_6 = array();
+        $node -> content['field_view_ht_6'] = array();
     }
 }
 
