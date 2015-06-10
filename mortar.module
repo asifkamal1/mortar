@@ -265,7 +265,7 @@ function mortar_cd_process_setup($node, $view_mode, $langcode) {
                 <area shape="poly" coords="415, 555, 415, 495, 493, 494, 493, 545, 482, 546, 467, 550, 452, 553, 438, 557, 429, 557" href="/controlled-doc/sop/gen-022" alt="GEN-022" />
                 <area shape="poly" coords="332, 539, 332, 491, 409, 491, 409, 532, 398, 532, 378, 536, 364, 540, 351, 542" href="/controlled-doc/sop/gen-036" alt="GEN-036" />
                 <area shape="poly" coords="238, 535, 237, 482, 326, 482, 325, 527, 307, 529, 291, 533, 276, 536, 259, 538" href="/controlled-doc/sop/gen-010" alt="GEN-010" />
-                <area shape="poly" coords="143, 513, 144, 473, 225, 473, 226, 509, 211, 510, 191, 515, 173, 518, 159, 519" href="/controlled-doc/sop/gen-032" alt="GEN-032" />
+                <area shape="poly" coords="129, 475, 226, 475, 226, 510, 215, 510, 198, 511, 176, 517, 165, 517, 150, 517, 141, 516, 128, 517" href="/controlled-doc/sop/gen-032" alt="GEN-032" />
                 <area shape="poly" coords="20, 539, 20, 493, 112, 494, 111, 533, 97, 535, 78, 537, 61, 541, 46, 542" href="/controlled-doc/sop/dm-009" alt="DM-009" />
                 <area shape="poly" coords="662, 468, 662, 424, 756, 423, 757, 462, 736, 463, 717, 465, 697, 470, 685, 471, 673, 471" href="/controlled-doc/sop/gen-025" alt="GEN-025" />
                 <area shape="poly" coords="564, 475, 564, 421, 656, 422, 656, 468, 640, 470, 625, 472, 594, 480, 583, 480" href="/controlled-doc/sop/stats-004" alt="STATS-004" />
