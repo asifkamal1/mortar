@@ -56,6 +56,13 @@ tr.mortar-active td {
   color: #e64135;
 }
 
+.Superceded{
+  background: rgb(242, 242, 148);
+  color: #e64135;
+  border: 2px solid !important;
+  border-color: #fbc2c4 !important;
+}
+
 .training-status-Incomplete td, .training-status-Incomplete {
   border: 2px solid !important;
   border-color: #fbc2c4 !important;
