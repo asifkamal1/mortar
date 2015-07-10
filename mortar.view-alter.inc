@@ -180,7 +180,7 @@ function mortar_views_cd_new_updated($nid) {
 /*
  * Checking the version of SOP documnet realted to a training test is updated or same
  */
-function mortar_views_cd_check($nid) {
+function mortar_views_cd_check($nid, $created) {
    
     $cd = node_load($nid);
     
@@ -194,27 +194,29 @@ function mortar_views_cd_check($nid) {
     
     //get previous vid
     $previous_vid = db_query('SELECT MAX(vid) AS vid FROM {node_revision} WHERE vid < :vid AND nid = :nid', array(':vid' => $vid, ':nid' => $cd -> nid)) -> fetchField();
-   
-    //if no previous version avaialbe it means it is new document
-    if(!$previous_vid) {
-        return 'same';
-    }
     
-    $current_node = node_load($nid);
-    $prev_rev_node = node_load($nid, $previous_vid);
 
-    //here we looking if current 'Active version number' and previous 'Active version number' are same or not
-    if(($current_node -> field_active_version_number['und'][0]['tid'] > $prev_rev_node -> field_active_version_number['und'][0]['tid']) && $current_node -> field_active_version_number['und'][0]['tid']  != 8) {
-        return 'updated';    
-    } else {
-        //In case if current 'Active version number' and previous 'Active version number' are same but they equal to 1 or 1.0 then they are new
-        if($current_node -> field_active_version_number['und'][0]['tid']  == 8) {
+    if($last_change >= $created) {
+        //if no previous version avaialbe it means it is new document
+        if(!$previous_vid) {
             return 'same';
-        } else {
-            return 'updated';   
         }
-    }
-
+        
+        $current_node = node_load($nid);
+        $prev_rev_node = node_load($nid, $previous_vid);
+    
+        //here we looking if current 'Active version number' and previous 'Active version number' are same or not
+        if(($current_node -> field_active_version_number['und'][0]['tid'] > $prev_rev_node -> field_active_version_number['und'][0]['tid']) && $current_node -> field_active_version_number['und'][0]['tid']  != 8) {
+            return 'updated';    
+        } else {
+            //In case if current 'Active version number' and previous 'Active version number' are same but they equal to 1 or 1.0 then they are new
+            if($current_node -> field_active_version_number['und'][0]['tid']  == 8) {
+                return 'same';
+            } else {
+                return 'updated';   
+            }
+        }
+    }    
     
     return 'false';
 }
