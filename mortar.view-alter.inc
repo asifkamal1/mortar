@@ -221,6 +221,50 @@ function mortar_views_cd_check($nid, $created) {
     return 'false';
 }
 
+
+/*
+ * Checking the related Training record of the provided sop for a specfied user
+ */
+function mortar_views_tr_related_cd_report($user_uid, $recieved_nid, $related_cd) {
+    // active version tid of cd
+    $cd = node_load($recieved_nid);
+    $tidv = $cd->field_active_version_number['und'][0]['tid'];
+
+    $query_list_check = new EntityFieldQuery();
+    $query_list_check
+    
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'training_record')
+    ->fieldCondition('field_trainee', 'target_id', $user_uid)
+    ->propertyOrderBy('nid', 'ASC');
+    
+    // Execute, returning an array of arrays.
+    $result_other = $query_list_check->execute();
+
+    if(isset($result_other['node'])) {
+
+        foreach($result_other['node'] as $nid => $stub_node) {
+     
+            //Load the full node and wrap it with entity_metadata_wrapper().
+            $node = node_load($nid);
+ 
+            $values = array();
+            
+            if(($node->field_related_controlled_documen['und'][0]['target_id'] == $recieved_nid) && ($node->field_training_status['und'][0]['target_id'] !== '159')) {
+                $values[0] = $node->field_training_status;
+                $values[1] = "Assigned";
+                $values[2] = "$nid"; 
+            
+                return $values;
+            
+            }
+
+        }
+    }
+
+    return;
+}
+
 /*
  *
  */
@@ -340,8 +384,21 @@ function mortar_views_query_alter(&$view, &$query) {
     if ($view->name == "operational_lead_user_list") {
         #mortar_operational_lead_user_view_alter($view, $query, $account, $node = NULL);
     }
+    
+    if ($view->name == "all_training_record_related_to_sops_report") {
 
-
+        foreach($query->where[1]['conditions'] as $idx => $condition) {
+            if (!is_object($condition['field']) && $condition['field'] == 'users_field_data_field_trainee.uid') {
+                
+                //change the vlaue of PHP field with the supplied user ID in the filter that can be use in the other PHP field to get the user TR record related to current SOP
+                $supplied_user = $query->where[1]['conditions'][$idx]['value'][0];
+                $view->display_handler->handlers['field']['php_1']->options['php_output']   = '<?php echo '. $supplied_user .'; ?>';
+                
+                // or you can unset this condition and write down a new one (as we dont need it to get sop record)
+                unset($query->where[1]['conditions'][$idx]);  
+            }
+        }
+    }
 }
 
 

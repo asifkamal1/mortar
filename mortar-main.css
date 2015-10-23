@@ -68,6 +68,12 @@ tr.mortar-active td {
   border-color: #fbc2c4 !important;
 }
 
+.training-status-Not-assigned td, .training-status-Not-assigned {
+  border: 2px solid !important;
+  border-color: #B0E0E6	 !important;
+  background: #B0E0E6  !important;
+}
+
 td.Compulsory {
   background-image: url(/sites/mortar.octru.ox.ac.uk/files/compulsory.png);
   background-position: 0% 0%;
