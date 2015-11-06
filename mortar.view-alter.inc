@@ -225,11 +225,10 @@ function mortar_views_cd_check($nid, $created) {
 /*
  * Checking the related Training record of the provided sop for a specfied user
  */
-function mortar_views_tr_related_cd_report($user_uid, $recieved_nid, $related_cd) {
+function mortar_views_tr_related_cd_report($user_uid, $recieved_nid, $related_cd, $active_version) {
     // active version tid of cd
-    $cd = node_load($recieved_nid);
-    $tidv = $cd->field_active_version_number['und'][0]['tid'];
-
+    //$cd = node_load($recieved_nid);
+    //$tidv = $cd->field_active_version_number['und'][0]['tid'];
     $query_list_check = new EntityFieldQuery();
     $query_list_check
     
@@ -247,14 +246,17 @@ function mortar_views_tr_related_cd_report($user_uid, $recieved_nid, $related_cd
      
             //Load the full node and wrap it with entity_metadata_wrapper().
             $node = node_load($nid);
- 
+
             $values = array();
-            
-            if(($node->field_related_controlled_documen['und'][0]['target_id'] == $recieved_nid) && ($node->field_training_status['und'][0]['target_id'] !== '159')) {
+            //the the active version of the TR related control document
+            //$cd_related_control_doc = node_load($node->field_related_controlled_documen['und'][0]['target_id']);
+
+             //if the Recvied NID is equall to the NID og the TR related document also the active version need to be same to the related control doc version number of the user TR record (as we looking for active CD) finally need exclude all the TR which are Superseded
+            if((($node->field_related_controlled_documen['und'][0]['target_id'] == $recieved_nid) && ($node->field_controlled_doc_v_number['und'][0]['target_id'] == $active_version)) && ($node->field_training_status['und'][0]['target_id'] !== '159')) {
                 $values[0] = $node->field_training_status;
                 $values[1] = "Assigned";
                 $values[2] = "$nid"; 
-            
+              
                 return $values;
             
             }
@@ -264,6 +266,60 @@ function mortar_views_tr_related_cd_report($user_uid, $recieved_nid, $related_cd
 
     return;
 }
+
+
+/*
+ * Checking the related Training record of the provided sop for a specfied user for full history view
+ */
+function mortar_views_tr_related_cd_full_history_report($user_uid, $recieved_nid, $related_cd, $active_version) {
+    global $values, $count;
+    $values = array();
+    // active version tid of cd
+    //$cd = node_load($recieved_nid);
+    //$tidv = $cd->field_active_version_number['und'][0]['tid'];
+    $query_list_check = new EntityFieldQuery();
+    $query_list_check
+    
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'training_record')
+    ->fieldCondition('field_trainee', 'target_id', $user_uid)
+    ->propertyOrderBy('nid', 'ASC');
+    
+    // Execute, returning an array of arrays.
+    $result_other = $query_list_check->execute();
+
+    if(isset($result_other['node'])) {
+        $count = 0;
+        foreach($result_other['node'] as $nid => $stub_node) {
+     
+            //Load the full node and wrap it with entity_metadata_wrapper().
+            $node = node_load($nid);
+
+            
+            //the the active version of the TR related control document
+            //$cd_related_control_doc = node_load($node->field_related_controlled_documen['und'][0]['target_id']);
+
+             //if the Recvied NID is equall to the NID of the TR related document 
+            if($node->field_related_controlled_documen['und'][0]['target_id'] == $recieved_nid) {
+                
+                $term_version = taxonomy_term_load($node->field_controlled_doc_v_number['und'][0]['target_id']);
+                $term_status = taxonomy_term_load($node->field_training_status['und'][0]['target_id']);
+                
+                $values[$count]['version'] = $term_version->name;
+                $values[$count]['status'] = $term_status->name;
+                $values[$count]['nid'] = "$nid"; 
+                $count++;
+               // $values[ ] = 'Vesrion: '. $term_version->name .',  Status: '.$term_status->name;
+            }
+
+        }
+        
+        return $values;
+    }
+
+    return; 
+}
+
 
 /*
  *
@@ -386,6 +442,58 @@ function mortar_views_query_alter(&$view, &$query) {
     }
     
     if ($view->name == "all_training_record_related_to_sops_report") {
+
+        foreach($query->where[1]['conditions'] as $idx => $condition) {
+            if (!is_object($condition['field']) && $condition['field'] == 'users_field_data_field_trainee.uid') {
+               
+                //change the vlaue of PHP field with the supplied user ID in the filter that can be use in the other PHP field to get the user TR record related to current SOP
+                $supplied_user = $query->where[1]['conditions'][$idx]['value'][0];
+                
+                //check the current login user (operation lead) is allowed to see the profile of the supplied user (yes if the supplied user is in hi/her team)
+                $supplied_user = $query->where[1]['conditions'][$idx]['value'][0];
+                
+                global $user, $values, $count, $team, $rec_team;
+                
+                $team = array();
+                $rec_team = array();
+                $values = array();
+                 
+                $mortar_user = user_load($user -> uid);
+                
+                if(in_array('administrator', $mortar_user -> roles) == 0  && in_array('mortar administrator', $mortar_user -> roles) == 0) {
+                   
+                    if(!empty($mortar_user->field_ctu)) {
+                        for($a = 0; $a < count($mortar_user->field_ctu['und']); $a++){
+                            $team[$a] = $mortar_user->field_ctu['und'][$a]['target_id'];
+                        }
+                    }
+                    
+                    $supplied_user_info = user_load($supplied_user);
+                    
+                    if(!empty($supplied_user_info->field_ctu)) {
+                        for($a = 0; $a < count($supplied_user_info->field_ctu['und']); $a++){
+                            $rec_team[$a] = $supplied_user_info->field_ctu['und'][$a]['target_id'];
+                        }
+                    }
+                        
+                    $matches_team = array_intersect($rec_team,$team);
+                   
+                    if(empty($matches_team)) {
+                        drupal_set_message(t($supplied_user_info->name. ' is not in your Team.'), 'warning');
+                        unset($query);  
+                        retrurn;
+                    }
+                }
+                
+                $view->display_handler->handlers['field']['php_1']->options['php_output']   = '<?php echo '. $supplied_user .'; ?>';
+                
+                // or you can unset this condition and write down a new one (as we dont need it to get sop record)
+                unset($query->where[1]['conditions'][$idx]);  
+            }
+        }
+    }
+    
+    if ($view->name == "all_training_record_related_to_sops_full_history_report") {
 
         foreach($query->where[1]['conditions'] as $idx => $condition) {
             if (!is_object($condition['field']) && $condition['field'] == 'users_field_data_field_trainee.uid') {

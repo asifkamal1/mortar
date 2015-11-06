@@ -292,3 +292,14 @@ td.diff-context div {
   margin-right: -10px;
   font-size: 11px
 }
+
+.description {
+  display: none !important;
+}
+
+.sop-Compulsory {
+  background-image: url(/sites/default/files/compulsory.png) !important;
+  background-position: left center !important;
+  background-repeat: no-repeat;
+  width: 180px !important;
+}
