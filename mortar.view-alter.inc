@@ -267,6 +267,60 @@ function mortar_views_tr_related_cd_report($user_uid, $recieved_nid, $related_cd
     return;
 }
 
+
+/*
+ * Checking the related Training record of the provided sop for a specfied user for full history view
+ */
+function mortar_views_tr_related_cd_full_history_report($user_uid, $recieved_nid, $related_cd, $active_version) {
+    global $values, $count;
+    $values = array();
+    // active version tid of cd
+    //$cd = node_load($recieved_nid);
+    //$tidv = $cd->field_active_version_number['und'][0]['tid'];
+    $query_list_check = new EntityFieldQuery();
+    $query_list_check
+    
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'training_record')
+    ->fieldCondition('field_trainee', 'target_id', $user_uid)
+    ->propertyOrderBy('nid', 'ASC');
+    
+    // Execute, returning an array of arrays.
+    $result_other = $query_list_check->execute();
+
+    if(isset($result_other['node'])) {
+        $count = 0;
+        foreach($result_other['node'] as $nid => $stub_node) {
+     
+            //Load the full node and wrap it with entity_metadata_wrapper().
+            $node = node_load($nid);
+
+            
+            //the the active version of the TR related control document
+            //$cd_related_control_doc = node_load($node->field_related_controlled_documen['und'][0]['target_id']);
+
+             //if the Recvied NID is equall to the NID of the TR related document 
+            if($node->field_related_controlled_documen['und'][0]['target_id'] == $recieved_nid) {
+                
+                $term_version = taxonomy_term_load($node->field_controlled_doc_v_number['und'][0]['target_id']);
+                $term_status = taxonomy_term_load($node->field_training_status['und'][0]['target_id']);
+                
+                $values[$count]['version'] = $term_version->name;
+                $values[$count]['status'] = $term_status->name;
+                $values[$count]['nid'] = "$nid"; 
+                $count++;
+               // $values[ ] = 'Vesrion: '. $term_version->name .',  Status: '.$term_status->name;
+            }
+
+        }
+        
+        return $values;
+    }
+
+    return; 
+}
+
+
 /*
  *
  */
@@ -395,7 +449,7 @@ function mortar_views_query_alter(&$view, &$query) {
                 //change the vlaue of PHP field with the supplied user ID in the filter that can be use in the other PHP field to get the user TR record related to current SOP
                 $supplied_user = $query->where[1]['conditions'][$idx]['value'][0];
                 
-                //check the current login user (operation lead) is allowed to see the profile of the supplied user (yes if the user is in hi/her team)
+                //check the current login user (operation lead) is allowed to see the profile of the supplied user (yes if the supplied user is in hi/her team)
                 $supplied_user = $query->where[1]['conditions'][$idx]['value'][0];
                 
                 global $user, $values, $count, $team, $rec_team;
@@ -431,6 +485,21 @@ function mortar_views_query_alter(&$view, &$query) {
                     }
                 }
                 
+                $view->display_handler->handlers['field']['php_1']->options['php_output']   = '<?php echo '. $supplied_user .'; ?>';
+                
+                // or you can unset this condition and write down a new one (as we dont need it to get sop record)
+                unset($query->where[1]['conditions'][$idx]);  
+            }
+        }
+    }
+    
+    if ($view->name == "all_training_record_related_to_sops_full_history_report") {
+
+        foreach($query->where[1]['conditions'] as $idx => $condition) {
+            if (!is_object($condition['field']) && $condition['field'] == 'users_field_data_field_trainee.uid') {
+                
+                //change the vlaue of PHP field with the supplied user ID in the filter that can be use in the other PHP field to get the user TR record related to current SOP
+                $supplied_user = $query->where[1]['conditions'][$idx]['value'][0];
                 $view->display_handler->handlers['field']['php_1']->options['php_output']   = '<?php echo '. $supplied_user .'; ?>';
                 
                 // or you can unset this condition and write down a new one (as we dont need it to get sop record)
