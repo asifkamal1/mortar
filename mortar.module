@@ -154,8 +154,8 @@ function mortar_css_alter(&$css) {
     global $base_url;
     
     if (strpos($base_url,'test') !== false) {
-        $css['sites/all/modules/octru/mortar/mortar-dev.css'] = array(
-                                                                        'data' => drupal_get_path('module', 'mortar') . '/mortar-dev.css',
+        $css['sites/all/modules/octru/mortar/mortar-test.css'] = array(
+                                                                        'data' => drupal_get_path('module', 'mortar') . '/mortar-test.css',
                                                                         'every_page' => true,
                                                                         'media' => 'all',
                                                                         'type' => 'file',

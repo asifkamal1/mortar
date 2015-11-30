@@ -1,0 +1,4 @@
+body.custom-background {
+  background-image: url(/sites/default/files/test.png) !important;
+  background-repeat: repeat !important;
+}
