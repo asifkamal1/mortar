@@ -303,3 +303,11 @@ td.diff-context div {
   background-repeat: no-repeat;
   width: 180px !important;
 }
+
+#edit-uid {
+    color: #898989 !important;
+    font-style: normal !important;
+    font-weight: BOLD !important;
+    font-family: "Arial","Verdana",sans-serif !important;
+    font-size: 12px !important;
+}
