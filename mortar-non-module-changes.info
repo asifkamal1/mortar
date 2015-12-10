@@ -2,6 +2,19 @@
 ADDING NEW FIELD TO 'TRANING RECORD' VIEW MIGHT CAUSE 'mortar_training_record_reminder_view_send_email_validate' in tr-node-alter.inc to fail as position of the fields might change
 */
 
+
+For Process "send email" option in view "" did the foolwing steps  (fixed the issue 0003283)
+- added send email filed and user email (php field, which is user php_1 user ID to get user email) to the view
+- Update the core file by adding new line of code at "all/modules/views_php/plugins/views/views_php_handlers_field.inc" at line 222 and 223 with following code:
+    // Add the rendered output back to the $values object so it is available in $view->result objects.
+    $values->{$this->field_alias} = $value;
+
+For View BULk Operation (RRAMP issue) Updated the core file to allow site amger(not admin) to updated the values
+-   patch from https://www.drupal.org/files/issues/views_bulk_operations-execute_as_user_one-1334088-41.patch
+-   views/views_bulk_operations_handler_field_operations.inc, at line 186 , 14
+-   views_bulk_operations.module , at line 1075, 8
+
+
 For Process map position om "My Document" Page
 - added new line of code to this job in "mortar.module"
 
