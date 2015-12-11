@@ -2,6 +2,10 @@
 ADDING NEW FIELD TO 'TRANING RECORD' VIEW MIGHT CAUSE 'mortar_training_record_reminder_view_send_email_validate' in tr-node-alter.inc to fail as position of the fields might change
 */
 
+For autocomplete username search in
+- “All-training-record-related-to-sops-report” view the text “Enter a comma separated list of user names” is manually deleted in the core module file
+  “/modules/views/modules/user/views_handlers_filter_user_name_inc”
+
 
 For Process "send email" option in view "" did the foolwing steps  (fixed the issue 0003283)
 - added send email filed and user email (php field, which is user php_1 user ID to get user email) to the view
