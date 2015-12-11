@@ -293,10 +293,6 @@ td.diff-context div {
   font-size: 11px
 }
 
-.description {
-  display: none !important;
-}
-
 .sop-Compulsory {
   background-image: url(/sites/default/files/compulsory.png) !important;
   background-position: left center !important;
