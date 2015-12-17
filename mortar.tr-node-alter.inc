@@ -592,7 +592,7 @@ function mortar_training_record_reminder_view_send_email_validate(&$form, &$form
 function mortar_training_record_all_sop_view_send_email(&$form, &$form_state, $form_id) {
     
     global $user;
-    if(in_array('administrator', $user -> roles)) {
+    if(!in_array('administrator', $user -> roles)) {
         if(isset($form['actions']['submit']['#validate'][0])) {
             $form['actions']['submit']['#validate'][1] = $form['actions']['submit']['#validate'][0];
             $form['actions']['submit']['#validate'][0] = 'mortar_training_record_all_sop_view_send_email_validate';
@@ -607,8 +607,8 @@ function mortar_training_record_all_sop_view_send_email(&$form, &$form_state, $f
         }
        
         $form['mail']['views_send_subject']['#default_value'] =
-                'To do: [views-send:field_training_type] [views-send:field_related_controlled_documen] [views-send:field_controlled_doc_v_number]'; 
-    }dpm($form['mail']['views_send_subject']['#default_value']);
+                'To do: [views-send:field_training_type] [views-send:field_related_controlled_documen] [views-send:field_controlled_doc_v_number]';
+    }
 }
 
 
