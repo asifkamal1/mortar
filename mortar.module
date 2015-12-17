@@ -110,6 +110,11 @@ function mortar_form_alter(&$form, &$form_state, $form_id) {
         mortar_training_record_reminder_view_send_email($form, $form_state, $form_id);
     }
     
+    if($form_id == 'views_form_all_training_record_related_to_sops_report_page' && isset($form['from'])) {
+        //function (for all sop view)
+        mortar_training_record_all_sop_view_send_email($form, $form_state, $form_id);
+    }
+    
     if(($form_id == 'user_profile_form' || $form_id == 'user_register_form') && !in_array('administrator', $user -> roles) && in_array('mortar administrator', $user -> roles)) {
         //function in 
         mortar_user_profile_form_alter($form, $form_state, $form_id, $user);

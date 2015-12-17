@@ -585,3 +585,57 @@ function mortar_training_record_reminder_view_send_email_validate(&$form, &$form
     }
     
 }
+
+/*
+ * For All SOP view 
+ */
+function mortar_training_record_all_sop_view_send_email(&$form, &$form_state, $form_id) {
+    
+    global $user;
+    if(in_array('administrator', $user -> roles)) {
+        if(isset($form['actions']['submit']['#validate'][0])) {
+            $form['actions']['submit']['#validate'][1] = $form['actions']['submit']['#validate'][0];
+            $form['actions']['submit']['#validate'][0] = 'mortar_training_record_all_sop_view_send_email_validate';
+            $form['from']['#access'] = FALSE;
+            $form['to']['#access'] = FALSE;
+            $form['mail']['token']['#access'] = FALSE;
+            $form['additional']['views_send_headers']['#access'] = FALSE;
+            $form['views_send_direct']['#access'] = FALSE;
+            $form['views_send_remember']['#access'] = FALSE;
+            $form['views_send_carbon_copy']['#default_value'] = 0;
+            
+        }
+       
+        $form['mail']['views_send_subject']['#default_value'] =
+                'To do: [views-send:field_training_type] [views-send:field_related_controlled_documen] [views-send:field_controlled_doc_v_number]'; 
+    }dpm($form['mail']['views_send_subject']['#default_value']);
+}
+
+
+/*
+ * For All SOP view 
+ */
+function mortar_training_record_all_sop_view_send_email_validate(&$form, &$form_state, $form_id ='') {
+    
+    global $user;
+    global $base_url;
+    
+    $account = user_load($user -> uid);
+    
+    $form_state['values']['views_send_from_name'] = $account -> field_first_name['und'][0]['value'] . ' ' . $account -> field_last_name['und'][0]['value'];
+    $form_state['values']['views_send_from_mail'] = $account -> mail;
+    
+    if (strpos($base_url,'dev') !== false) {   
+        //DEV setup
+        $form_state['values']['views_send_to_name'] = 'field_first_name_pos_2';
+        $form_state['values']['views_send_to_mail'] = 'views_php_5_pos_5';
+        $form_state['values']['views_send_direct'] = 1;
+    }
+    else {
+        //LIVE SETUP
+        $form_state['values']['views_send_to_name'] = 'field_first_name_pos_2';
+        $form_state['values']['views_send_to_mail'] = 'views_php_5_pos_5';
+        $form_state['values']['views_send_direct'] = 1;
+    }
+    
+}

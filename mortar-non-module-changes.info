@@ -2,6 +2,13 @@
 ADDING NEW FIELD TO 'TRANING RECORD' VIEW MIGHT CAUSE 'mortar_training_record_reminder_view_send_email_validate' in tr-node-alter.inc to fail as position of the fields might change
 */
 
+
+For removing the descrition ""
+- edit the core file at "/views//modules/taxonomy/views_handler_filter_term_node_tid.inc b/modules/taxonomy/views_handler_filter_term_node_tid.inc"
+    - '#description' => t('Leave blank for all. Otherwise, the first selected term will be the default instead of "Any".'), 197, 7 (removed)
+    +
+    + $form['value']['#description'] = t('Leave blank for all. Otherwise, the first selected term will be the default instead of "Any".'); added at 207, 8
+
 For autocomplete username search in
 - “All-training-record-related-to-sops-report” view the text “Enter a comma separated list of user names” is manually deleted in the core module file
   “/modules/views/modules/user/views_handlers_filter_user_name_inc”
@@ -15,8 +22,8 @@ For Process "send email" option in view "" did the foolwing steps  (fixed the is
 
 For View BULk Operation (RRAMP issue) Updated the core file to allow site amger(not admin) to updated the values
 -   patch from https://www.drupal.org/files/issues/views_bulk_operations-execute_as_user_one-1334088-41.patch
--   views/views_bulk_operations_handler_field_operations.inc, at line 186 , 14
--   views_bulk_operations.module , at line 1075, 8
+-   /views_bulk_operations/views/views_bulk_operations_handler_field_operations.inc, at line 186 , 14
+-   /views_bulk_operations/views_bulk_operations.module , at line 1075, 8
 
 
 For Process map position om "My Document" Page
