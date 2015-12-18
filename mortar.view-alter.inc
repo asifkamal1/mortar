@@ -252,7 +252,7 @@ function mortar_views_tr_related_cd_report($user_uid, $recieved_nid, $related_cd
             //$cd_related_control_doc = node_load($node->field_related_controlled_documen['und'][0]['target_id']);
 
              //if the Recvied NID is equall to the NID og the TR related document also the active version need to be same to the related control doc version number of the user TR record (as we looking for active CD) finally need exclude all the TR which are Superseded
-            if((($node->field_related_controlled_documen['und'][0]['target_id'] == $recieved_nid) && ($node->field_controlled_doc_v_number['und'][0]['target_id'] == $active_version)) && ($node->field_training_status['und'][0]['target_id'] !== '211')) {
+            if(((isset($node->field_related_controlled_documen['und'][0]['target_id']) && $node->field_related_controlled_documen['und'][0]['target_id'] == $recieved_nid) && (isset($node->field_controlled_doc_v_number['und'][0]['target_id']) && $node->field_controlled_doc_v_number['und'][0]['target_id'] == $active_version)) && (isset($node->field_training_status['und'][0]['target_id']) && $node->field_training_status['und'][0]['target_id'] !== '211')) {
                 $values[0] = $node->field_training_status;
                 $values[1] = "Assigned";
                 $values[2] = "$nid"; 

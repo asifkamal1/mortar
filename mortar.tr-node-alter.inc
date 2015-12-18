@@ -607,7 +607,7 @@ function mortar_training_record_all_sop_view_send_email(&$form, &$form_state, $f
         }
        
         $form['mail']['views_send_subject']['#default_value'] =
-                'To do: [views-send:field_training_type] [views-send:field_related_controlled_documen] [views-send:field_controlled_doc_v_number]';
+                'To do: [views-send:field_controlled_doc_attributes] [views-send:title] [views-send:field_active_version_number]';
     }
 }
 
