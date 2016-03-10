@@ -661,7 +661,7 @@ function mortar_training_record_all_sop_view_send_email(&$form, &$form_state, $f
                         
                         $node = node_submit($node);
                         node_save($node);
-                        drupal_set_message(t('Controlled Document, ' . $node_laod -> title . ' - '. $node_laod -> field_title['und'][0]['value'] . ' added to '. $user_account -> name.' Training Record'), 'status');
+                        drupal_set_message(t('Controlled Document, ' . $node_laod -> title . ' - '. $node_laod -> field_title['und'][0]['value'] . ' added to Training Record for '. $user_account -> name.' '), 'status');
                 }
             }
         }
