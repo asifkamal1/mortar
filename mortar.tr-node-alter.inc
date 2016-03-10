@@ -608,9 +608,64 @@ function mortar_training_record_all_sop_view_send_email(&$form, &$form_state, $f
        
         $form['mail']['views_send_subject']['#default_value'] =
                 'To do: [views-send:field_controlled_doc_attributes] [views-send:title] [views-send:field_active_version_number]';
+                
+        $message = "Dear  ,\r\n";
+        $message .= "New Training Request has been added to your account. Please navigate to\r\n";
+        $message .= "http://mortar.octru.ox.ac.uk/user \r\n";
+        $message .= "to undertake your training and complete training requirement(s). \r\n";
+        $message .= "Thanks,\n -- \n MORTAR";
+        
+        $form['mail']['views_send_message']['#default_value'] = $message;       
+    }
+    
+    /*
+     * Check the selected SOP if  not assigned to user , can assign to user's trainging records
+     */
+    $values =& $form_state['values'];
+    $view = $form_state['build_info']['args'][0];
+
+    if(isset($form_state['input']['op']) && ($form_state['input']['op'] == 'Next')) {
+        if (!empty($values['views_send_to_mail'])) {
+            $to_mail_field = $values['views_send_tokens'][$values['views_send_to_mail']];
+            
+            $title = $values['views_send_tokens']['node_title_pos_1'];
+            $version = $values['views_send_tokens']['field_active_version_number_pos_3'];
+            $uid = $values['views_send_tokens']['views_php_4_pos_4'];
+            $status = $values['views_send_tokens']['views_php_6_pos_6'];
+            
+            foreach ($form_state['selection'] as $row_id) {
+                $user_mail = $view->style_plugin->get_field_value($row_id, $to_mail_field);
+                $sop_title = $view->style_plugin->get_field_value($row_id, $title);
+                $sop_version = $view->style_plugin->get_field_value($row_id, $version);
+                $user_uid= $view->style_plugin->get_field_value($row_id, $uid);
+                $tr_status = $view->style_plugin->get_field_value($row_id, $status);
+                $user_account = user_load($user_uid);
+                              
+                $cd_nid= db_query('SELECT nid FROM {node} WHERE title = :mytitle', array(':mytitle' => $sop_title))->fetchField();
+                $node_laod = node_load($cd_nid);
+
+                if($tr_status === "Not-assigned") {                      
+                        $node = new stdClass(); // We create a new node object
+                        $node -> type = "training_record"; // Or any other content type you want
+                        $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled.
+                        
+                        node_object_prepare($node); // Set some default values.
+                        
+                        $node -> uid = 1; // Or any id you wish
+                        $node -> field_training_type[$node->language][0]['target_id'] = 24;
+                        $node -> field_related_controlled_documen[$node->language][0]['target_id'] = $cd_nid;
+                        $node -> field_training_status[$node->language][0]['target_id'] = 34;
+                        $node -> field_controlled_doc_v_number[$node->language][0]['target_id'] = $node_laod -> field_active_version_number['und'][0]['tid'];
+                        $node -> field_trainee[$node->language][0]['target_id'] = $user_uid;
+                        
+                        $node = node_submit($node);
+                        node_save($node);
+                        drupal_set_message(t('Controlled Document, ' . $node_laod -> title . ' - '. $node_laod -> field_title['und'][0]['value'] . ' added to '. $user_account -> name.' Training Record'), 'status');
+                }
+            }
+        }
     }
 }
-
 
 /*
  * For All SOP view 
