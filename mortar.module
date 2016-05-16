@@ -326,7 +326,7 @@ function mortar_cd_process_setup($node, $view_mode, $langcode) {
                 <area alt="" title="" href="/controlled-doc/sop/gen-031" shape="rect" coords="846,376,915,451" />
                 <area alt="" title="" href="/controlled-doc/sop/gen-038" shape="rect" coords="785,470,906,519" />
                 <area alt="" title="" href="/controlled-doc/sop/gen-049" shape="rect" coords="774,529,897,578" />
-                <area alt="" title="" href="/controlled-doc/sop/its-002" shape="rect" coords="777,595,912,658" />
+                <area alt="" title="" href="/controlled-doc/sop/its-001" shape="rect" coords="777,595,912,658" />
                 
             </map>
 	
