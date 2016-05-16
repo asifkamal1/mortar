@@ -248,7 +248,7 @@ function mortar_cd_process_setup($node, $view_mode, $langcode) {
             <img src="/sites/default/files/new_process_map.png" alt="process map" class="map" usemap="#ImageMap" />
             <map name="ImageMap">
             
-                
+                <area alt="" title="" href="/controlled-doc/form/004" shape="rect" coords="27,67,161,124" />
                 <area alt="" title="" href="/controlled-doc/sop/gen-004" shape="rect" coords="221,59,347,118" />
                 
                 <area alt="" title="" href="/controlled-doc/sop/gen-005" shape="rect" coords="21,209,115,268" />
