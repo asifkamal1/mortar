@@ -160,7 +160,7 @@ function mortar_has_training_record($trainee_id, $training_type, $training_name,
     }
     else {
         //needs review
-        if($training_type == 25 || $training_type == 47 || $training_type == 46 || $training_type == 48 || $training_type == 49 || $training_type == 56) { //Other type
+        if($training_type == 25 || $training_type == 47 || $training_type == 46 || $training_type == 48 || $training_type == 49 || $training_type == 56 || $training_type == 223) { //Other type
             /*
             $training_object = new EntityFieldQuery();
             $training = $training_object

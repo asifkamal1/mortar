@@ -414,8 +414,8 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
             
             if($training_type == 25 || $training_type == 47 || $training_type == 46 ||
                $training_type == 48 || $training_type == 49 || $training_type == 56 ||
-               $training_type == 94)
-            { // 25, 47, 46, 48, 49, 56
+               $training_type == 94 || $training_type == 223)
+            { // 25, 47, 46, 48, 49, 56, 94, 223(online training)
                 $training_name = $form_state['values']['field_training_details']['und'][0]['value'];
             }
             
