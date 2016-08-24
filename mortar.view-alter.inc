@@ -507,6 +507,13 @@ function mortar_views_query_alter(&$view, &$query) {
             }
         }
     }
+    
+    if ($view->name == "individual_all_training_record_related_to_sops_report") {
+                global $user;
+                $supplied_user = $user -> uid;
+                //change the vlaue of PHP field with the supplied user ID in the filter that can be use in the other PHP field to get the user TR record related to current SOP
+                $view->display_handler->handlers['field']['php_1']->options['php_output']   = '<?php echo '. $supplied_user .'; ?>';
+    }
 }
 
 
