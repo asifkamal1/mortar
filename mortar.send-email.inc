@@ -12,6 +12,10 @@ function mortar_send_controlled_document_for_approval(&$form, &$form_state, $for
         $error = TRUE;
     }
     
+    if($form_state['values']['mortar_field_notify_administrator_authorised'] == 1 ) {
+        $error = TRUE;
+    }
+    
     if($form_state['values']['mortar_field_notify_administrator'] == 0) {
         $error = TRUE;
     }
@@ -46,6 +50,91 @@ function mortar_send_controlled_document_for_approval(&$form, &$form_state, $for
     $administrators_email = $administrator -> mail;
     
     $administrator = user_load(114); //QAA
+    $administrators_email = $administrators_email . ',' . $administrator -> mail;
+    
+    $headers = 'From: OCTRU MORTAR <octrutrialshub@ndorms.ox.ac.uk>';
+    $message = '';
+    
+    if($form_state['values']['mortar_field_message']!='') {
+        $author_message = 'Message sent by '. $logged_user . ": \r\n" . $form_state['values']['mortar_field_message'] . "\r\n";
+    }
+    
+
+    $message = "Dear MORTAR Administrators ,\r\n";
+    $message .= 'SOP ' . $controlled_document_title . "(". $controlled_document_id .") has been submitted for authorisation by ". $logged_user .". \r\n";
+    $message .= "Please navigate to \r\n";
+    $message .= 'http://mortar.octru.ox.ac.uk/'. $controlled_document_address ."\r\n";
+    $message .= "to review the SOP. \r\n";
+    
+    if(isset($author_message)) {
+        $message .= $author_message;
+    }
+    
+    $message .= "Thanks,\n -- \n MORTAR";
+    
+    mail($administrators_email, $controlled_document_id . ' submitted for authorisation.', $message, $headers);
+    drupal_set_message(t('Email successfully sent to the MORTAR administrators.'), 'status');
+    
+    if(isset($author_message)) {
+        watchdog("Review email", "Email successfully sent to the MORTAR administrators. Controlled Document: <pre>" . $controlled_document_id . "</pre>");
+    }
+    else {
+        watchdog("Review email", "Email successfully sent to the MORTAR administrators. Message: <pre>" . $author_message . "</pre> Controlled Document: <pre>" . $controlled_document_id . "</pre>");
+    }
+}
+
+/*
+ *This function runs after 'function mortar_send_reviewer_notification'.
+ *If 
+ */
+function mortar_send_controlled_document_for_authorised(&$form, &$form_state, $form_id = 'controlled_document_node_form') {
+    
+    $error = FALSE;
+    
+    if($form_state['values']['mortar_field_notify_reviewer'] == 1) {
+        $error = TRUE;
+    }
+    
+    
+    if($form_state['values']['mortar_field_notify_administrator'] == 1 ) {
+        $error = TRUE;
+    }
+    
+
+    if($form_state['values']['mortar_field_notify_administrator_authorised'] == 0) {
+        $error = TRUE;
+    }
+    
+    
+    if($error) {
+        return;
+    }
+    
+    $controlled_document_node = node_load($form_state['nid']);
+    
+    if($form_state['values']['field_status']['und'][0]['target_id'] == 6) {
+        $controlled_document_node -> field_status['und'][0]['target_id'] = 13;
+    }
+    else {
+        $controlled_document_node -> field_status['und'][0]['target_id'] = 41;
+    }
+    
+    node_save($controlled_document_node);
+    
+    global $user;
+    
+    $logged_user = $user -> name;
+    $controlled_document_node = node_load($form_state['nid']);
+    
+    $controlled_document_address = drupal_get_path_alias('node/' . $controlled_document_node -> nid);
+    $controlled_document_id = $controlled_document_node -> title;
+    $controlled_document_title = $controlled_document_node -> field_title['und'][0]['value'];
+    $controlled_document_author_id = $controlled_document_node -> uid;
+    
+    $administrator = user_load(4); //Joanna Black - 4 |113 - HoRAQ //NEEDS CHANGING
+    $administrators_email = $administrator -> mail;
+    dpm($administrators_email);
+    $administrator = user_load(10); // Vicki Barber
     $administrators_email = $administrators_email . ',' . $administrator -> mail;
     
     $headers = 'From: OCTRU MORTAR <octrutrialshub@ndorms.ox.ac.uk>';
@@ -143,6 +232,10 @@ function mortar_send_reviewer_notification(&$form, &$form_state, $form_id = 'con
     $error = FALSE;
     
     if($form_state['values']['mortar_field_notify_administrator'] == 1 ) {
+        $error = TRUE;
+    }
+    
+    if($form_state['values']['mortar_field_notify_administrator_authorised'] == 1 ) {
         $error = TRUE;
     }
     
