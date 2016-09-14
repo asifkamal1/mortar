@@ -359,7 +359,7 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
             
         $form['mortar_fieldset_notify_author_authorised_fail'] = array(
             '#type' => 'fieldset',
-            '#title' => 'SOP Authorisation Failed',
+            '#title' => 'SOP Authorisation',
             '#weight' => 12,
             '#collapsible' => TRUE,
             '#collapsed' => TRUE,
@@ -376,8 +376,19 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
             '#weight' => 12,
         );
         
+        $form['mortar_fieldset_notify_author_authorised_fail']['mortar_field_notify_author_authorised_pass'] = array(
+            '#title' => t('Send Controlled Document to author as the Authorisation Pass'),
+            '#description' => t('If this is checked and Controlled Document is saved,
+                                author will be notified by email that the Controlled Document
+                                pass the authorisation process and it is sent back to Document Under Review section ready to be issue.'),
+            '#type' => 'checkbox',
+            '#options' => t('Enable'),
+            '#weight' => 12,
+        );
+        
         
         $form['actions']['submit']['#submit'][] = 'mortar_send_controlled_document_authorisation_outcome_fail';
+        $form['actions']['submit']['#submit'][] = 'mortar_send_controlled_document_authorisation_outcome_pass';
     
     } 
     
@@ -498,14 +509,33 @@ function mortar_validate_controlled_document(&$form, &$form_state, $form_id = 'c
         }
         
         if($form_state['values']['mortar_field_notify_author'] == 1 && $form_state['values']['mortar_field_notify_author_authorised_fail'] == 1) {
-            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for approval and send the authorisation outcome at the same time -
+            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for approval and send the authorisation failed outcome at the same time -
                              please make sure that you select only one of these options.')
                            );
         }
         
         
         if($form_state['values']['mortar_field_notify_author_authorised_fail'] == 1 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 1) {
-            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for compliance review and send the authorisation outcome at the same time -
+            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for compliance review and send the authorisation failed outcome at the same time -
+                             please make sure that you select only one of these options.')
+                           );
+        }
+        
+        if($form_state['values']['mortar_field_notify_author'] == 1 && $form_state['values']['mortar_field_notify_author_authorised_pass'] == 1) {
+            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for approval and send the authorisation pass outcome at the same time -
+                             please make sure that you select only one of these options.')
+                           );
+        }
+        
+        
+        if($form_state['values']['mortar_field_notify_author_authorised_pass'] == 1 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 1) {
+            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for compliance review and send the authorisation pass outcome at the same time -
+                             please make sure that you select only one of these options.')
+                           );
+        }
+        
+        if($form_state['values']['mortar_field_notify_author_authorised_pass'] == 1 && $form_state['values']['mortar_field_notify_author_authorised_fail'] == 1) {
+            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP authorisation pass outcome  and send the authorisation failed outcome at the same time -
                              please make sure that you select only one of these options.')
                            );
         }
