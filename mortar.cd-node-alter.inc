@@ -496,9 +496,12 @@ function mortar_validate_controlled_document(&$form, &$form_state, $form_id = 'c
     
     if(isset($form_state['values']['mortar_field_notify_author'])) {
         if($form_state['values']['mortar_field_message']!='' && $form_state['values']['mortar_field_notify_author'] == 0
-           && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 0) {
+           && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 0 && $form_state['values']['mortar_field_notify_author_authorised_fail'] == 0
+           && $form_state['values']['mortar_field_notify_author_authorised_pass'] == 0) {
             form_set_error('mortar_field_notify_reviewer', t('If you wish to send an email please choose at least one receiver by selecting
-                                                             "Send Controlled Document approval response" or "Send Controlled Document for compliance review" checkbox.')
+                                                             "Send Controlled Document approval response" or "Send Controlled Document for compliance review"
+                                                             or "Send Controlled Document to author as the Authorisation Failed"
+                                                             or "Send Controlled Document to author as the Authorisation Pass" checkbox.')
                            );
         }
         

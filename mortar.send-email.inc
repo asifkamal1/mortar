@@ -177,7 +177,7 @@ function mortar_send_controlled_document_authorisation_outcome_fail(&$form, &$fo
     
     if($form_state['values']['mortar_field_notify_author_authorised_fail'] == 0) {
         drupal_set_message(t('Email notification has NOT been sent. If you wish to send an email please choose receiver by selecting
-                                "Send Controlled Document to author as the Authorisation Failed" or "Send Controlled Document to author as the Authorisation Pass.'), 'warning');
+                                "Send Controlled Document to author as the Authorisation Failed".'), 'warning');
         $error = TRUE;
     }
     
@@ -249,7 +249,7 @@ function mortar_send_controlled_document_authorisation_outcome_pass(&$form, &$fo
     
     if($form_state['values']['mortar_field_notify_author_authorised_pass'] == 0) {
         drupal_set_message(t('Email notification has NOT been sent. If you wish to send an email please choose receiver by selecting
-                                "Send Controlled Document to author as the Authorisation Failed" or "Send Controlled Document to author as the Authorisation Pass.'), 'warning');
+                             "Send Controlled Document to author as the Authorisation Pass.'), 'warning');
         $error = TRUE;
     }
     
