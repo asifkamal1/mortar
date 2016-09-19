@@ -199,6 +199,7 @@ function mortar_training_record_main_form_user_connect(&$form, &$form_state, $fo
         $form['revision_information']['#access'] = FALSE;
         $form['actions']['submit']['#value'] = 'Add Training Requests';
         $form['field_trainee']['#access'] = FALSE;
+        $form['field_controlled_document_title']['#access'] = FALSE;
         
         $form['mortar_field_no_email'] =
         array(
@@ -279,6 +280,7 @@ function mortar_training_record_controlled_doc_user_connect(&$form, &$form_state
     $training_type = 24;
     $controlled_doc_id = $node_load -> nid;
     $controlled_doc_v = $node_load -> field_active_version_number['und'][0]['tid'];
+    $controlled_doc_title = $node_laod -> field_title['und'][0]['value'];
     
     $has_training = mortar_has_training_record($trainee_id, $training_type, $training_name = NULL, $controlled_doc_id, $controlled_doc_v);
     
@@ -295,6 +297,7 @@ function mortar_training_record_controlled_doc_user_connect(&$form, &$form_state
         $node -> field_related_controlled_documen[$node->language][0]['target_id'] = $controlled_doc_id;
         $node -> field_training_status[$node->language][0]['target_id'] = 33;
         $node -> field_controlled_doc_v_number[$node->language][0]['target_id'] = $controlled_doc_v;
+        $node -> field_controlled_document_title[$node->language][0]['value'] = $node_laod -> field_title['und'][0]['value'];
         $node -> field_trainee[$node->language][0]['target_id'] = $trainee_id;
         $node -> field_date_completed[$node->language][0]['value']['date'] = date("Y-m-j H:i:s");
         
@@ -356,6 +359,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
                 $training_type = $form_state['values']['field_training_type']['und'][0]['target_id'];
                 $controlled_doc_id = $controlled_doc['target_id'];
                 $controlled_doc_v = $node_laod -> field_active_version_number['und'][0]['tid'];
+                $controlled_doc_title = $node_laod -> field_title['und'][0]['value'];
                 $trainging_message = $form_state['values']['field_add_message']['und'][0]['value']; // Add a new message box - asif kamal
                 
                 $has_training = mortar_has_training_record($trainee_id, $training_type, $training_name = NULL, $controlled_doc_id, $controlled_doc_v);
@@ -377,6 +381,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
                     $node -> field_controlled_doc_v_number[$node->language][0]['target_id'] = $node_laod -> field_active_version_number['und'][0]['tid'];
                     $node -> field_trainee[$node->language][0]['target_id'] = $trainee['target_id'];
                     $node -> field_add_message[$node->language][0]['value'] = $trainging_message; // Add a new message box - asif kamal
+                    $node -> field_controlled_document_title[$node->language][0]['value'] = $node_laod -> field_title['und'][0]['value'];
                     
                     $node = node_submit($node);
                     node_save($node);
@@ -409,6 +414,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
             $training_type = $form_state['values']['field_training_type']['und'][0]['target_id'];
             $controlled_doc_id = NULL;
             $controlled_doc_v = NULL;
+            $controlled_doc_title = NULL;
             $training_name = NULL;
             $trainging_message = $form_state['values']['field_add_message']['und'][0]['value']; // Add a new message box - asif kamal
             
@@ -657,6 +663,7 @@ function mortar_training_record_all_sop_view_send_email(&$form, &$form_state, $f
                         $node -> field_related_controlled_documen[$node->language][0]['target_id'] = $cd_nid;
                         $node -> field_training_status[$node->language][0]['target_id'] = 34;
                         $node -> field_controlled_doc_v_number[$node->language][0]['target_id'] = $node_laod -> field_active_version_number['und'][0]['tid'];
+                        $node -> field_controlled_document_title[$node->language][0]['value'] = $node_laod -> field_title['und'][0]['value'];
                         $node -> field_trainee[$node->language][0]['target_id'] = $user_uid;
                         
                         $node = node_submit($node);
