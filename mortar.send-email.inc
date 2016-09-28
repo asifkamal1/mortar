@@ -134,7 +134,15 @@ function mortar_send_controlled_document_for_authorised(&$form, &$form_state, $f
     $administrator = user_load(113); //Joanna Black - 4 |113 - HoRAQ //NEEDS CHANGING
     $administrators_email = $administrator -> mail;
     
-    $administrator = user_load(10); // Vicki Barber
+    global $base_url;
+    
+    if (strpos($base_url,'test') !== false) {
+         $administrator = user_load(907); // Vicki Barber - 10 | OCTRU Hub Manager - test site(907)
+    }
+    else {
+         $administrator = user_load(947); // Vicki Barber - 10 | OCTRU Hub Manager - live site(947)
+    }
+   
     $administrators_email = $administrators_email . ',' . $administrator -> mail;
     
     $headers = 'From: OCTRU MORTAR <octrutrialshub@ndorms.ox.ac.uk>';
