@@ -91,6 +91,7 @@ function mortar_training_record_user_form_user_connect(&$form, &$form_state, $fo
     $form['field_multiple_trainees']['#access'] = FALSE;
     $form['field_multi_related_contr_doc']['#access'] = FALSE;
     $form['field_trainee']['#access'] = FALSE;
+    $form['field_controlled_document_title']['#access']  = FALSE;
     
     //add validation handler
     //function in tr-node-alter.inc
@@ -128,6 +129,7 @@ function mortar_training_record_controlled_doc_form_user_connect(&$form, &$form_
     $form['field_multi_related_contr_doc']['#access'] = FALSE;
     $form['actions']['submit']['#value'] = 'Add to my Training Record';
     $form['field_trainee']['#access'] = FALSE;
+    $form['field_controlled_document_title']['#access']  = FALSE;
     
     #$form['#validate'][] = 'mortar_training_record_controlled_doc_user_connect';
     
