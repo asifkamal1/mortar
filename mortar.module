@@ -241,6 +241,19 @@ function mortar_node_revision_access($node, $op = 'view') {
 
 
 /*
+ * Implements hook_presave_alter().
+ */
+function mortar_node_presave($node){
+    if(isset($node->log) && !empty($node->log)){
+        $tid = $node->field_review_version_number['und'][0]['tid'];
+        $term = taxonomy_term_load($tid);
+        $name = $term->name;
+        $node->log = 'Review Version Number ('.$name.') - '.$node->log;
+    }
+}
+
+
+/*
  * Including Process map using html5 map and for highlighting each image on hover event with maphighlight.js file.
 */
 function mortar_cd_process_setup($node, $view_mode, $langcode) {
