@@ -241,7 +241,7 @@ function mortar_node_revision_access($node, $op = 'view') {
 
 
 /*
- * Implements hook_presave_alter().
+ * Implements hook_node_presave().
  */
 function mortar_node_presave($node){
     if(isset($node->log) && !empty($node->log)){
