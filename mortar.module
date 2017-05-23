@@ -261,111 +261,117 @@ function mortar_cd_process_setup($node, $view_mode, $langcode) {
             <img src="/sites/default/files/new_process_map.png" alt="process map" class="map" usemap="#ImageMap" />
             <map name="ImageMap">
             
-                <area alt="" title="" href="/controlled-doc/form/004" shape="rect" coords="27,67,161,124" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-004" shape="rect" coords="221,59,347,118" />
-                
-                
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-005" shape="poly" coords="21,210,22,268,52,273,112,261,114,209" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-030" shape="poly" coords="21,281,22,339,52,340,97,328,96,277" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-034" shape="poly" coords="23,347,23,406,53,411,88,402,117,399,116,345" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-052" shape="poly" coords="130,210,130,268,169,270,202,262,231,259,231,210" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-018" shape="poly" coords="140,277,139,395,163,405,188,390,200,383,218,379,216,277" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-010" shape="poly" coords="260,173,261,226,294,229,321,221,345,219,343,173" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-011" shape="poly" coords="253,237,253,289,288,292,320,282,342,279,341,235" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-013" shape="poly" coords="258,299,259,356,287,358,318,348,331,346,332,300" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-036" shape="poly" coords="258,366,260,403,282,407,334,396,333,365" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/dm-001" shape="poly" coords="355,177,358,208,383,211,421,205,445,205,442,177" />
-                <area alt="" title="" href="/controlled-doc/sop/dm-002" shape="poly" coords="353,217,353,267,375,271,403,263,430,258,429,217" />
-                <area alt="" title="" href="/controlled-doc/sop/dm-003" shape="poly" coords="352,277,354,331,381,334,425,320,424,277" />
-                <area alt="" title="" href="/controlled-doc/sop/dm-005" shape="poly" coords="338,340,338,406,367,411,407,402,441,393,440,338" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/dm-004" shape="poly" coords="458,179,456,229,479,234,512,226,544,221,544,178" />
-                <area alt="" title="" href="/controlled-doc/sop/dm-006" shape="poly" coords="453,236,454,270,472,273,504,266,524,264,524,237" />
-                <area alt="" title="" href="/controlled-doc/sop/stats-002" shape="poly" coords="448,280,451,334,484,339,522,329,557,324,558,278" />
-                <area alt="" title="" href="/controlled-doc/sop/stats-001" shape="poly" coords="448,345,448,400,465,407,489,396,509,393,508,345" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/dm-008" shape="poly" coords="557,177,557,217,578,222,616,211,637,211,640,177" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-016" shape="poly" coords="565,230,566,274,589,280,617,271,635,269,639,229" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-017" shape="poly" coords="594,290,594,339,616,345,648,336,672,332,673,288" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-039" shape="poly" coords="522,347,519,401,541,406,572,398,597,392,597,348" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-029" shape="poly" coords="673,157,673,195,696,198,730,193,749,189,750,155" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-051" shape="poly" coords="652,210,654,258,687,262,714,255,734,249,751,249,748,206" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-037" shape="poly" coords="609,352,607,392,630,395,663,390,684,387,679,353" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-019" shape="poly" coords="689,354,690,399,703,404,727,398,753,393,754,357" />
-                
-                
-                
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-027" shape="poly" coords="7,423,10,472,44,478,69,468,97,463,95,423" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-029" shape="poly" coords="76,470,77,505,104,507,153,497,151,470" />
-                <area alt="" title="" href="/controlled-doc/sop/dm-009" shape="poly" coords="11,510,10,554,30,556,65,553,101,545,102,510" />
-                <area alt="" title="" href="/controlled-doc/sop/stats-003" shape="poly" coords="16,561,16,612,53,616,83,608,113,604,109,561" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-028" shape="poly" coords="101,424,100,458,123,462,155,457,180,454,181,423" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-032" shape="poly" coords="154,466,152,503,180,502,224,497,252,498,251,468" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-010" shape="poly" coords="115,512,116,557,149,562,182,556,202,553,202,510" />
-                <area alt="" title="" href="/controlled-doc/sop/stats-006" shape="poly" coords="135,569,135,615,175,616,209,608,231,606,227,572" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/stats-000" shape="poly" coords="190,423,191,460,221,462,259,458,303,456,303,424" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-035" shape="poly" coords="253,483,254,519,283,520,313,513,332,512,330,482" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-023" shape="poly" coords="210,523,210,564,244,565,274,556,295,556,296,522" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-042" shape="poly" coords="234,569,235,613,263,615,292,609,317,606,318,569" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-011" shape="poly" coords="309,420,312,471,352,474,382,465,399,464,400,419" />
-                <area alt="" title="" href="/controlled-doc/sop/dm-007" shape="poly" coords="336,483,335,519,374,522,408,513,434,513,431,484" />
-                <area alt="" title="" href="/controlled-doc/sop/its-000" shape="poly" coords="308,526,307,559,343,563,405,555,407,526" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-054" shape="poly" coords="321,567,320,613,351,616,380,608,398,608,397,566" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-033" shape="poly" coords="406,421,409,474,445,476,483,467,483,420" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-022" shape="poly" coords="438,487,441,541,464,547,496,538,514,534,515,489" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-012" shape="poly" coords="414,559,415,612,440,616,464,609,494,604,491,559" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-014" shape="poly" coords="491,421,490,478,515,479,545,466,564,466,562,420" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-015" shape="poly" coords="523,487,523,542,552,543,578,535,605,535,603,489" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-043" shape="poly" coords="499,557,498,616,524,619,551,608,564,607,562,558" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/stats-004" shape="poly" coords="573,421,571,477,605,481,629,471,661,468,663,423" />
-                <area alt="" title="" href="/controlled-doc/sop/dm-010" shape="poly" coords="614,483,610,524,611,532,634,535,651,528,667,521,678,522,677,485" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-020" shape="poly" coords="566,552,566,608,578,611,596,607,605,602,615,599,618,598,618,554" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-025" shape="poly" coords="670,423,668,467,706,471,736,464,762,460,764,425" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-026" shape="poly" coords="682,471,682,530,715,536,743,527,761,524,758,474" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-024" shape="poly" coords="620,539,620,616,640,620,669,612,696,603,695,540" />
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-040" shape="poly" coords="700,539,703,612,727,621,751,604,761,604,762,538" />
-                
-                
-                
-                
-                <area alt="" title="" href="/controlled-doc/sop/gen-045" shape="rect" coords="11,631,88,687" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-044" shape="rect" coords="92,631,187,685" />
-                <area alt="" title="" href="/controlled-doc/sop/dm-011" shape="rect" coords="194,633,277,684" />
-                <area alt="" title="" href="/controlled-doc/sop/stats-005" shape="rect" coords="283,633,380,682" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-046" shape="rect" coords="382,632,480,683" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-048" shape="rect" coords="485,633,573,683" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-047" shape="rect" coords="579,632,673,687" />
-                <area alt="" title="" href="/controlled-doc/sop/gen-050" shape="rect" coords="679,631,761,686" />
-                
-
-                <area alt="" title="001" href="/controlled-doc/sop/gen-001" shape="poly" coords="788,38,787,82,903,78,901,36" />
-                <area alt="" title="002" href="/controlled-doc/sop/gen-002" shape="poly" coords="777,90,778,149,847,148,846,90" />
-                <area alt="" title="008" href="/controlled-doc/sop/gen-008" shape="poly" coords="854,87,855,147,922,146,923,89" />
-                <area alt="" title="003" href="/controlled-doc/sop/gen-003" shape="poly" coords="772,156,773,214,855,211,851,156" />
-                <area alt="" title="006" href="/controlled-doc/sop/gen-006" shape="poly" coords="860,161,861,224,917,220,918,157" />
-                <area alt="" title="009" href="/controlled-doc/sop/gen-009" shape="poly" coords="778,224,777,288,837,283,839,223" />
-                <area alt="" title="055" href="/controlled-doc/sop/gen-055" shape="poly" coords="849,227,847,319,919,314,919,227" />
-                <area alt="" title="007" href="/controlled-doc/sop/gen-007" shape="poly" coords="780,330,779,390,892,388,893,329" />
-                <area alt="" title="021" href="/controlled-doc/sop/gen-021" shape="poly" coords="779,399,779,481,842,477,842,400" />
-                <area alt="" title="031" href="/controlled-doc/sop/gen-031" shape="poly" coords="849,402,848,476,917,473,919,400" />
-                <area alt="" title="038" href="/controlled-doc/sop/gen-038" shape="poly" coords="779,487,778,534,898,533,897,487" />
-                <area alt="" title="049" href="/controlled-doc/sop/gen-049" shape="poly" coords="777,542,776,595,897,593,899,542" />
-                <area alt="" title="Its-001 - Its-009" href="/controlled-doc/sop/its-001" shape="poly" coords="774,605,774,674,910,669,909,603" />
+                    <area alt="" title="of-004" href="/controlled-doc/form/004" shape="poly" coords="28,69,30,125,164,122,162,68" />
+                    <area alt="" title="gen-004" href="/controlled-doc/sop/gen-004" shape="poly" coords="223,62,225,121,349,116,346,61" />
+                    <area alt="" title="gen-309" href="/controlled-doc/sop/gen-039" shape="poly" coords="651,61,653,120,730,118,729,62" />
+                    
+                    
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-005" shape="poly" coords="12,209,105,210,104,260,13,268" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-052" shape="poly" coords="121,208,122,263,221,253,222,208" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-010" shape="poly" coords="262,174,261,229,346,225,345,174" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-001" shape="poly" coords="357,179,359,211,445,210,445,178" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-004" shape="poly" coords="458,177,458,232,545,226,544,178" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-008" shape="poly" coords="558,178,560,222,639,216,638,180" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-051" shape="poly" coords="651,178,653,231,752,225,753,180" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-030" shape="poly" coords="11,281,11,325,87,324,90,281" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-029" shape="poly" coords="101,265,101,313,179,301,178,264" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-011" shape="poly" coords="255,239,342,237,343,283,254,293" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-002" shape="poly" coords="353,217,353,269,429,263,431,216" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-006" shape="poly" coords="455,238,457,271,526,269,527,234" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-016" shape="poly" coords="566,230,564,279,639,273,640,231" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-034" shape="poly" coords="27,338,28,402,125,393,125,340" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-035" shape="poly" coords="163,309,167,354,238,349,240,309" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-013" shape="poly" coords="261,299,261,358,331,356,335,298" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-003" shape="poly" coords="356,276,356,330,426,328,428,277" />
+                    <area alt="" title="" href="/controlled-doc/sop/stats-002" shape="poly" coords="453,282,452,332,558,333,557,279" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-017" shape="poly" coords="602,279,603,334,679,329,682,280" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-018" shape="poly" coords="132,361,135,404,222,400,224,363" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-036" shape="poly" coords="261,368,261,407,334,409,333,366" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-005" shape="poly" coords="347,341,349,407,449,404,447,341" />
+                    <area alt="" title="" href="/controlled-doc/sop/stats-001" shape="poly" coords="459,347,459,403,518,400,516,346" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-056" shape="poly" coords="524,341,524,399,600,397,600,340" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-037" shape="poly" coords="611,356,609,396,684,396,682,355" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-010" shape="poly" coords="691,345,693,393,758,390,754,350" />
+                    
+                    
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-027" shape="poly" coords="10,426,11,475,97,469,97,424" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-029" shape="poly" coords="98,471,99,505,174,502,173,470" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-009" shape="poly" coords="13,510,13,556,103,552,101,508" />
+                    <area alt="" title="" href="/controlled-doc/sop/stats-003" shape="poly" coords="18,564,110,563,113,609,18,615" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-028" shape="poly" coords="102,422,104,459,185,459,183,424" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-032" shape="poly" coords="201,472,201,507,298,503,299,469" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-010" shape="poly" coords="123,515,123,567,209,561,208,516" />
+                    <area alt="" title="" href="/controlled-doc/sop/stats-006" shape="poly" coords="155,573,159,617,251,616,254,572" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/stats-000" shape="poly" coords="190,421,191,462,305,460,306,424" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-023" shape="poly" coords="218,515,217,556,305,553,305,514" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-042" shape="poly" coords="268,567,267,608,348,608,349,566" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-011" shape="poly" coords="311,420,310,473,401,471,401,419" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-007" shape="poly" coords="311,499,312,552,408,545,407,499" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-012" shape="poly" coords="355,565,355,616,436,608,436,564" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-033" shape="poly" coords="483,423,485,471,409,475,409,425" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-022" shape="poly" coords="413,493,413,551,489,547,488,496" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-043" shape="poly" coords="449,559,450,617,514,615,513,559" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-014" shape="poly" coords="491,423,489,475,566,473,566,423" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-015" shape="poly" coords="501,491,501,548,586,541,587,491" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-020" shape="poly" coords="531,557,530,612,582,608,580,558" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/stats-004" shape="poly" coords="571,423,571,476,663,475,664,421" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-010" shape="poly" coords="602,484,601,535,671,531,669,486" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-024" shape="poly" coords="596,544,595,620,671,616,671,543" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-025" shape="poly" coords="671,425,670,469,763,469,762,426" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-026" shape="poly" coords="684,478,685,536,763,532,763,479" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-040" shape="poly" coords="683,543,684,621,745,613,744,545" />
+                    
+                    
+                                                                                                                                                                  
+                    <area alt="" title="" href="/controlled-doc/sop/gen-045" shape="rect" coords="11,631,88,687" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-044" shape="rect" coords="92,631,187,685" />
+                    <area alt="" title="" href="/controlled-doc/sop/dm-011" shape="rect" coords="194,633,277,684" />
+                    <area alt="" title="" href="/controlled-doc/sop/stats-005" shape="rect" coords="283,633,380,682" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-046" shape="rect" coords="382,632,480,683" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-048" shape="rect" coords="485,633,573,683" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-047" shape="rect" coords="579,632,673,687" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-050" shape="rect" coords="679,631,761,686" />
+                    
+                    
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-001" shape="poly" coords="788,38,788,77,904,75,903,37" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-007" shape="poly" coords="783,90,784,138,887,137,886,93" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-002" shape="poly" coords="772,151,772,206,846,205,846,148" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-008" shape="poly" coords="854,150,854,212,921,209,918,148" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-003" shape="poly" coords="769,216,770,255,851,254,850,216" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-006" shape="poly" coords="857,222,915,223,915,275,857,284" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-054" shape="poly" coords="772,264,770,323,846,314,850,264" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-055" shape="poly" coords="853,299,924,299,922,376,850,389" />
+                    
+                    
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-009" shape="poly" coords="777,333,838,334,839,384,780,390" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-049" shape="poly" coords="769,399,769,463,848,462,849,397" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-031" shape="poly" coords="856,397,856,479,922,468,923,394" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-057" shape="poly" coords="773,478,770,555,843,548,845,478" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-021" shape="poly" coords="853,484,849,562,914,556,914,484" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/gen-038" shape="poly" coords="769,571,768,614,907,614,908,570" />
+                    
+                    <area alt="" title="" href="/controlled-doc/sop/its-001" shape="poly" coords="792,625,910,624,911,674,793,684" />      
                 
             </map>
 	
