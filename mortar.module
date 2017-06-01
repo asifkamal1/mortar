@@ -295,7 +295,7 @@ function mortar_cd_process_setup($node, $view_mode, $langcode) {
                     <area alt="" title="" href="/controlled-doc/sop/stats-001" shape="poly" coords="459,347,459,403,518,400,516,346" />
                     <area alt="" title="" href="/controlled-doc/sop/gen-056" shape="poly" coords="524,341,524,399,600,397,600,340" />
                     <area alt="" title="" href="/controlled-doc/sop/gen-037" shape="poly" coords="611,356,609,396,684,396,682,355" />
-                    <area alt="" title="" href="/controlled-doc/sop/gen-010" shape="poly" coords="691,345,693,393,758,390,754,350" />
+                    <area alt="" title="" href="/controlled-doc/sop/gen-019" shape="poly" coords="691,345,693,393,758,390,754,350" />
                     
                     
                     
