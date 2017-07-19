@@ -134,10 +134,15 @@ function mortar_form_alter(&$form, &$form_state, $form_id) {
 function mortar_form_validate($form, &$form_state) {
     
     // If previous validation didn't pass, return
-    //if (form_get_errors()) return
-    
+    //if (form_get_errors()) return;
+
     global $client_taleo, $user, $taleo_id;
+    
     $mail = $form_state['values']['mail'];
+    
+    if(empty($mail)) {
+        return;
+    }
     
     //check 1, to see user email exist
     $user_exist_check = user_load_by_mail($mail);
@@ -150,6 +155,17 @@ function mortar_form_validate($form, &$form_state) {
         ->rowCount();
     
     if ($exist && !empty($user_exist_check)) {
+        
+        $error = array();
+        $errors = form_get_errors();
+        
+        //check for  mondatory filed data
+        if(!empty($errors['field_job_title][und']) ||
+        !empty($errors['field_last_name][und][0][value']) ||
+        !empty($errors['field_first_name][und][0][value']) ||
+        !empty($errors['field_ctu][und']) ) {
+            return;
+        }
         
         $user_in = user_load_by_mail($mail); 
         $role_name = 'mortar user';
@@ -170,6 +186,17 @@ function mortar_form_validate($form, &$form_state) {
         }
         else {
             user_multiple_role_edit(array($uid), 'add_role', $role->rid);
+            
+            //add the the mondatory filed data
+            $user_in->field_last_name['und'][0]['value'] = $form_state['values']['field_last_name']['und'][0]['value'];
+            $user_in->field_first_name['und'][0]['value'] = $form_state['values']['field_first_name']['und'][0]['value'];
+            
+            $limit = count($form_state['values']['field_ctu']['und']);
+            for ($i = 0; $i < $limit; $i++) {
+                $user_in->field_ctu['und'][$i]['target_id'] = $form_state['values']['field_ctu']['und'][$i]['target_id'];
+            }    
+            
+            $user_in->field_job_title['und'][0]['target_id'] = $form_state['values']['field_job_title']['und'][0]['target_id'];
     
             $trainee_id = $uid;
             $training_requests = array(35, 36, 37); //CV, JD, GCP
@@ -207,7 +234,7 @@ function mortar_form_validate($form, &$form_state) {
                 $error_messages = drupal_get_messages('warning');
                 unset($error_messages[$name]);
                 
-                drupal_set_message(t($user_in -> name.'  already exist in OCTRU system so a moratr user role is assigned to this user and also CV, GCP and job description are added to his/her training record'), 'status');
+                drupal_set_message(t($user_in -> name.'  already exist in OCTRU system so a mortar user role is assigned to this user and also CV, GCP and job description are added to his/her training record'), 'status');
                 drupal_set_message(t($training_record_counter . ' Training Request(s) added.'), 'status');
             }
             else {
@@ -219,7 +246,7 @@ function mortar_form_validate($form, &$form_state) {
                 $error_messages = drupal_get_messages('error');
                 unset($error_messages[$name]);
                 
-                drupal_set_message(t($user_in -> name.' already exist in OCTRU system so a moratr user role is assigned to this user Training Records already exists in  {'. $user_in -> name .'} account'), 'warning');
+                drupal_set_message(t($user_in -> name.' already exist in OCTRU system so a mortar user role is assigned to this user Training Records already exists in  {'. $user_in -> name .'} account'), 'warning');
             }
             
             user_save($user_in);
