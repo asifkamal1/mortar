@@ -288,7 +288,7 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
                                 author will be notified by email that the Controlled Document need further review.'),
             '#type' => 'checkbox',
             '#options' => t('Enable'),
-            '#weight' => 12,
+            '#weight' => 17,
             
         );
         
@@ -304,13 +304,13 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
                                 been made to this Controlled Document and they are required to review it.'),
             '#type' => 'checkbox',
             '#options' => t('Enable'),
-            '#weight' => 12,
+            '#weight' => 14,
         );
         
         $form['mortar_fieldset_notify_moderator_authorised'] = array(
             '#type' => 'fieldset',
             '#title' => 'SOP to be authorised',
-            '#weight' => 13,
+            '#weight' => 15,
             '#collapsible' => TRUE,
             '#collapsed' => TRUE,
             '#tree' => FALSE,
@@ -324,14 +324,14 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
                                 changes until Controlled Document is reviewed by authoriser.'),
             '#type' => 'checkbox',
             '#options' => t('Enable'),
-            '#weight' => 13,
+            '#weight' => 15,
         );
         
         
         $form['mortar_fieldset_notify_moderator'] = array(
             '#type' => 'fieldset',
             '#title' => 'SOP issue',
-            '#weight' => 13,
+            '#weight' => 16,
             '#collapsible' => TRUE,
             '#collapsed' => TRUE,
             '#tree' => FALSE,
@@ -345,7 +345,7 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
                                 changes until Controlled Document is reviewed by administrator.'),
             '#type' => 'checkbox',
             '#options' => t('Enable'),
-            '#weight' => 13,
+            '#weight' => 16,
         );
     
         
@@ -357,33 +357,31 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
     //Show checbox if the SOP is in "Active Awaiting - Dreft" or "Active Awaiting - Approval" status
     if($controlled_document_status_value == 41 || $controlled_document_status_value == 13) {
             
-        $form['mortar_fieldset_notify_author_authorised_fail'] = array(
+        $form['mortar_fieldset_notify_author_authorised_message'] = array(
             '#type' => 'fieldset',
             '#title' => 'SOP Authorisation',
-            '#weight' => 12,
+            '#weight' => 15,
             '#collapsible' => TRUE,
             '#collapsed' => TRUE,
             '#tree' => FALSE,
         );
            
-        $form['mortar_fieldset_notify_author_authorised_fail']['mortar_field_notify_author_authorised_fail'] = array(
-            '#title' => t('Send Controlled Document to author as the Authorisation Failed'),
-            '#description' => t('If this is checked and Controlled Document is saved,
-                                author will be notified by email that the Controlled Document
-                                failed the authorisation process and it is sent back to Document Under Review section for further review.'),
+        $form['mortar_fieldset_notify_author_authorised_message']['mortar_field_notify_author_authorised_fail'] = array(
+            '#title' => t('Send Notification to author: Authorisation Failed.'),
+            '#description' => t('If this is checked and Controlled Document is saved, author will be notified by email that the Controlled Document has failed the authorisation process and will
+                                be sent back to Document Under Review section for further review.'),
             '#type' => 'checkbox',
             '#options' => t('Enable'),
-            '#weight' => 12,
+            '#weight' => 15,
         );
         
-        $form['mortar_fieldset_notify_author_authorised_fail']['mortar_field_notify_author_authorised_pass'] = array(
-            '#title' => t('Send Controlled Document to author as the Authorisation Pass'),
-            '#description' => t('If this is checked and Controlled Document is saved,
-                                author will be notified by email that the Controlled Document
-                                pass the authorisation process and it is sent back to Document Under Review section ready to be issue.'),
+        $form['mortar_fieldset_notify_author_authorised_message']['mortar_field_notify_author_authorised_pass'] = array(
+            '#title' => t('Send Notification to author: Authorisation Pass. Send Controlled Document for Issue.'),
+            '#description' => t('If this is checked and Controlled Document is saved, this will be sent for issue and author will be notified by email that the Controlled Document has passed the authorisation process and has
+                                been sent for issue.'),
             '#type' => 'checkbox',
             '#options' => t('Enable'),
-            '#weight' => 12,
+            '#weight' => 15,
         );
         
         
@@ -399,7 +397,7 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
     $form['mortar_fieldset_notify_author'] = array(
         '#type' => 'fieldset',
         '#title' => 'Controlled Document approval response',
-        '#weight' => 16,
+        '#weight' => 17,
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
         '#tree' => FALSE,
@@ -411,13 +409,13 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
                             author will be notified by email that the Controlled Document approval outcome is now available.'),
         '#type' => 'checkbox',
         '#options' => t('Enable'),
-        '#weight' => 16,
+        '#weight' => 17,
     );
     
     $form['mortar_fieldset_notify_compliance_reviewer'] = array(
         '#type' => 'fieldset',
         '#title' => 'Controlled Document compliance review',
-        '#weight' => 17,
+        '#weight' => 18,
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
         '#tree' => FALSE,
@@ -429,7 +427,7 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
                             compliance reviewer will be notified by email that the Controlled Document is now available for review.'),
         '#type' => 'checkbox',
         '#options' => t('Enable'),
-        '#weight' => 17,
+        '#weight' => 18,
     );
     
     
@@ -494,42 +492,13 @@ function mortar_validate_controlled_document(&$form, &$form_state, $form_id = 'c
         }        
     }
     
-    if(isset($form_state['values']['mortar_field_notify_author'])) {
-        if($form_state['values']['mortar_field_message']!='' && $form_state['values']['mortar_field_notify_author'] == 0
-           && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 0 && $form_state['values']['mortar_field_notify_author_authorised_fail'] == 0
-           && $form_state['values']['mortar_field_notify_author_authorised_pass'] == 0) {
+    
+    if(isset($form_state['values']['mortar_field_notify_author_authorised_fail']) || isset($form_state['values']['mortar_field_notify_author_authorised_pass']) ) {
+        if($form_state['values']['mortar_field_message'] !='' && $form_state['values']['mortar_field_notify_author_authorised_fail'] == 0 && $form_state['values']['mortar_field_notify_author_authorised_pass'] == 0) { dpm('here');
             form_set_error('mortar_field_notify_reviewer', t('If you wish to send an email please choose at least one receiver by selecting
-                                                             "Send Controlled Document approval response" or "Send Controlled Document for compliance review"
-                                                             or "Send Controlled Document to author as the Authorisation Failed"
-                                                             or "Send Controlled Document to author as the Authorisation Pass" checkbox.')
+                                                             "Send Controlled Document to author as the Authorisation Failed" or "Send Notification to author: Authorisation Pass. Send Controlled Document for Issue" checkbox.')
                            );
         }
-        
-        if($form_state['values']['mortar_field_notify_author'] == 1 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 1) {
-            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for compliance review and send approval outcome at the same time -
-                             please make sure that you select only one of these options.')
-                           );
-        }
-        
-        if($form_state['values']['mortar_field_notify_author'] == 1 && $form_state['values']['mortar_field_notify_author_authorised_fail'] == 1) {
-            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for approval and send the authorisation failed outcome at the same time -
-                             please make sure that you select only one of these options.')
-                           );
-        }
-        
-        
-        if($form_state['values']['mortar_field_notify_author_authorised_fail'] == 1 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 1) {
-            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for compliance review and send the authorisation failed outcome at the same time -
-                             please make sure that you select only one of these options.')
-                           );
-        }
-        
-        if($form_state['values']['mortar_field_notify_author'] == 1 && $form_state['values']['mortar_field_notify_author_authorised_pass'] == 1) {
-            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for approval and send the authorisation pass outcome at the same time -
-                             please make sure that you select only one of these options.')
-                           );
-        }
-        
         
         if($form_state['values']['mortar_field_notify_author_authorised_pass'] == 1 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 1) {
             form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for compliance review and send the authorisation pass outcome at the same time -
@@ -541,7 +510,42 @@ function mortar_validate_controlled_document(&$form, &$form_state, $form_id = 'c
             form_set_error('mortar_field_notify_author', t('You are trying to send this SOP authorisation pass outcome  and send the authorisation failed outcome at the same time -
                              please make sure that you select only one of these options.')
                            );
+        }       
+    }
+    
+    
+    if(isset($form_state['values']['mortar_field_notify_author'])) {
+        if($form_state['values']['mortar_field_message']!='' && $form_state['values']['mortar_field_notify_author'] == 0 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 0) {
+            form_set_error('mortar_field_notify_reviewer', t('If you wish to send an email please choose at least one receiver by selecting
+                                                             "Send Controlled Document approval response" or "Send Controlled Document for compliance review"')
+                           );
         }
+        
+        if($form_state['values']['mortar_field_notify_author'] == 1 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 1) {
+            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for compliance review and send approval outcome at the same time -
+                             please make sure that you select only one of these options.')
+                           );
+        }
+        
+        if($form_state['values']['mortar_field_notify_author'] == 1 && $form_state['values']['mortar_field_notify_author_authorised_fail'] == 1) {
+            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for approval and send the Authorisation Failed outcome at the same time -
+                             please make sure that you select only one of these options.')
+                           );
+        }
+        
+        
+        if($form_state['values']['mortar_field_notify_author_authorised_fail'] == 1 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 1) {
+            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for compliance review and send the Authorisation Failed outcome at the same time -
+                             please make sure that you select only one of these options.')
+                           );
+        }
+        
+        if($form_state['values']['mortar_field_notify_author'] == 1 && $form_state['values']['mortar_field_notify_author_authorised_pass'] == 1) {
+            form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for Approval and send the Authorisation Pass outcome at the same time -
+                             please make sure that you select only one of these options.')
+                           );
+        }
+        
     }
     
     if(isset($form_state['values']['mortar_field_notify_compliance_reviewer'])) {

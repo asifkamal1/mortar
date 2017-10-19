@@ -2,7 +2,15 @@
 
 /*
  *This function runs after 'function mortar_send_reviewer_notification'.
- *If 
+ *If (SOP sned for issue by author)
+ *
+ * SOP Status are follwoing;
+ * Draft = 6
+ * Awaiting approvl = 13
+ * Active Under revision = 4
+ * Active Awaiting Approval = 41
+ * Active = 3
+ * 
  */
 function mortar_send_controlled_document_for_approval(&$form, &$form_state, $form_id = 'controlled_document_node_form') {
     
@@ -84,7 +92,7 @@ function mortar_send_controlled_document_for_approval(&$form, &$form_state, $for
 }
 
 /*
- *This function runs after 'function mortar_send_reviewer_notification'.
+ *This function runs after 'function mortar_send_reviewer_notification'. (Author send SOP to be aproved)
  *If 
  */
 function mortar_send_controlled_document_for_authorised(&$form, &$form_state, $form_id = 'controlled_document_node_form') {
@@ -177,7 +185,7 @@ function mortar_send_controlled_document_for_authorised(&$form, &$form_state, $f
 }
 
 /*
- *Send email to author for further review of SOP after failing the authorisation
+ *Send email to author for further review of SOP after failing the authorisation (SOP send by authoriser - site adminstrator or HORAQ as user with site admin role)
 */
 function mortar_send_controlled_document_authorisation_outcome_fail(&$form, &$form_state, $form_id = 'controlled_document_node_form') {
     
@@ -249,7 +257,7 @@ function mortar_send_controlled_document_authorisation_outcome_fail(&$form, &$fo
 
 
 /*
- *Send email to author for further review of SOP after successfully pass the authorisation
+ *Send email to author for further review of SOP after successfully pass the authorisation  (SOP send by authoriser - site adminstrator or HORAQ as user with site admin role)
 */
 function mortar_send_controlled_document_authorisation_outcome_pass(&$form, &$form_state, $form_id = 'controlled_document_node_form') {
     
@@ -257,7 +265,7 @@ function mortar_send_controlled_document_authorisation_outcome_pass(&$form, &$fo
     
     if($form_state['values']['mortar_field_notify_author_authorised_pass'] == 0) {
         drupal_set_message(t('Email notification has NOT been sent. If you wish to send an email please choose receiver by selecting
-                             "Send Controlled Document to author as the Authorisation Pass.'), 'warning');
+                             "Send Notification to author: Authorisation Pass. Send Controlled Document for Issue.'), 'warning');
         $error = TRUE;
     }
     
@@ -267,17 +275,19 @@ function mortar_send_controlled_document_authorisation_outcome_pass(&$form, &$fo
         return;
     }
     
-
+    /*
+     * Email to administrator that SOP is ready to be issue
+    */
     $controlled_document_node = node_load(menu_get_object()->nid);
     
-    if($controlled_document_node->field_status['und'][0]['target_id'] == 13) {
-        $controlled_document_node -> field_status['und'][0]['target_id'] = 6;
+    if($form_state['values']['field_status']['und'][0]['target_id'] == 6) {
+        $controlled_document_node -> field_status['und'][0]['target_id'] = 13;
     }
     else {
-        $controlled_document_node -> field_status['und'][0]['target_id'] = 4;
+        $controlled_document_node -> field_status['und'][0]['target_id'] = 41;
     }
     
-    node_save(node_load(menu_get_object()->nid));
+    node_save($controlled_document_node);
     
     global $user;
     
@@ -288,8 +298,12 @@ function mortar_send_controlled_document_authorisation_outcome_pass(&$form, &$fo
     $controlled_document_id = $controlled_document_node -> title;
     $controlled_document_title = $controlled_document_node -> field_title['und'][0]['value'];
     $controlled_document_author_id = $controlled_document_node -> uid;
+   
+    $administrator = user_load(113); //Joanna Black - 4 |113 - HoRAQ //NEEDS CHANGING
+    $administrators_email = $administrator -> mail;
     
-    $author = user_load($controlled_document_author_id);
+    $administrator = user_load(114); //QAA
+    $administrators_email = $administrators_email . ',' . $administrator -> mail;
     
     $headers = 'From: OCTRU MORTAR <octrutrialshub@ndorms.ox.ac.uk>';
     $message = '';
@@ -298,22 +312,52 @@ function mortar_send_controlled_document_authorisation_outcome_pass(&$form, &$fo
         $author_message = 'Message sent by '. $logged_user . ": \r\n" . $form_state['values']['mortar_field_message'] . "\r\n";
     }
     
-
-    $message = 'Dear ' . $author -> name . ",\r\n";
-    $message .= 'SOP ' . $controlled_document_title . " (". $controlled_document_id .") has now been reviewed by the Authoriser. \r\n";
+    $message = "Dear MORTAR Administrators ,\r\n";
+    $message .= 'SOP ' . $controlled_document_title . "(". $controlled_document_id .") has been submitted for authorisation by ". $logged_user .". \r\n";
+    $message .= "Please navigate to \r\n";
     $message .= 'http://mortar.octru.ox.ac.uk/'. $controlled_document_address ."\r\n";
+    $message .= "to review the SOP. \r\n";
     
     if(isset($author_message)) {
         $message .= $author_message;
     }
     
     $message .= "Thanks,\n -- \n MORTAR";
-    
-    mail($author -> mail, $controlled_document_id . ' Authoriser review outcome available.', $message, $headers);
-    drupal_set_message(t('Email successfully sent to the author:<pre>'.$author -> name.'</pre>'), 'status');
+ 
+    mail($administrators_email, $controlled_document_id . ' submitted for authorisation.', $message, $headers);
+    drupal_set_message(t('Email successfully sent to the MORTAR administrators.'), 'status');
     
     if(isset($author_message)) {
-        watchdog("Review email", "Email successfully sent to the Authoriser: <pre>". $author -> name .' - '. $author -> mail."</pre> Message: <pre>" . $author_message . "</pre> Controlled Document: <pre>" . $controlled_document_id . "</pre>"); 
+        watchdog("Review email", "Email successfully sent to the MORTAR administrators. Controlled Document: <pre>" . $controlled_document_id . "</pre>");
+    }
+    else {
+        watchdog("Review email", "Email successfully sent to the MORTAR administrators. Message: <pre>" . $author_message . "</pre> Controlled Document: <pre>" . $controlled_document_id . "</pre>");
+    }
+    
+    /*
+     * Email to author that SOP is send to be issued by administrator 
+    */
+    
+    $author = user_load($controlled_document_author_id);
+
+    $message_for_author = '';
+
+    $message_for_author = 'Dear ' . $author -> name . ",\r\n";
+    $message_for_author .= 'SOP ' . $controlled_document_title . " (". $controlled_document_id .") ) has now been reviewed by the Authoriser and has passed the Authorisation process.
+    The SOP has now been sent for issue. No further action required. \r\n";
+    $message_for_author .= 'http://mortar.octru.ox.ac.uk/'. $controlled_document_address ."\r\n";
+    
+    if(isset($author_message)) {
+        $message_for_author .= $author_message;
+    }
+   
+    $message_for_author .= "Thanks,\n -- \n MORTAR";
+    
+    mail($author -> mail, $controlled_document_id . ' Authoriser review outcome available.', $message_for_author, $headers);
+    drupal_set_message(t('Email successfully sent to the author:<pre>'.$author->name.'</pre>'), 'status');
+    
+    if(isset($author_message)) {
+        watchdog("Review email", "Email successfully sent to the Authoriser: <pre>". $author->name .' - '. $author -> mail."</pre> Message: <pre>" . $author_message . "</pre> Controlled Document: <pre>" . $controlled_document_id . "</pre>"); 
     }
     
     #debug($controlled_document_node)
