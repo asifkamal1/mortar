@@ -236,7 +236,7 @@ function mortar_send_controlled_document_authorisation_outcome_fail(&$form, &$fo
     
 
     $message = 'Dear ' . $author -> name . ",\r\n";
-    $message .= 'SOP ' . $controlled_document_title . " (". $controlled_document_id .") has now been reviewed by the Authoriser. \r\n";
+    $message .= 'SOP ' . $controlled_document_title . " (". $controlled_document_id .") has now been reviewed by the Authoriser. This has failed the Authorisation process and requires further work. \r\n";
     $message .= 'http://mortar.octru.ox.ac.uk/'. $controlled_document_address ."\r\n";
     
     if(isset($author_message)) {
@@ -343,9 +343,9 @@ function mortar_send_controlled_document_authorisation_outcome_pass(&$form, &$fo
     $message_for_author = '';
 
     $message_for_author = 'Dear ' . $author -> name . ",\r\n";
-    $message_for_author .= 'SOP ' . $controlled_document_title . " (". $controlled_document_id .") ) has now been reviewed by the Authoriser and has passed the Authorisation process.
+    $message_for_author .= 'SOP ' . $controlled_document_title . " (". $controlled_document_id .") has now been reviewed by the Authoriser and has passed the Authorisation process.
     The SOP has now been sent for issue. No further action required. \r\n";
-    $message_for_author .= 'http://mortar.octru.ox.ac.uk/'. $controlled_document_address ."\r\n";
+    //$message_for_author .= 'http://mortar.octru.ox.ac.uk/'. $controlled_document_address ."\r\n";
     
     if(isset($author_message)) {
         $message_for_author .= $author_message;
