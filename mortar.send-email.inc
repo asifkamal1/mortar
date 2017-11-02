@@ -280,7 +280,7 @@ function mortar_send_controlled_document_authorisation_outcome_pass(&$form, &$fo
     */
     $controlled_document_node = node_load(menu_get_object()->nid);
     
-    if($form_state['values']['field_status']['und'][0]['target_id'] == 6) {
+    if($form_state['values']['field_status']['und'][0]['target_id'] == 13 || $form_state['values']['field_status']['und'][0]['target_id'] == 6) {
         $controlled_document_node -> field_status['und'][0]['target_id'] = 13;
     }
     else {

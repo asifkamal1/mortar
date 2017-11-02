@@ -15,10 +15,10 @@ function mortar_controlled_document_node_view_alter(&$build, $account, $node) {
         //this will make sure that 'Add to Traning Record' form is displayed if node is CD and test has not been set
         if($build['#node'] -> type == 'controlled_document' && !isset($node -> field_cd_test['und'][0]['target_id'])) {
             
-            //need to make sure that this form is added to SOP only and not fors and tempaltes
+            //need to make sure that this form is added to SOP only and not forms and tempaltes
             if($build['#node'] -> field_type['und'][0]['target_id'] == 19) {
                 //function in cd-node-alter.inc
-                mortar_training_record_form_display($build, $account, $node);
+                //mortar_training_record_form_display($build, $account, $node);  (I have removed this option raised an issue in mantis 6952 - asif kamal)
             }
         }
     }
@@ -393,7 +393,7 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
     if($controlled_document_status == 'new' || $controlled_document_status_value != 13) {
         return;
     }
-    
+    /*
     $form['mortar_fieldset_notify_author'] = array(
         '#type' => 'fieldset',
         '#title' => 'Controlled Document approval response',
@@ -441,6 +441,7 @@ function mortar_form_controlled_document_node_form_alter(&$form, &$form_state, $
         $form['mortar_fieldset_notify_author']['#access'] = FALSE;
         $form['mortar_fieldset_notify_compliance_reviewer']['#access'] = FALSE;
     }
+    */
 }
 
 
@@ -500,11 +501,11 @@ function mortar_validate_controlled_document(&$form, &$form_state, $form_id = 'c
                            );
         }
         
-        if($form_state['values']['mortar_field_notify_author_authorised_pass'] == 1 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 1) {
+        /*if($form_state['values']['mortar_field_notify_author_authorised_pass'] == 1 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 1) {
             form_set_error('mortar_field_notify_author', t('You are trying to send this SOP for compliance review and send the authorisation pass outcome at the same time -
                              please make sure that you select only one of these options.')
                            );
-        }
+        }*/
         
         if($form_state['values']['mortar_field_notify_author_authorised_pass'] == 1 && $form_state['values']['mortar_field_notify_author_authorised_fail'] == 1) {
             form_set_error('mortar_field_notify_author', t('You are trying to send this SOP authorisation pass outcome  and send the authorisation failed outcome at the same time -
@@ -513,7 +514,7 @@ function mortar_validate_controlled_document(&$form, &$form_state, $form_id = 'c
         }       
     }
     
-    
+    /*
     if(isset($form_state['values']['mortar_field_notify_author'])) {
         if($form_state['values']['mortar_field_message']!='' && $form_state['values']['mortar_field_notify_author'] == 0 && $form_state['values']['mortar_field_notify_compliance_reviewer'] == 0) {
             form_set_error('mortar_field_notify_reviewer', t('If you wish to send an email please choose at least one receiver by selecting
@@ -555,7 +556,7 @@ function mortar_validate_controlled_document(&$form, &$form_state, $form_id = 'c
                            );
         }
     }
-    
+    */
     if($form_state['values']['field_status']['und'][0]['target_id'] == 41 ||
        $form_state['values']['field_status']['und'][0]['target_id'] == 4 ||
        $form_state['values']['field_status']['und'][0]['target_id'] == 3
