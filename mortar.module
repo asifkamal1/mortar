@@ -82,7 +82,7 @@ function mortar_node_view($node, $view_mode, $langcode) {
     $account = user_load($user -> uid);
     $ctu_list = array();
     for($count = 0; $count < count($account -> field_ctu['und']); $count++) {
-       $ctu_list[] = $account -> field_ctu['und'][$count][target_id];  
+       $ctu_list[] = $account -> field_ctu['und'][$count]['target_id'];  
     }
     
     if (in_array('457', $ctu_list, true)) {
