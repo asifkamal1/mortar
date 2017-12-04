@@ -144,7 +144,8 @@ function mortar_views_cd_new_updated($nid) {
     }
     
    // $last_change = $cd -> changed;
-    $last_change =  $cd -> field_issue_date['und'][0]['value'];
+   // $last_change =  $cd -> field_issue_date['und'][0]['value'];
+    $last_change =  isset($cd -> field_issue_date['und'][0]['value']) ? $cd -> field_issue_date['und'][0]['value'] : "";
     $vid =  $cd -> vid;
     
     //get previous vid
@@ -189,7 +190,8 @@ function mortar_views_cd_check($nid, $created) {
     }
     
    // $last_change = $cd -> changed;
-    $last_change =  $cd -> field_issue_date['und'][0]['value'];
+   // $last_change =  $cd -> field_issue_date['und'][0]['value'];
+    $last_change =  isset($cd -> field_issue_date['und'][0]['value']) ? $cd -> field_issue_date['und'][0]['value'] : "";
     $vid =  $cd -> vid;
     
     //get previous vid
