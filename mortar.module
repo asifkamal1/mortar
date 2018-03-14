@@ -8,6 +8,7 @@ module_load_include('inc', 'mortar', 'mortar.cd-node-alter');
 module_load_include('inc', 'mortar', 'mortar.tr-node-alter');
 module_load_include('inc', 'mortar', 'mortar.miscellaneous');
 module_load_include('inc', 'mortar', 'mortar.wf-node-alter');
+module_load_include('inc', 'mortar', 'mortar.admin_setting_form');
 
 /*
  *Prepare node to be displayed
@@ -126,8 +127,186 @@ function mortar_form_alter(&$form, &$form_state, $form_id) {
         return $form;
     }
     
+    if($form_id == 'mortar_admin_setting_form') {
+        $form['#submit'][]='mortar_admin_setting_form_submit';
+    }
     
     
+    
+}
+
+function mortar_user_presave(&$edit, $account, $category) {
+  // Don't show message for registering users.
+  if (isset($account->is_new) && $account->is_new) {
+    return;
+  }
+  
+  //Get all the defined fields in MORTAR setting that need be loged
+  $fields_to_check = explode("|", variable_get('user_field_log_list'));
+  
+    foreach($fields_to_check as $field) {
+        
+        //check the type of filed text or entity reference
+        $field_info = field_info_field($field);
+       
+        //if the user roles are changed
+        if($field == 'roles'){
+            $old_roles = array();
+            $new_roles = array();
+            
+            foreach($account->roles as $key => $value){
+                $old_roles[] = $key;
+            }
+            
+            foreach($edit['roles'] as $key2 => $value2){
+                if($value2 != 1 && $value2 != 0) {
+                    $new_roles[] = $value2;
+                }
+            }
+            
+            $result1 = array_diff($old_roles, $new_roles);
+            $result2 = array_diff($new_roles, $old_roles);
+            
+            if(!empty($edit[$field]) && (!empty($result1) || !empty($result2))) {
+                    $node = new stdClass(); // We create a new node object
+                    $node -> type = "user_field_log"; // Or any other content type you want
+                    $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                    $current_time = format_date(strtotime('now'), 'custom', 'Y-m-d H:i:s', 'UTC');
+                    $node->title = $current_time.'-'.$field.'-'.$account->uid; 
+                
+                    node_object_prepare($node); // Set some default values.
+                    
+                    $node -> field_user_id_log[$node->language][0]['value'] = $account->uid; // Or any id you wish
+                    $node -> field_field_name[$node->language][0]['value'] = $field;
+                    
+                    for ($i = 0; $i < count($old_roles); $i++) {
+                       // $node -> field_old_field_value[$node->language][$i]['value'] = $old_roles[$i];
+                        
+                        $term = user_role_load($old_roles[$i]);
+                        $value = $term->name;
+                        
+                        $node -> field_old_field_value[$node->language][$i]['value'] = $value;
+                        $node -> field_old_field_raw_tid[$node->language][$i]['value'] = $old_roles[$i];
+                        $node -> field_old_field_tid_and_value[$node->language][$i]['value'] = $old_roles[$i].', '. $value;
+                }
+            
+                    for ($i = 0; $i < count($new_roles); $i++) {
+                        //$node -> field_new_field_value[$node->language][$i]['value'] = $new_roles[$i];
+                        $term = user_role_load($new_roles[$i]);
+                        $value = $term->name;
+                        
+                        $node -> field_new_field_value[$node->language][$i]['value'] = $value;
+                        $node -> field_new_field_raw_tid[$node->language][$i]['value'] = $new_roles[$i];
+                        $node -> field_new_field_tid_and_value[$node->language][$i]['value'] = $new_roles[$i].', '. $value;
+                    }
+     
+                    $node = node_submit($node);
+                    node_save($node); 
+            }
+        }//check the type of the fields (text, entityreference)
+        elseif($field_info['type'] !== 'entityreference'){
+            
+            if(!empty($edit[$field]) && $account->{$field}['und'][0]['value'] != $edit[$field]['und'][0]['value']) {
+                $node = new stdClass(); // We create a new node object
+                $node -> type = "user_field_log"; // Or any other content type you want
+                $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                $current_time = format_date(strtotime('now'), 'custom', 'Y-m-d H:i:s', 'UTC');
+                $node->title = $current_time.'-'.$field.'-'.$account->uid; 
+            
+                node_object_prepare($node); // Set some default values.
+                
+                $node -> field_user_id_log[$node->language][0]['value'] = $account->uid; // Or any id you wish
+                $node -> field_field_name[$node->language][0]['value'] = $field;
+                $node -> field_old_field_value[$node->language][0]['value'] = $account->{$field}['und'][0]['value'];
+                $node -> field_new_field_value[$node->language][0]['value'] = $edit[$field]['und'][0]['value'];
+                $node = node_submit($node);
+                node_save($node);
+            }
+            
+        }
+        else{
+            
+            //check the old and new values of entity filed i.e team
+            $old_values = array();
+            $new_values = array();
+            
+            foreach($account->{$field}['und'] as $value){
+                $old_values[] = $value['target_id'];
+            }
+            
+            foreach($edit[$field]['und'] as $value2){
+                $new_values[] = $value2['target_id'];
+            }
+            
+            $result1 = array_diff($new_values, $old_values); 
+            $result2 = array_diff($old_values, $new_values); 
+            
+            if(!empty($edit[$field]) && (!empty($result1) || !empty($result2))) {
+                    $node = new stdClass(); // We create a new node object
+                    $node -> type = "user_field_log"; // Or any other content type you want
+                    $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                    $current_time = format_date(strtotime('now'), 'custom', 'Y-m-d H:i:s', 'UTC');
+                    $node->title = $current_time.'-'.$field.'-'.$account->uid; 
+                
+                    node_object_prepare($node); // Set some default values.
+                    
+                    $node -> field_user_id_log[$node->language][0]['value'] = $account->uid; // Or any id you wish
+                    $node -> field_field_name[$node->language][0]['value'] = $field;
+                    
+                    for ($i = 0; $i < count($old_values); $i++) {
+                        
+                        if($field == 'field_ctu') {
+                            $ctu_node = node_load($old_values[$i]);
+                            $value = $ctu_node->title;
+                            
+                            $node -> field_old_field_value[$node->language][$i]['value'] = $value;
+                            $node -> field_old_field_raw_tid[$node->language][$i]['value'] = $old_values[$i];
+                            $node -> field_old_field_tid_and_value[$node->language][$i]['value'] = $old_values[$i].', '. $value;
+                        }
+                        else {
+                            $term = taxonomy_term_load($old_values[$i]);
+                            $value = $term->name;
+                            
+                            $node -> field_old_field_value[$node->language][$i]['value'] = $value;
+                            $node -> field_old_field_raw_tid[$node->language][$i]['value'] = $old_values[$i];
+                            $node -> field_old_field_tid_and_value[$node->language][$i]['value'] = $old_values[$i].', '. $value;
+                        }
+
+                    }
+            
+                    for ($i = 0; $i < count($new_values); $i++) {
+                        
+                        if($field == 'field_ctu') {
+                            $ctu_node = node_load($new_values[$i]);
+                            $value = $ctu_node->title;
+                            
+                            $node -> field_new_field_value[$node->language][$i]['value'] = $value;
+                            $node -> field_new_field_raw_tid[$node->language][$i]['value'] = $new_values[$i];
+                            $node -> field_new_field_tid_and_value[$node->language][$i]['value'] = $new_values[$i].', '. $value;
+                        }
+                        else {
+                            $term = taxonomy_term_load($new_values[$i]);
+                            $value = $term->name;
+                            
+                            $node -> field_new_field_value[$node->language][$i]['value'] = $value;
+                            $node -> field_new_field_raw_tid[$node->language][$i]['value'] = $new_values[$i];
+                            $node -> field_new_field_tid_and_value[$node->language][$i]['value'] = $new_values[$i].', '. $value;
+                        }
+
+
+                    }
+                    
+                    $node = node_submit($node);  
+                    node_save($node); 
+            }
+            else {
+                
+                //dpm('No chnages in values');
+                
+            }
+            
+        }
+    }
 }
 
 
@@ -514,4 +693,30 @@ function mortar_cd_process_setup($node, $view_mode, $langcode) {
             });
             </script>'
         ;
- } 
+ }
+ 
+ 
+ /**
+  * Implements hook_menu()
+  *
+  */
+function mortar_menu()
+{
+    // Admin configuration group.
+    $items['admin/config/mortar'] = array(
+        'title' => 'MORTAR',
+        'description' => 'Administer MORTAR',
+        'access arguments' => array('administer'),
+    );
+
+    // Admin configuration - Settings.
+    $items['admin/config/mortar/manage'] = array(
+        'title' => 'MORTAR settings',
+        'description' => 'Manage MORTAR settings and configurations.',
+        'access arguments' => array('administer'),
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('mortar_admin_setting_form'),
+    );
+    
+    return $items;
+}
