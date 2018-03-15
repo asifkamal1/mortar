@@ -140,7 +140,7 @@ function mortar_user_presave(&$edit, $account, $category) {
   if (isset($account->is_new) && $account->is_new) {
     return;
   }
-  
+
   //Get all the defined fields in MORTAR setting that need be loged
   $fields_to_check = explode("|", variable_get('user_field_log_list'));
   
@@ -155,12 +155,15 @@ function mortar_user_presave(&$edit, $account, $category) {
             $new_roles = array();
             
             foreach($account->roles as $key => $value){
-                $old_roles[] = $key;
+                if($key != 2) {
+                    $old_roles[] = $key;
+                }
             }
             
             foreach($edit['roles'] as $key2 => $value2){
                 if($value2 != 1 && $value2 != 0) {
                     $new_roles[] = $value2;
+                    
                 }
             }
             
@@ -168,40 +171,37 @@ function mortar_user_presave(&$edit, $account, $category) {
             $result2 = array_diff($new_roles, $old_roles);
             
             if(!empty($edit[$field]) && (!empty($result1) || !empty($result2))) {
-                    $node = new stdClass(); // We create a new node object
-                    $node -> type = "user_field_log"; // Or any other content type you want
-                    $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
-                    $current_time = format_date(strtotime('now'), 'custom', 'Y-m-d H:i:s', 'UTC');
-                    $node->title = $current_time.'-'.$field.'-'.$account->uid; 
-                
-                    node_object_prepare($node); // Set some default values.
-                    
-                    $node -> field_user_id_log[$node->language][0]['value'] = $account->uid; // Or any id you wish
-                    $node -> field_field_name[$node->language][0]['value'] = $field;
-                    
-                    for ($i = 0; $i < count($old_roles); $i++) {
-                       // $node -> field_old_field_value[$node->language][$i]['value'] = $old_roles[$i];
-                        
-                        $term = user_role_load($old_roles[$i]);
-                        $value = $term->name;
-                        
-                        $node -> field_old_field_value[$node->language][$i]['value'] = $value;
-                        $node -> field_old_field_raw_tid[$node->language][$i]['value'] = $old_roles[$i];
-                        $node -> field_old_field_tid_and_value[$node->language][$i]['value'] = $old_roles[$i].', '. $value;
-                }
+                $node = new stdClass(); // We create a new node object
+                $node -> type = "user_field_log"; // Or any other content type you want
+                $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                $current_time = format_date(strtotime('now'), 'custom', 'Y-m-d H:i:s', 'UTC');
+                $node->title = $current_time.'-'.$field.'-'.$account->uid; 
             
-                    for ($i = 0; $i < count($new_roles); $i++) {
-                        //$node -> field_new_field_value[$node->language][$i]['value'] = $new_roles[$i];
-                        $term = user_role_load($new_roles[$i]);
-                        $value = $term->name;
-                        
-                        $node -> field_new_field_value[$node->language][$i]['value'] = $value;
-                        $node -> field_new_field_raw_tid[$node->language][$i]['value'] = $new_roles[$i];
-                        $node -> field_new_field_tid_and_value[$node->language][$i]['value'] = $new_roles[$i].', '. $value;
-                    }
-     
-                    $node = node_submit($node);
-                    node_save($node); 
+                node_object_prepare($node); // Set some default values.
+                
+                $node -> field_user_id_log[$node->language][0]['value'] = $account->uid; // Or any id you wish
+                $node -> field_field_name[$node->language][0]['value'] = $field;
+                
+                for ($i = 0; $i < count($old_roles); $i++) {
+                    $term = user_role_load($old_roles[$i]);
+                    $value = $term->name;
+                    
+                    $node -> field_old_field_value[$node->language][$i]['value'] = $value;
+                    $node -> field_old_field_raw_tid[$node->language][$i]['value'] = $old_roles[$i];
+                    $node -> field_old_field_tid_and_value[$node->language][$i]['value'] = $old_roles[$i].', '. $value;
+                }
+        
+                for ($i = 0; $i < count($new_roles); $i++) {
+                    $term = user_role_load($new_roles[$i]);
+                    $value = $term->name;
+            
+                    $node -> field_new_field_value[$node->language][$i]['value'] = $value;
+                    $node -> field_new_field_raw_tid[$node->language][$i]['value'] = $new_roles[$i];
+                    $node -> field_new_field_tid_and_value[$node->language][$i]['value'] = $new_roles[$i].', '. $value;
+                }
+ 
+                $node = node_submit($node);
+                node_save($node); 
             }
         }//check the type of the fields (text, entityreference)
         elseif($field_info['type'] !== 'entityreference'){
