@@ -206,7 +206,7 @@ function mortar_user_presave(&$edit, $account, $category) {
         }//check the type of the fields (text, entityreference)
         elseif($field_info['type'] !== 'entityreference'){
             
-            if(isset($edit[$field]) && ($account->{$field}['und'][0]['value'] != $edit[$field]['und'][0]['value'])) {
+            if(isset($edit[$field]) && ($account->{$field}[$node->language][0]['value'] != $edit[$field][$node->language][0]['value'])) {
                 $node = new stdClass(); // We create a new node object
                 $node -> type = "user_field_log"; // Or any other content type you want
                 $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
@@ -217,8 +217,8 @@ function mortar_user_presave(&$edit, $account, $category) {
                 
                 $node -> field_user_id_log[$node->language][0]['value'] = $account->uid; // Or any id you wish
                 $node -> field_field_name[$node->language][0]['value'] = $field;
-                $node -> field_old_field_value[$node->language][0]['value'] = $account->{$field}['und'][0]['value'];
-                $node -> field_new_field_value[$node->language][0]['value'] = $edit[$field]['und'][0]['value'];
+                $node -> field_old_field_value[$node->language][0]['value'] = $account->{$field}[$node->language][0]['value'];
+                $node -> field_new_field_value[$node->language][0]['value'] = $edit[$field][$node->language][0]['value'];
                 $node = node_submit($node);
                 node_save($node);
             }
@@ -230,11 +230,11 @@ function mortar_user_presave(&$edit, $account, $category) {
             $old_values = array();
             $new_values = array();
             
-            foreach($account->{$field}['und'] as $value){
+            foreach($account->{$field}[$node->language] as $value){
                 $old_values[] = $value['target_id'];
             }
             
-            foreach($edit[$field]['und'] as $value2){
+            foreach($edit[$field][$node->language] as $value2){
                 $new_values[] = $value2['target_id'];
             }
             
