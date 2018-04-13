@@ -170,7 +170,7 @@ function mortar_user_presave(&$edit, $account, $category) {
             $result1 = array_diff($old_roles, $new_roles);
             $result2 = array_diff($new_roles, $old_roles);
             
-            if(!empty($edit[$field]) && (!empty($result1) || !empty($result2))) {
+            if(isset($edit[$field]) && (!empty($result1) || !empty($result2))) {
                 $node = new stdClass(); // We create a new node object
                 $node -> type = "user_field_log"; // Or any other content type you want
                 $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
@@ -206,7 +206,7 @@ function mortar_user_presave(&$edit, $account, $category) {
         }//check the type of the fields (text, entityreference)
         elseif($field_info['type'] !== 'entityreference'){
             
-            if(!empty($edit[$field]) && $account->{$field}['und'][0]['value'] != $edit[$field]['und'][0]['value']) {
+            if(isset($edit[$field]) && ($account->{$field}['und'][0]['value'] != $edit[$field]['und'][0]['value'])) {
                 $node = new stdClass(); // We create a new node object
                 $node -> type = "user_field_log"; // Or any other content type you want
                 $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
@@ -241,7 +241,7 @@ function mortar_user_presave(&$edit, $account, $category) {
             $result1 = array_diff($new_values, $old_values); 
             $result2 = array_diff($old_values, $new_values); 
             
-            if(!empty($edit[$field]) && (!empty($result1) || !empty($result2))) {
+            if(isset($edit[$field]) && (!empty($result1) || !empty($result2))) {
                     $node = new stdClass(); // We create a new node object
                     $node -> type = "user_field_log"; // Or any other content type you want
                     $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
