@@ -205,23 +205,42 @@ function mortar_user_presave(&$edit, $account, $category) {
             }
         }//check the type of the fields (text, entityreference)
         elseif($field_info['type'] !== 'entityreference'){
-            
-            if(isset($edit[$field]) && ($account->{$field}[$node->language][0]['value'] != $edit[$field][$node->language][0]['value'])) {
-                $node = new stdClass(); // We create a new node object
-                $node -> type = "user_field_log"; // Or any other content type you want
-                $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
-                $current_time = format_date(strtotime('now'), 'custom', 'Y-m-d H:i:s', 'UTC');
-                $node->title = $current_time.'-'.$field.'-'.$account->uid; 
-            
-                node_object_prepare($node); // Set some default values.
+            if($field == 'status'){
+                if(isset($edit{$field}) && ($account->{$field} != $edit{$field})) {
+                    $node = new stdClass(); // We create a new node object
+                    $node -> type = "user_field_log"; // Or any other content type you want
+                    $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                    $current_time = format_date(strtotime('now'), 'custom', 'Y-m-d H:i:s', 'UTC');
+                    $node->title = $current_time.'-'.$field.'-'.$account->uid; 
                 
-                $node -> field_user_id_log[$node->language][0]['value'] = $account->uid; // Or any id you wish
-                $node -> field_field_name[$node->language][0]['value'] = $field;
-                $node -> field_old_field_value[$node->language][0]['value'] = $account->{$field}[$node->language][0]['value'];
-                $node -> field_new_field_value[$node->language][0]['value'] = $edit[$field][$node->language][0]['value'];
-                $node = node_submit($node);
-                node_save($node);
-            }
+                    node_object_prepare($node); // Set some default values.
+                    
+                    $node -> field_user_id_log[$node->language][0]['value'] = $account->uid; // Or any id you wish
+                    $node -> field_field_name[$node->language][0]['value'] = $field;
+                    $node -> field_old_field_value[$node->language][0]['value'] = $account->{$field};
+                    $node -> field_new_field_value[$node->language][0]['value'] = $edit[$field];
+                    $node = node_submit($node);
+                    node_save($node);
+                }    
+            } else
+            {
+                if(isset($edit{$field}[LANGUAGE_NONE][0]['value']) && ($account->{$field}[LANGUAGE_NONE][0]['value'] != $edit{$field}[LANGUAGE_NONE][0]['value'])) {
+                    $node = new stdClass(); // We create a new node object
+                    $node -> type = "user_field_log"; // Or any other content type you want
+                    $node -> language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                    $current_time = format_date(strtotime('now'), 'custom', 'Y-m-d H:i:s', 'UTC');
+                    $node->title = $current_time.'-'.$field.'-'.$account->uid; 
+                
+                    node_object_prepare($node); // Set some default values.
+                    
+                    $node -> field_user_id_log[$node->language][0]['value'] = $account->uid; // Or any id you wish
+                    $node -> field_field_name[$node->language][0]['value'] = $field;
+                    $node -> field_old_field_value[$node->language][0]['value'] = $account->{$field}[$node->language][0]['value'];
+                    $node -> field_new_field_value[$node->language][0]['value'] = $edit[$field][$node->language][0]['value'];
+                    $node = node_submit($node);
+                    node_save($node);
+                }
+            }    
             
         }
         else{
@@ -230,11 +249,11 @@ function mortar_user_presave(&$edit, $account, $category) {
             $old_values = array();
             $new_values = array();
             
-            foreach($account->{$field}[$node->language] as $value){
+            foreach($account->{$field}[LANGUAGE_NONE] as $value){
                 $old_values[] = $value['target_id'];
             }
             
-            foreach($edit[$field][$node->language] as $value2){
+            foreach($edit[$field][LANGUAGE_NONE] as $value2){
                 $new_values[] = $value2['target_id'];
             }
             
@@ -280,17 +299,17 @@ function mortar_user_presave(&$edit, $account, $category) {
                             $ctu_node = node_load($new_values[$i]);
                             $value = $ctu_node->title;
                             
-                            $node -> field_new_field_value[$node->language][$i]['value'] = $value;
-                            $node -> field_new_field_raw_tid[$node->language][$i]['value'] = $new_values[$i];
-                            $node -> field_new_field_tid_and_value[$node->language][$i]['value'] = $new_values[$i].', '. $value;
+                            $node -> field_new_field_value[LANGUAGE_NONE][$i]['value'] = $value;
+                            $node -> field_new_field_raw_tid[LANGUAGE_NONE][$i]['value'] = $new_values[$i];
+                            $node -> field_new_field_tid_and_value[LANGUAGE_NONE][$i]['value'] = $new_values[$i].', '. $value;
                         }
                         else {
                             $term = taxonomy_term_load($new_values[$i]);
                             $value = $term->name;
                             
-                            $node -> field_new_field_value[$node->language][$i]['value'] = $value;
-                            $node -> field_new_field_raw_tid[$node->language][$i]['value'] = $new_values[$i];
-                            $node -> field_new_field_tid_and_value[$node->language][$i]['value'] = $new_values[$i].', '. $value;
+                            $node -> field_new_field_value[LANGUAGE_NONE][$i]['value'] = $value;
+                            $node -> field_new_field_raw_tid[LANGUAGE_NONE][$i]['value'] = $new_values[$i];
+                            $node -> field_new_field_tid_and_value[LANGUAGE_NONE][$i]['value'] = $new_values[$i].', '. $value;
                         }
 
 
