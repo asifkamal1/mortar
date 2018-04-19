@@ -716,7 +716,19 @@ function mortar_cd_process_setup($node, $view_mode, $langcode) {
         ;
  }
  
- 
+
+/**
+ * Implements hook_permission().
+ */
+function mortar_permission() {
+  return array(
+    'administer mortar' => array(
+      'title' => t('Administer MORTAR'),
+      'description' => t('Perform administrative tasks on MORTAR functionality'),
+    ),
+  );
+}
+
  /**
   * Implements hook_menu()
   *
@@ -727,14 +739,14 @@ function mortar_menu()
     $items['admin/config/mortar'] = array(
         'title' => 'MORTAR',
         'description' => 'Administer MORTAR',
-        'access arguments' => array('administer'),
+        'access arguments' => array('administer mortar'),
     );
 
     // Admin configuration - Settings.
     $items['admin/config/mortar/manage'] = array(
         'title' => 'MORTAR settings',
         'description' => 'Manage MORTAR settings and configurations.',
-        'access arguments' => array('administer'),
+        'access arguments' => array('administer mortar'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array('mortar_admin_setting_form'),
     );
