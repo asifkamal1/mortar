@@ -154,16 +154,20 @@ function mortar_user_presave(&$edit, $account, $category) {
             $old_roles = array();
             $new_roles = array();
             
-            foreach($account->roles as $key => $value){
-                if($key != 2) {
-                    $old_roles[] = $key;
+            if(isset($account->roles)) {
+                foreach($account->roles as $key => $value){
+                    if($key != 2) {
+                        $old_roles[] = $key;
+                    }
                 }
             }
             
-            foreach($edit['roles'] as $key2 => $value2){
-                if($value2 != 1 && $value2 != 0) {
-                    $new_roles[] = $value2;
-                    
+            if(isset($edit['roles'])) {
+                foreach($edit['roles'] as $key2 => $value2){
+                    if($value2 != 1 && $value2 != 0) {
+                        $new_roles[] = $value2;
+                        
+                    }
                 }
             }
             
@@ -249,12 +253,16 @@ function mortar_user_presave(&$edit, $account, $category) {
             $old_values = array();
             $new_values = array();
             
-            foreach($account->{$field}[LANGUAGE_NONE] as $value){
-                $old_values[] = $value['target_id'];
+            if(isset($account->{$field}[LANGUAGE_NONE])) {
+                foreach($account->{$field}[LANGUAGE_NONE] as $value){
+                    $old_values[] = $value['target_id'];
+                }
             }
             
-            foreach($edit[$field][LANGUAGE_NONE] as $value2){
-                $new_values[] = $value2['target_id'];
+            if(isset($edit[$field])) {
+                foreach($edit[$field][LANGUAGE_NONE] as $value2){
+                    $new_values[] = $value2['target_id'];
+                }
             }
             
             $result1 = array_diff($new_values, $old_values); 
