@@ -58,7 +58,10 @@ function mortar_send_controlled_document_for_approval(&$form, &$form_state, $for
     $administrators_email = $administrator -> mail;
     
     $administrator = user_load(114); //QAA
-    $administrators_email = $administrators_email . ',' . $administrator -> mail;
+
+    $administrator2 = user_load(1760); //Duncan Richards - 1760 (on test site)  //NEEDS CHANGING
+
+    $administrators_email = $administrators_email . ',' . $administrator -> mail. ',' . $administrator2 -> mail;
     
     $headers = 'From: OCTRU MORTAR <octrutrialshub@ndorms.ox.ac.uk>';
     $message = '';
