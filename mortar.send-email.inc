@@ -58,10 +58,7 @@ function mortar_send_controlled_document_for_approval(&$form, &$form_state, $for
     $administrators_email = $administrator -> mail;
     
     $administrator = user_load(114); //QAA
-
-    $administrator2 = user_load(1760); //Duncan Richards - 1760 (on test site)  //NEEDS CHANGING
-
-    $administrators_email = $administrators_email . ',' . $administrator -> mail. ',' . $administrator2 -> mail;
+    $administrators_email = $administrators_email . ',' . $administrator -> mail;
     
     $headers = 'From: OCTRU MORTAR <octrutrialshub@ndorms.ox.ac.uk>';
     $message = '';
@@ -149,12 +146,14 @@ function mortar_send_controlled_document_for_authorised(&$form, &$form_state, $f
     
     if (strpos($base_url,'test') !== false) {
          $administrator = user_load(907); // Vicki Barber - 10 | OCTRU Hub Manager - test site(907)
+         $administrator2 = user_load(1760); //Duncan Richards - 1760 (on test site)  
     }
     else {
          $administrator = user_load(947); // Vicki Barber - 10 | OCTRU Hub Manager - live site(947)
+         $administrator2 = user_load(2594); //Duncan Richards - 2594 (on live site)  
     }
    
-    $administrators_email = $administrators_email . ',' . $administrator -> mail;
+    $administrators_email = $administrators_email . ',' . $administrator -> mail. ',' . $administrator2 -> mail; 
     
     $headers = 'From: OCTRU MORTAR <octrutrialshub@ndorms.ox.ac.uk>';
     $message = '';
