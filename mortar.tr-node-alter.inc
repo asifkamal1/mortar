@@ -399,6 +399,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
                     $message .= "New Training Request has been added to your account. Please navigate to\r\n";
                     $message .= "http://mortar.octru.ox.ac.uk/user \r\n";
                     $message .= "to undertake your training and complete training requirement(s). \r\n";
+                    $message .= "Extra details:" .$trainging_message ."\r\n"; // Add a new message box in email area 12/9/19- asif kamal
                     $message .= "Thanks,\n -- \n MORTAR";
                     
                     if($send_no_emails != 1) {
@@ -474,6 +475,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
         #debug($trainee_emails);
         foreach($trainee_emails as $key => $trainee_email) {
             $account = user_load($key);
+            $trainging_message = $form_state['values']['field_add_message']['und'][0]['value']; 
             
             $headers = 'From: OCTRU MORTAR <octrutrialshub@ndorms.ox.ac.uk>';
             
@@ -481,6 +483,7 @@ function mortar_multi_training_record_submit(&$form, &$form_state, $form_id = ''
             $message .= "New Training Request(s) has/have been added to your account. Please navigate to\r\n";
             $message .= "http://mortar.octru.ox.ac.uk/user \r\n";
             $message .= "to undertake your training and complete training requirement(s). \r\n";
+            $message .= "Extra details:" .$trainging_message ."\r\n"; // Add a new message box in email area 12/9/19- asif kamal
             $message .= "Thanks,\n -- \n MORTAR";
             
             mail($account -> mail, 'Training Record request.', $message, $headers);
