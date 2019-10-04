@@ -307,3 +307,26 @@ td.diff-context div {
     font-family: "Arial","Verdana",sans-serif !important;
     font-size: 12px !important;
 }
+
+.Temporary-Leave {
+  color: #fff !important;
+  background: #971a1a !important;
+  border-color: 5px brown !important;
+}
+
+td.controlled-doc-status-Withdrawn {
+  background:  #909090 url(/sites/default/files/withdrawn.png) 99% no-repeat !important;
+  background-position: 99%;
+  background-repeat: no-repeat;
+  color: #fff;
+  border: 1px solid !important;
+  border-color: #ddd !important;
+}
+
+td.controlled-doc-status-Withdrawn a {
+  color: #fff !important;
+}
+
+td.controlled-doc-status-Withdrawn #empty {
+  color:  #909090 !important;
+}
