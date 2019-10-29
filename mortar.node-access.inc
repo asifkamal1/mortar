@@ -49,7 +49,13 @@ function mortar_controlled_document_access($node, $op, $account) {
     $is_mortar_admin = mortar_is_mortar_admin($account);
     
     $compliance_reviewer = mortar_is_compliance_reviewer($node, $account);
-    
+
+    //if SOP node withdrwan deny access
+    if ($node -> field_status['und'][0]['target_id'] == 238) {
+        drupal_set_message(t('Sorry - You do not have access to this SOP <b>['.$node -> title.']</b>. This SOP is no longer active'), 'warning');
+        return NODE_ACCESS_DENY;
+    }
+   
     //if SOP node not active and user not involved deny access
     if ($node -> uid != $account -> uid &&
         $node -> field_status['und'][0]['target_id'] != 3 &&
@@ -57,7 +63,7 @@ function mortar_controlled_document_access($node, $op, $account) {
         $node -> field_status['und'][0]['target_id'] != 4 &&
         $node -> field_status['und'][0]['target_id'] != 238 &&
         !$is_reviewer && !$is_mortar_admin && !$compliance_reviewer) {
-        drupal_set_message(t('Sorry - you do not currently have access to this SOP. <pre>'.$node -> title.'</pre> You are not a reviewer of this SOP.'), 'warning');
+        drupal_set_message(t('Sorry - you do not currently have access to this SOP. <pre>'.$node -> field_status['und'][0]['target_id'].'</pre> You are not a reviewer of this SOP.'), 'warning');
         return NODE_ACCESS_DENY;
     }
     
