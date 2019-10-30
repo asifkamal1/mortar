@@ -22,23 +22,7 @@ function mortar_controlled_document_node_view_alter(&$build, $account, $node) {
             }
         }
     }
-
-    //checks if current user is mortar reviewer
-    $is_reviewer = mortar_is_reviewer($node, $account);
     
-    //checks if current user is mortar administrator
-    $is_mortar_admin = mortar_is_mortar_admin($account);
-    
-    //checks if current user is mortar compliance reviewer
-    $compliance_reviewer = mortar_is_compliance_reviewer($node, $account);
-  
-    //if SOP node not active and user not involved deny access
-    if ($node -> field_status['und'][0]['target_id'] == 238  &&
-        !$is_reviewer && !$is_mortar_admin && !$compliance_reviewer) {
-        drupal_set_message(t('Sorry - You do not have access to this SOP <pre>'.$node -> title.'</pre>. This SOP is no longer active'), 'warning');
-        drupal_goto('/active-controlled-docs');   
-    }
-
     //if CD not active and is mortar admin
     if(mortar_is_mortar_admin($account) && $node -> field_status['und'][0]['target_id'] != 3) {
         

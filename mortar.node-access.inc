@@ -49,6 +49,12 @@ function mortar_controlled_document_access($node, $op, $account) {
     $is_mortar_admin = mortar_is_mortar_admin($account);
     
     $compliance_reviewer = mortar_is_compliance_reviewer($node, $account);
+
+    //if SOP node withdrwan deny access
+    if ($node -> field_status['und'][0]['target_id'] == 238) {
+        drupal_set_message(t('Sorry - You do not have access to this SOP <b>['.$node -> title.']</b>. This SOP is no longer active'), 'warning');
+        return NODE_ACCESS_DENY;
+    }
    
     //if SOP node not active and user not involved deny access
     if ($node -> uid != $account -> uid &&
