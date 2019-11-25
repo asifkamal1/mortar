@@ -31,9 +31,18 @@ function mortar_controlled_document_node_view_alter(&$build, $account, $node) {
     
     //checks if current user is mortar compliance reviewer
     $compliance_reviewer = mortar_is_compliance_reviewer($node, $account);
-  
+
+    //test and live $withdrawn_tid
+    global $base_url;
+
+    if (strpos($base_url,'test') !== false) {
+        $withdrawn_tid = 238; 
+    }else{
+        $withdrawn_tid = 394; 
+    }
+
     //if SOP node not active and user not involved deny access
-    if ($node -> field_status['und'][0]['target_id'] == 238  &&
+    if ($node -> field_status['und'][0]['target_id'] == $withdrawn_tid  &&
         !$is_reviewer && !$is_mortar_admin && !$compliance_reviewer) {
         drupal_set_message(t('Sorry - You do not have access to this SOP <pre>'.$node -> title.'</pre>. This SOP is no longer active'), 'warning');
         drupal_goto('/active-controlled-docs');   

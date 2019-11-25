@@ -49,13 +49,22 @@ function mortar_controlled_document_access($node, $op, $account) {
     $is_mortar_admin = mortar_is_mortar_admin($account);
     
     $compliance_reviewer = mortar_is_compliance_reviewer($node, $account);
+    
+    //test and live $withdrawn_tid
+    global $base_url;
+    
+    if (strpos($base_url,'test') !== false) {
+        $withdrawn_tid = 238; 
+    }else{
+        $withdrawn_tid = 394; 
+    }
    
     //if SOP node not active and user not involved deny access
     if ($node -> uid != $account -> uid &&
         $node -> field_status['und'][0]['target_id'] != 3 &&
         $node -> field_status['und'][0]['target_id'] != 41 &&
         $node -> field_status['und'][0]['target_id'] != 4 &&
-        $node -> field_status['und'][0]['target_id'] != 238 &&
+        $node -> field_status['und'][0]['target_id'] != $withdrawn_tid &&
         !$is_reviewer && !$is_mortar_admin && !$compliance_reviewer) {
         drupal_set_message(t('Sorry - you do not currently have access to this SOP. <pre>'.$node -> title.'</pre> You are not a reviewer of this SOP.'), 'warning');
         return NODE_ACCESS_DENY;
