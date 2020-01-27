@@ -461,6 +461,21 @@ function mortar_views_query_alter(&$view, &$query) {
                 $values = array();
                  
                 $mortar_user = user_load($user -> uid);
+                $supplied_user_details = user_load($supplied_user);
+
+                if(in_array('mortar user', $supplied_user_details -> roles)  == 1 ||
+                    in_array('administrator', $supplied_user_details -> roles)  == 1 ||
+                    in_array('mortar reviewer', $supplied_user_details -> roles)  == 1 ||
+                    in_array('mortar author', $supplied_user_details -> roles)  == 1 ||
+                    in_array('mortar administrator', $supplied_user_details -> roles)  == 1 ||
+                    in_array('mortar compliance reviewer', $supplied_user_details -> roles)  == 1 ||
+                    in_array('mortar operational/portfolio lead', $supplied_user_details -> roles) == 1) {
+                         TRUE;              
+                } else { 
+                        drupal_set_message(t( $supplied_user_details -> name . ' is not a Mortar User.'), 'warning');
+                        unset($query);  
+                        retrurn;   
+                }
                 
                 if(in_array('administrator', $mortar_user -> roles) == 0  && in_array('mortar administrator', $mortar_user -> roles) == 0) {
                    
