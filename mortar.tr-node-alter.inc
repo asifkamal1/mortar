@@ -549,6 +549,7 @@ function mortar_training_record_unset_options(&$form) {
 function mortar_training_record_reminder_view_send_email(&$form, &$form_state, $form_id) {
     
     global $user;
+    $form['views_send_direct']['#default_value'] = 0;
     if(!in_array('administrator', $user -> roles)) {
         if(isset($form['actions']['submit']['#validate'][0])) {
             $form['actions']['submit']['#validate'][1] = $form['actions']['submit']['#validate'][0];
@@ -586,13 +587,13 @@ function mortar_training_record_reminder_view_send_email_validate(&$form, &$form
         //DEV setup
         $form_state['values']['views_send_to_name'] = 'field_first_name_pos_2';
         $form_state['values']['views_send_to_mail'] = 'users_field_data_field_trainee_mail_pos_0';
-        $form_state['values']['views_send_direct'] = 1;
+        $form_state['values']['views_send_direct'] = 0;
     }
     else {
         //LIVE SETUP
         $form_state['values']['views_send_to_name'] = 'field_first_name_pos_2';
         $form_state['values']['views_send_to_mail'] = 'users_field_data_field_trainee_mail_pos_0';
-        $form_state['values']['views_send_direct'] = 1;
+        $form_state['values']['views_send_direct'] = 0;
     }
     
 }
